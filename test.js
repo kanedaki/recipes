@@ -1,5 +1,5 @@
 const recipes = require('./recipes');
-const { match } = recipes;
+const { match, createMenu } = recipes;
 
 const template = [
   { lunch: 'Pasta', dinner: 'Verduras' },
@@ -28,13 +28,8 @@ const menuDiferente = [
   { lunch: 'Lentejas con chorizo', dinner: 'Tres delicias' }
 ];
 
-function createMenu(template) {
-  const myMenu = menu.slice();
-  return myMenu;
-}
-
 describe('test', () => {
-  it('works!', () => {
+  it('Creates a menu that matches the given template', () => {
     const menu = createMenu(template);
     expect(match(menu, template)).toBeTruthy();
   });

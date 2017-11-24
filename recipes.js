@@ -22,6 +22,23 @@ function match(menu, template) {
   });
 }
 
+const getRandomNumber = n => Math.round(Math.random() * n);
+
+function getRecipeForMealType(mealType) {
+  const randomIndex = getRandomNumber(MealTypes[mealType].length - 1);
+  return MealTypes[mealType][randomIndex];
+}
+
+function createMenu(template) {
+  return template.map(({ lunch, dinner }) => {
+    return {
+      lunch: getRecipeForMealType(lunch),
+      dinner: getRecipeForMealType(dinner)
+    };
+  });
+}
+
 module.exports = {
+  createMenu,
   match
 };
