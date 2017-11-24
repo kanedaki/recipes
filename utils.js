@@ -5,6 +5,14 @@ const getRandom = arr => {
   return arr[getRandomNumber(arr.length - 1)];
 };
 
+const findOrMessage = function(fn, msg) {
+  return function(...args) {
+    const result = fn.apply(this, args);
+    return result || `${msg} ${args}`;
+  };
+};
+
 module.exports = {
-  getRandom
+  getRandom,
+  findOrMessage
 };
