@@ -1,3 +1,5 @@
+const getRandom = require('./utils').getRandom;
+
 const MealTypes = {
   Pasta: ['Espagueti pesto'],
   Pescado: ['Lubina horno'],
@@ -21,10 +23,6 @@ function match(menu, template) {
     );
   });
 }
-
-const getRandomNumber = n => Math.round(Math.random() * n);
-
-const getRandom = arr => arr[getRandomNumber(arr.length - 1)];
 
 function getRecipeForMealType(mealType) {
   return getRandom(MealTypes[mealType]);
