@@ -24,31 +24,37 @@ function match(menu, template) {
   });
 }
 
-function getRecipeForMealType(mealType) {
-  const randomRecipe = getRandom(MealTypes[mealType]);
-  if (!randomRecipe) throw new Error('no recipe');
-  return randomRecipe;
+function findRecipe(mealType) {
+  return getRandom(MealTypes[mealType]);
 }
-/*
 
-*/
+const getRecipeForMealType = findOrThrow(findRecipe, 'no recipe');
+
+function findOrThrow(fn, error) {
+  return function(...args) {
+    const result = fn.apply(this, args);
+    if (!result) throw new Error(error);
+    return result;
+  };
+}
+
+function catcher(fn, msg) {
+  return function(...args) {
+    try {
+      return fn.apply(this, args);
+    } catch (e) {
+      return `${msg} ${args}`;
+    }
+  };
+}
+
+const getRecipe = catcher(getRecipeForMealType, 'no recipe for');
+
 function createMenu(template) {
   return template.map(({ lunch, dinner }) => {
-    let lunchRecipe;
-    let dinnerRecipe;
-    try {
-      lunchRecipe = getRecipeForMealType(lunch);
-    } catch (e) {
-      lunchRecipe = `no recipe for ${lunch}`;
-    }
-    try {
-      dinnerRecipe = getRecipeForMealType(dinner);
-    } catch (e) {
-      dinnerRecipe = `no recipe for ${dinner}`;
-    }
     return {
-      lunch: lunchRecipe,
-      dinner: dinnerRecipe
+      lunch: getRecipe(lunch),
+      dinner: getRecipe(dinner)
     };
   });
 }
