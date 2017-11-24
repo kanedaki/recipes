@@ -27,34 +27,20 @@ function match(menu, template) {
 function findRecipe(mealType) {
   return getRandom(MealTypes[mealType]);
 }
-
-const getRecipeForMealType = findOrThrow(findRecipe, 'no recipe');
-
-function findOrThrow(fn, error) {
+const findOrMessage = function(fn, msg) {
   return function(...args) {
     const result = fn.apply(this, args);
-    if (!result) throw new Error(error);
-    return result;
+    return result || `${msg} ${args}`;
   };
-}
+};
 
-function catcher(fn, msg) {
-  return function(...args) {
-    try {
-      return fn.apply(this, args);
-    } catch (e) {
-      return `${msg} ${args}`;
-    }
-  };
-}
-
-const getRecipe = catcher(getRecipeForMealType, 'no recipe for');
+const getRecipeForMealType = findOrMessage(findRecipe, 'no recipe for');
 
 function createMenu(template) {
   return template.map(({ lunch, dinner }) => {
     return {
-      lunch: getRecipe(lunch),
-      dinner: getRecipe(dinner)
+      lunch: getRecipeForMealType(lunch),
+      dinner: getRecipeForMealType(dinner)
     };
   });
 }
