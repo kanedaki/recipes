@@ -25,14 +25,30 @@ function match(menu, template) {
 }
 
 function getRecipeForMealType(mealType) {
-  return getRandom(MealTypes[mealType]);
+  const randomRecipe = getRandom(MealTypes[mealType]);
+  if (!randomRecipe) throw new Error('no recipe');
+  return randomRecipe;
 }
+/*
 
+*/
 function createMenu(template) {
   return template.map(({ lunch, dinner }) => {
+    let lunchRecipe;
+    let dinnerRecipe;
+    try {
+      lunchRecipe = getRecipeForMealType(lunch);
+    } catch (e) {
+      lunchRecipe = `no recipe for ${lunch}`;
+    }
+    try {
+      dinnerRecipe = getRecipeForMealType(dinner);
+    } catch (e) {
+      dinnerRecipe = `no recipe for ${dinner}`;
+    }
     return {
-      lunch: getRecipeForMealType(lunch),
-      dinner: getRecipeForMealType(dinner)
+      lunch: lunchRecipe,
+      dinner: dinnerRecipe
     };
   });
 }

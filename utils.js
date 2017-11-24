@@ -1,6 +1,9 @@
 const getRandomNumber = n => Math.round(Math.random() * n);
 
-const getRandom = arr => arr[getRandomNumber(arr.length - 1)];
+const getRandom = arr => {
+  if (!Array.isArray(arr) || !arr.length) return;
+  return arr[getRandomNumber(arr.length - 1)];
+};
 
 module.exports = {
   getRandom

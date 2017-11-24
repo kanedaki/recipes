@@ -8,6 +8,8 @@ const template = [
   { lunch: 'Legumbres', dinner: 'Arroz' }
 ];
 
+const template2 = [{ lunch: 'Fruta', dinner: 'Arroz' }];
+
 const menuAlternativo = [
   { lunch: 'Lubina horno', dinner: 'Paella' },
   { lunch: 'Acelgas con garbanzos', dinner: 'Guiso de ciervo' },
@@ -25,6 +27,9 @@ describe('test', () => {
   it('Creates a menu that matches the given template', () => {
     const menu = createMenu(template);
     expect(match(menu, template)).toBeTruthy();
+  });
+  it('return a proper message for every meal if the meal type in the template does not exists', () => {
+    expect(createMenu(template2)[0].lunch).toBe('no recipe for Fruta');
   });
   describe('match', () => {
     describe('fails when the menu does not correspond to template because', () => {
