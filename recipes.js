@@ -24,9 +24,10 @@ function match(menu, template) {
 
 const getRandomNumber = n => Math.round(Math.random() * n);
 
+const getRandom = arr => arr[getRandomNumber(arr.length - 1)];
+
 function getRecipeForMealType(mealType) {
-  const randomIndex = getRandomNumber(MealTypes[mealType].length - 1);
-  return MealTypes[mealType][randomIndex];
+  return getRandom(MealTypes[mealType]);
 }
 
 function createMenu(template) {
