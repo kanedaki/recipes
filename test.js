@@ -8,13 +8,6 @@ const template = [
   { lunch: 'Legumbres', dinner: 'Arroz' }
 ];
 
-const menu = [
-  { lunch: 'Espagueti pesto', dinner: 'Menestra' },
-  { lunch: 'Lubina horno', dinner: 'Paella' },
-  { lunch: 'Acelgas con garbanzos', dinner: 'Guiso de ciervo' },
-  { lunch: 'Lentejas con chorizo', dinner: 'Tres delicias' }
-];
-
 const menuAlternativo = [
   { lunch: 'Lubina horno', dinner: 'Paella' },
   { lunch: 'Acelgas con garbanzos', dinner: 'Guiso de ciervo' },
