@@ -12,7 +12,13 @@ const findOrMessage = function(fn, msg) {
   };
 };
 
+const sameLength = function(list1, list2) {
+  return list1.length === list2.length  
+}
+
+
 module.exports = {
+  sameLength,
   getRandom,
   findOrMessage
 };

@@ -1,29 +1,5 @@
-const { getRandom, findOrMessage } = require('./utils');
-
-module.exports = {
-  createMenu,
-  match
-};
-
-function match(menu, template) {
-  if (menu.length !== template.length) return false;
-  return menu.every(({ lunch, dinner }, index) => {
-    const { lunch: lunchMealType, dinner: dinnerMealType } = template[index];
-    return (
-      matchMealType(lunch, lunchMealType) &&
-      matchMealType(dinner, dinnerMealType)
-    );
-  });
-}
-
-function createMenu(template) {
-  return template.map(({ lunch, dinner }) => {
-    return {
-      lunch: getRecipeForMealType(lunch),
-      dinner: getRecipeForMealType(dinner)
-    };
-  });
-}
+const R = require('rambda')
+const { getRandom, findOrMessage, sameLength } = require('./utils');
 
 const MealTypes = {
   Pasta: ['Espagueti pesto'],
@@ -33,6 +9,7 @@ const MealTypes = {
   Carne: ['Guiso de ciervo', 'Chuleton con patatas'],
   Legumbres: ['Lentejas con chorizo', 'Acelgas con garbanzos']
 };
+
 
 function matchMealType(recipe, mealType) {
   return MealTypes[mealType].includes(recipe);
@@ -44,3 +21,22 @@ const getRecipeForMealType = findOrMessage(findRecipe, NO_RECIPE_ERROR);
 function findRecipe(mealType) {
   return getRandom(MealTypes[mealType]);
 }
+
+function match(menu, template) {
+  if (!sameLength(menu, template)) return false;
+  return menu.every(({ lunch, dinner }, index) => {
+    const { lunch: lunchMealType, dinner: dinnerMealType } = template[index];
+    return (
+      matchMealType(lunch, lunchMealType) &&
+      matchMealType(dinner, dinnerMealType)
+    );
+  });
+}
+
+const getDayRecipes = R.map(getRecipeForMealType)
+const createMenu = R.map(getDayRecipes)
+
+module.exports = {
+  createMenu,
+  match
+};
