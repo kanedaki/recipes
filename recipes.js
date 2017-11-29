@@ -1,5 +1,5 @@
-const R = require('rambda')
-const { getRandom, findOrMessage, sameLength } = require('./utils');
+const {map, zip, allPass, compose, values} = require('ramda')
+const { getRandom, findOrMessage, sameLength, pack, unpack } = require('./utils');
 
 const MealTypes = {
   Pasta: ['Espagueti pesto'],
@@ -22,19 +22,12 @@ function findRecipe(mealType) {
   return getRandom(MealTypes[mealType]);
 }
 
-function match(menu, template) {
-  if (!sameLength(menu, template)) return false;
-  return menu.every(({ lunch, dinner }, index) => {
-    const { lunch: lunchMealType, dinner: dinnerMealType } = template[index];
-    return (
-      matchMealType(lunch, lunchMealType) &&
-      matchMealType(dinner, dinnerMealType)
-    );
-  });
-}
 
-const getDayRecipes = R.map(getRecipeForMealType)
-const createMenu = R.map(getDayRecipes)
+const matchDayMealTypes = map(matchMealType)
+const match = compose(allPass([matchDayMealTypes]), zip, unpack, map(values), pack)
+
+const getDayRecipes = map(getRecipeForMealType)
+const createMenu = map(getDayRecipes)
 
 module.exports = {
   createMenu,

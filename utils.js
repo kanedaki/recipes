@@ -1,3 +1,5 @@
+const { unapply, apply, identity} = require('ramda')
+
 const getRandomNumber = n => Math.round(Math.random() * n);
 
 const getRandom = arr => {
@@ -16,9 +18,13 @@ const sameLength = function(list1, list2) {
   return list1.length === list2.length  
 }
 
+const pack = unapply(identity);
+const unpack = apply(identity)
 
 module.exports = {
   sameLength,
   getRandom,
-  findOrMessage
+  findOrMessage,
+  pack,
+  unpack
 };
