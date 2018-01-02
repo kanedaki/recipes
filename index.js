@@ -1,18 +1,10 @@
-const template = [
-  { Comida: "Pasta", Cena: "Verdura" },
-  { Comida: "Pescado", Cena: "Arroz" },
-  { Comida: "Verduras", Cena: "Carne" },
-  { Comida: "Legumbres", Cena: "Arroz" },
-];
+import { createMenu } from "./recipes";
+import moment from "moment";
+import normalTemplate from "./templates/normal";
+import fs from "fs";
 
-const menu = [
-  { Comida: "Espagueti pesto", Cena: "Menestra" },
-  { Comida: "Lubina horno", Cena: "Paella" },
-  { Comida: "Acelgas con garbanzos", Cena: "Guiso de ciervo" },
-  { Comida: "Lentejas con chorizo", Cena: "Tres delicias" },
-];
-
-function createMenu(template) {
-  let menu = [];
-  return menu;
-}
+const week = moment().week();
+console.log(
+  `Menu para la semana ${week}`,
+  JSON.stringify(createMenu(normalTemplate), null, 4),
+);
