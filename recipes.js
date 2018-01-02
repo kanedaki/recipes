@@ -1,8 +1,8 @@
-const { getRandom, findOrMessage } = require('./utils');
+const { getRandom, findOrMessage } = require("./utils");
 
 module.exports = {
   createMenu,
-  match
+  match,
 };
 
 function match(menu, template) {
@@ -20,25 +20,25 @@ function createMenu(template) {
   return template.map(({ lunch, dinner }) => {
     return {
       lunch: getRecipeForMealType(lunch),
-      dinner: getRecipeForMealType(dinner)
+      dinner: getRecipeForMealType(dinner),
     };
   });
 }
 
 const MealTypes = {
-  Pasta: ['Espagueti pesto'],
-  Pescado: ['Lubina horno'],
-  Arroz: ['Tres delicias', 'Paella'],
-  Verduras: ['Acelgas con garbanzos', 'Menestra'],
-  Carne: ['Guiso de ciervo', 'Chuleton con patatas'],
-  Legumbres: ['Lentejas con chorizo', 'Acelgas con garbanzos']
+  Pasta: ["Espagueti pesto"],
+  Pescado: ["Lubina horno"],
+  Arroz: ["Tres delicias", "Paella"],
+  Verduras: ["Acelgas con garbanzos", "Menestra"],
+  Carne: ["Guiso de ciervo", "Chuleton con patatas"],
+  Legumbres: ["Lentejas con chorizo", "Acelgas con garbanzos"],
 };
 
 function matchMealType(recipe, mealType) {
   return MealTypes[mealType].includes(recipe);
 }
 
-const NO_RECIPE_ERROR = 'no recipe for';
+const NO_RECIPE_ERROR = "no recipe for";
 const getRecipeForMealType = findOrMessage(findRecipe, NO_RECIPE_ERROR);
 
 function findRecipe(mealType) {
