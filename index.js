@@ -1,10 +1,9 @@
 import { createMenu } from "./recipes";
-import moment from "moment";
+import shoppingList from "./shoppingList";
 import normalTemplate from "./templates/normal";
-import fs from "fs";
+import { printMenu, printShoppingList } from "./print";
 
-const week = moment().week();
-console.log(
-  `Menu para la semana ${week}`,
-  JSON.stringify(createMenu(normalTemplate), null, 4),
-);
+const menu = createMenu(normalTemplate);
+printMenu(menu);
+const list = shoppingList(menu);
+printShoppingList(list);

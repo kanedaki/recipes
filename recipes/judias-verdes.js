@@ -1,9 +1,17 @@
+import { verduras } from "../mealTypes";
 import { judiasVerdes, tomate } from "../ingredients/fridge";
-import { cebolla, aceite, ajo } from "pantry";
+import { cebolla, aceite, ajo } from "../ingredients/pantry";
 
 export default {
+  mealType: verduras,
   name: "Judias verdes rehogadas",
-  ingredients: [judiasVerdes, tomate, cebolla, ajo, aceite],
+  ingredients: [
+    { ingredient: judiasVerdes, qty: { amount: 1, units: "kg" } },
+    { ingredient: tomate, qty: { amount: 3 } },
+    { ingredient: cebolla, qty: { amount: 1 } },
+    { ingredient: ajo, qty: { amount: 3 } },
+    { ingredient: aceite },
+  ],
   steps: [
     "Pelar las judias verdes, trocear",
     "Cortar los tomates, cebolla y ajos en laminas",

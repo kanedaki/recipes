@@ -1,10 +1,18 @@
-export default {
-  cebolla: "cebolla",
-  aceite: "aceite",
-  ajo: "ajo",
-  mantequilla: "mantequilla",
-  harina: "harina",
-  sal: "sal",
-  pimientaNegra: "pimienta negra",
-  nuezMoscada: "nuez moscada",
-};
+export const cebolla = "cebolla";
+export const aceite = "aceite";
+export const ajo = "ajo";
+export const mantequilla = "mantequilla";
+export const harina = "harina";
+export const sal = "sal";
+export const pimientaNegra = "pimienta negra";
+export const nuezMoscada = "nuez moscada";
+export const zanahoria = "zanahoria";
+export const leche = "leche";
+export const caldoPollo = "Caldo de pollo";
+export const soja = "Salsa de soja";
+export const eneldo = "Eneldo";
+export const arrozBlanco = "Arroz";
+export const espaguetis = "Espaguetis";
+export const cayena = "Pimienta de cayena";
+export const lentejas = "Lentejas";
+export const patata = "Patatas";

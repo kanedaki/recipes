@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "moment": "^2.20.1"
+    "moment": "^2.20.1",
+    "ramda": "^0.25.0"
   },
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",

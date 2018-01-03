@@ -1,8 +1,14 @@
+import { concat, reduce } from "ramda";
+
 const getRandomNumber = n => Math.round(Math.random() * n);
 
-const getRandom = arr => {
+const getRandomFromArray = arr => {
   if (!Array.isArray(arr) || !arr.length) return;
   return arr[getRandomNumber(arr.length - 1)];
+};
+
+const getRandomFromObject = obj => {
+  return getRandomFromArray(Object.values(obj));
 };
 
 const findOrMessage = function(fn, msg) {
@@ -12,7 +18,11 @@ const findOrMessage = function(fn, msg) {
   };
 };
 
+const concatAll = reduce(concat, []);
+
 module.exports = {
-  getRandom,
-  findOrMessage
+  getRandomFromObject,
+  getRandomFromArray,
+  findOrMessage,
+  concatAll,
 };

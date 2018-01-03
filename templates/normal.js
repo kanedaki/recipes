@@ -1,7 +1,16 @@
+import {
+  verduras,
+  pasta,
+  legumbres,
+  pescado,
+  arroz,
+  carne,
+} from "../mealTypes";
+
 export default [
-  { lunch: "Pasta", dinner: "Verduras" },
-  { lunch: "Legumbres", dinner: "Pescado" },
-  { lunch: "Arroz", dinner: "Verduras" },
-  { lunch: "Verduras", dinner: "Carne" },
-  { lunch: "Legumbres", dinner: "Arroz" },
+  { lunch: pasta, dinner: verduras },
+  { lunch: legumbres, dinner: pescado },
+  { lunch: arroz, dinner: verduras },
+  { lunch: verduras, dinner: carne },
+  { lunch: legumbres, dinner: arroz },
 ];
