@@ -1,5 +1,9 @@
 import { createMenu } from '../recipes'
-import { getShoppingList, removeElement } from '../shoppingList'
+import {
+  getShoppingList,
+  removeElement,
+  addElementToShoppingList
+} from '../shoppingList'
 import menu from './exampleMenu'
 import shoppingList from './exampleList'
 import { match } from './testUtils'
@@ -73,6 +77,32 @@ describe('test', () => {
 
       expect(newList.length).toEqual(shoppingList.length - 1)
       expect(ingredientNames.includes(element.ingredient)).toBe(false)
+    })
+  })
+  describe('addQuantities', () => {
+    describe('if the ingredient is already in the list', () => {
+      it('increases the ingredient quantity in the list', () => {
+        const onion = { ingredient: 'onion', qty: { amount: 1, units: 'unit' } }
+        const startingList = [onion]
+
+        const resultList = addElementToShoppingList(startingList, onion)
+
+        expect(resultList).toEqual([
+          { ingredient: 'onion', qty: { amount: 2, units: 'unit' } }
+        ])
+      })
+    })
+    describe('if the ingredient is not in the list', () => {
+      it('adds it to the list', () => {
+        const onion = { ingredient: 'onion', qty: { amount: 1, units: 'unit' } }
+        const startingList = []
+
+        const resultList = addElementToShoppingList(startingList, onion)
+
+        expect(resultList).toEqual([
+          { ingredient: 'onion', qty: { amount: 1, units: 'unit' } }
+        ])
+      })
     })
   })
 })
