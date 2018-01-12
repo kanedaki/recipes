@@ -21,7 +21,7 @@ const sumQuantities = curry((firstQuantity, secondQuantity) => {
   if (!firstQuantity.amount) return secondQuantity
   if (firstQuantity.units === secondQuantity.units) {
     return {
-      amount: add(firstQuantity.amount, secondQuantity.amount),
+      amount: firstQuantity.amount + secondQuantity.amount,
       units: firstQuantity.units
     }
   }
