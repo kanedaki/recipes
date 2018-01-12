@@ -46,7 +46,7 @@ const menuDiferente = [
 ]
 
 describe('test', () => {
-  it('Creates a menu that matches the given template', () => {
+  it('creates a menu that matches the given template', () => {
     const menu = createMenu(template)
     expect(match(menu, template)).toBeTruthy()
   })

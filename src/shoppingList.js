@@ -17,25 +17,25 @@ import { concatAll } from './utils'
 
 const hasIngredient = propEq('ingredient')
 
-const sumQuantities = curry((qty1, qty2) => {
-  qty1 = qty1 || {}
-  qty2 = qty2 || {}
-  if (!qty1.amount) return qty2
-  if (qty1.units === qty2.units) {
+const sumQuantities = curry((firstQuantity, secondQuantity) => {
+  if (!firstQuantity.amount) return secondQuantity
+  if (firstQuantity.units === secondQuantity.units) {
     return {
-      amount: add(prop('amount', qty1), prop('amount', qty2)),
-      units: prop('units', qty1)
+      amount: add(firstQuantity.amount, secondQuantity.amount),
+      units: firstQuantity.units
     }
   }
 })
 
-export const addElementToShoppingList = (acum, el) => {
-  const index = findIndex(hasIngredient(el.ingredient), acum)
+export const addElementToShoppingList = (acc, el) => {
+  const index = findIndex(hasIngredient(el.ingredient), acc)
   if (index === -1) {
-    return append({ ingredient: el.ingredient, qty: el.qty }, acum)
+    return append({ ingredient: el.ingredient, qty: el.qty }, acc)
+  } else if (!el.qty) {
+    return acc
   } else {
     const elLens = lensPath([index, 'qty'])
-    return over(elLens, sumQuantities(el.qty), acum)
+    return over(elLens, sumQuantities(el.qty), acc)
   }
 }
 
