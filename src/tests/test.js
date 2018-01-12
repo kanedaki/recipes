@@ -1,5 +1,5 @@
 import { createMenu } from '../recipes';
-import getShoppingList from '../shoppingList';
+import { getShoppingList, removeElement } from '../shoppingList';
 import menu from './exampleMenu';
 import shoppingList from './exampleList';
 import { match } from './testUtils';
@@ -65,5 +65,10 @@ describe('test', () => {
       const list = getShoppingList(menu);
       expect(list).toEqual(shoppingList);
     });
+    it('removes an element that exist on the list from the list', () => {
+      const element = shoppingList[0]
+      const newList = removeElement(shoppingList, element);
+      expect(newList.length).toEqual(shoppingList.length - 1);
+    })
   });
 });

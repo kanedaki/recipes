@@ -1,5 +1,5 @@
 import { propEq } from "ramda";
-import { getRandomFromObject, findOrMessage } from "./utils";
+import { getRandomFromArray, findOrMessage } from "./utils";
 import MealTypes from "./mealTypes";
 import recipes from "./recipes/index";
 
@@ -28,10 +28,6 @@ const getRecipeForMealType = findOrMessage(findRecipe, NO_RECIPE_ERROR);
 
 function findRecipe(mealType) {
   if (!MealTypes.includes(mealType)) return undefined;
-  while (true) {
-    const rndRecipe = getRandomFromObject(recipes);
-    if (matchMealType(rndRecipe, mealType)) {
-      return rndRecipe;
-    }
-  }
+  const validRecipes = Object.values(recipes).filter(recipe => matchMealType(recipe, mealType))
+  return getRandomFromArray(validRecipes)
 }

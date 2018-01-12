@@ -39,7 +39,7 @@ const addQtys = (acum, el) => {
   }
 };
 
-export default menu => {
+export const getShoppingList = menu => {
   const s = compose(
     reduce(addQtys, []),
     concatAll,
@@ -51,3 +51,7 @@ export default menu => {
 const extractIngredientsFromDayMenu = ({ lunch, dinner }) => {
   return [...lunch.ingredients, ...dinner.ingredients];
 };
+
+export const removeElement = (shoppingList, element) => {
+  return shoppingList.filter( ({ingredient}) => ingredient !== element.ingredient)
+}
