@@ -6,8 +6,8 @@ export default {
   mealType: fruta,
   name: 'Batido de fresa',
   ingredients: [
-    { ingredient: leche, qty: { amount: 1, units: 'l' } },
-    { ingredient: fresas, qty: { amount: 1, units: 'kg' } }
+    { ingredient: leche, qty: 1 },
+    { ingredient: fresas, qty: 1 }
   ],
   steps: ['batir todo junto']
 }

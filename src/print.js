@@ -24,14 +24,9 @@ export const printMenu = menu => {
   );
 };
 
+export const printShoppingItem = el => `${el.ingredient.name} (${el.qty}g)`
+
 export const printShoppingList = list => {
-  const listpp = list.map(
-    el =>
-      `${el.ingredient}${
-        el.qty && el.qty.amount
-          ? ` (${el.qty.amount} ${el.qty.units ? el.qty.units : ""})`
-          : ""
-      }`,
-  );
+  const listpp = list.map(printShoppingItem) 
   console.log("ShoppingList", JSON.stringify(listpp, null, 4));
 };

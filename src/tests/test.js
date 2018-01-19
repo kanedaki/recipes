@@ -82,25 +82,25 @@ describe('test', () => {
   describe('addQuantities', () => {
     describe('if the ingredient is already in the list', () => {
       it('increases the ingredient quantity in the list', () => {
-        const onion = { ingredient: 'onion', qty: { amount: 1, units: 'unit' } }
+        const onion = { ingredient: 'onion', qty: 1 }
         const startingList = [onion]
 
         const resultList = addElementToShoppingList(startingList, onion)
 
         expect(resultList).toEqual([
-          { ingredient: 'onion', qty: { amount: 2, units: 'unit' } }
+          { ingredient: 'onion', qty: 2 }
         ])
       })
     })
     describe('if the ingredient is not in the list', () => {
       it('adds it to the list', () => {
-        const onion = { ingredient: 'onion', qty: { amount: 1, units: 'unit' } }
+        const onion = { ingredient: 'onion', qty: 1 }
         const startingList = []
 
         const resultList = addElementToShoppingList(startingList, onion)
 
         expect(resultList).toEqual([
-          { ingredient: 'onion', qty: { amount: 1, units: 'unit' } }
+          { ingredient: 'onion', qty:  1 }
         ])
       })
     })

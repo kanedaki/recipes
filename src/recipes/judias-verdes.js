@@ -6,11 +6,11 @@ export default {
   mealType: verduras,
   name: "Judias verdes rehogadas",
   ingredients: [
-    { ingredient: judiasVerdes, qty: { amount: 1, units: "kg" } },
-    { ingredient: tomate, qty: { amount: 3 } },
-    { ingredient: cebolla, qty: { amount: 1 } },
-    { ingredient: ajo, qty: { amount: 3 } },
-    { ingredient: aceite },
+    { ingredient: judiasVerdes, qty: 1000 },
+    { ingredient: tomate, qty:  100 },
+    { ingredient: cebolla, qty: 100 },
+    { ingredient: ajo, qty: 30 },
+    { ingredient: aceite, qty: 10 },
   ],
   steps: [
     "Pelar las judias verdes, trocear",

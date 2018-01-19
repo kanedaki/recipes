@@ -12,11 +12,11 @@ export default {
   mealType: legumbres,
   name: "Alubias rojas con chorizo",
   ingredients: [
-    { ingredient: sal },
-    { ingredient: aceite },
-    { ingredient: zanahoria, qty: { amount: "3" } },
-    { ingredient: alcachofa, qty: { amount: "4" } },
-    { ingredient: arrozBlanco, qty: { amount: "50", units: "g" } },
+    { ingredient: sal, qty: 1}},
+    { ingredient: aceite, qty: 10 },
+    { ingredient: zanahoria, qty: 200 },
+    { ingredient: alcachofa, qty: 400 },
+    { ingredient: arrozBlanco, qty: 1000 },
   ],
   steps: ["Todo el mundo sabe como hacer paella"],
 };

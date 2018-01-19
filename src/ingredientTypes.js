@@ -21,6 +21,7 @@ export default [
   cereales, 
   tuberculos, 
   azucares,
+  sales,
   grasasAnimales, 
   grasasVegetales, 
   lacteos,

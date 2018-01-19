@@ -6,6 +6,8 @@ import {
   propEq,
   over,
   add,
+  defaultTo,
+  path,
   findIndex,
   lensPath,
   append,
@@ -17,25 +19,19 @@ import { concatAll } from './utils'
 
 const hasIngredient = propEq('ingredient')
 
-const sumQuantities = curry((firstQuantity, secondQuantity) => {
-  if (!firstQuantity.amount) return secondQuantity
-  if (firstQuantity.units === secondQuantity.units) {
-    return {
-      amount: firstQuantity.amount + secondQuantity.amount,
-      units: firstQuantity.units
-    }
-  }
-})
-
-export const addElementToShoppingList = (acc, el) => {
-  const index = findIndex(hasIngredient(el.ingredient), acc)
-  if (index === -1) {
-    return append({ ingredient: el.ingredient, qty: el.qty }, acc)
-  } else if (!el.qty) {
-    return acc
-  } else {
+const findItemInList = (item, list) => findIndex(hasIngredient(item), list)
+const addItemToList = (item, list) => append(item, list)
+const addQtyToList = (index, item, list) => {
     const elLens = lensPath([index, 'qty'])
-    return over(elLens, sumQuantities(el.qty), acc)
+    return over(elLens, add(item.qty), list)
+}
+
+export const addElementToShoppingList = (shoppingList, shoppingItem) => {
+  const index = findItemInList(shoppingItem.ingredient, shoppingList) 
+  if (index === -1) {
+    return addItemToList(shoppingItem, shoppingList)
+  } else {
+    return addQtyToList(index, shoppingItem, shoppingList)
   }
 }
 

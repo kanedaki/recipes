@@ -6,13 +6,9 @@ export default {
   mealType: carne,
   name: "Pollo guisado",
   ingredients: [
-    { ingredient: cebolla, qty: { amount: 1 } },
-    {
-      ingredient: pollo,
-      qty: { amount: 4, units: "contramuslos" },
-      tip: "sin piel",
-    },
-    { ingredient: caldoPollo, qty: { amount: 1, units: "l" } },
+    { ingredient: cebolla, qty: 100 },
+    { ingredient: pollo, qty: 750, tip: "sin piel" },
+    { ingredient: caldoPollo, qty: 1000 }
   ],
   steps: ["Guisar todo junto"],
 };

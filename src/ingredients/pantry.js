@@ -1,6 +1,6 @@
-import { grasasVegetales, hortalizas, grasasAnimales, cereales, condimentos, tuberculos, lacteos, legumbres } from "../ingredientTypes";
+import { grasasVegetales, hortalizas, grasasAnimales, cereales, condimentos, tuberculos, lacteos, legumbres, sales } from "../ingredientTypes";
 
-export const cebolla = {name: "cebolla", type: hortaliza}
+export const cebolla = {name: "cebolla", type: hortalizas}
 export const aceite = {name: "aceite", type: grasasVegetales}
 export const ajo = {name: "ajo", type: hortalizas}
 export const mantequilla = {name: "mantequilla", type: grasasAnimales}

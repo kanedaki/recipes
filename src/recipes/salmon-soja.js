@@ -6,9 +6,9 @@ export default {
   mealType: pescado,
   name: "Salmon con soja",
   ingredients: [
-    { ingredient: soja, qty: { amount: 25, units: "ml" } },
-    { ingredient: eneldo },
-    { ingredient: salmon, qty: { amount: 2, units: "lomos" }, tip: "sin piel" },
+    { ingredient: soja, qty: 25 },
+    { ingredient: eneldo, qty: 1 },
+    { ingredient: salmon, qty: 500, tip: "sin piel" },
   ],
   steps: ["15 minutos al horno"],
 };
