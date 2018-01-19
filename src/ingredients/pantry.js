@@ -44,6 +44,7 @@ export const cayena = {name: "Pimienta de cayena", type: condimentos}
 export const pimenton = {name: "Pimenton", type: condimentos}
 export const pimientaNegra = {name: "pimienta negra", type: condimentos}
 export const nuezMoscada = {name: "nuez moscada", type: condimentos}
+export const vinagre = {name: "vinagre", type: condimentos}
 
 export const leche = {name: "leche", type: lacteos}
 

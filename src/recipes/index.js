@@ -11,6 +11,7 @@ import ceviche from './ceviche';
 import ensaladaEspinacas from './ensalada-espinacas';
 import ensaladaCouscous from './ensalada-couscous';
 import ensaladaJudiasBlancas from './ensalada-judias-blancas';
+import gazpacho from './gazpacho';
 
 export default [
   espaguetisPobre,
@@ -25,7 +26,8 @@ export default [
   ceviche,
   ensaladaEspinacas,
   ensaladaCouscous,
-  ensaladaJudiasBlancas
+  ensaladaJudiasBlancas,
+  gazpacho
 ]
 
 // https://www.npmjs.com/package/export-all-files-in-folder

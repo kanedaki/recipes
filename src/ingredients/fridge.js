@@ -6,6 +6,12 @@ export const soja = {name: "soja", type: legumbres}
 export const guisantes = {name: "guisantes", type: legumbres}
 
 export const puerro = {name: "Puerro", type: hortalizas}
+export const pimientoVerde = {name: "Pimiento verde", type: hortalizas}
+export const pimientoRojo = {name: "Pimiento rojo", type: hortalizas}
+export const berenjena = {name: "Berenjena", type: hortalizas}
+export const calabaza = {name: "Calabaza", type: hortalizas}
+export const calabacin = {name: "Calabacin", type: hortalizas}
+export const pepino = {name: "Pepino", type: hortalizas}
 
 export const coliflor = {name: "coliflor", type: verduras}
 export const alcachofa = {name: "Alcachofas", type: verduras}
