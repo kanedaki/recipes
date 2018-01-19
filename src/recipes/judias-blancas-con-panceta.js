@@ -1,11 +1,10 @@
 import { legumbres} from "../mealTypes";
-import { alcachofa } from "../ingredients/fridge";
+import { panceta } from "../ingredients/fridge";
 import {
-  arrozBlanco,
   sal,
   aceite,
-  zanahoria,
-  ajo,
+  judiasBlancas,
+  cebolla
 } from "../ingredients/pantry";
 
 export default {
@@ -14,9 +13,9 @@ export default {
   ingredients: [
     { ingredient: sal, qty: 1},
     { ingredient: aceite, qty: 10 },
-    { ingredient: zanahoria, qty: 300 },
-    { ingredient: alcachofa, qty: 400 },
-    { ingredient: arrozBlanco, qty: 1000 },
+    { ingredient: judiasBlancas, qty: 700 },
+    { ingredient: panceta, qty: 200 },
+    { ingredient: cebolla, qty: 200 },
   ],
   steps: ["Todo el mundo sabe como hacer paella"],
 };

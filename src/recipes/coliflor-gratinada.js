@@ -1,5 +1,5 @@
 import { verduras } from "../mealTypes";
-import { nata, coliflor, leche, queso } from "../ingredients/fridge";
+import { nata, coliflor, leche, quesoRayado } from "../ingredients/fridge";
 import {
   mantequilla,
   harina,
@@ -15,7 +15,7 @@ export default {
     { ingredient: nata, qty: 100 },
     { ingredient: coliflor, qty: 1000 },
     { ingredient: leche, qty: 750 },
-    { ingredient: queso, qty: 100 },
+    { ingredient: quesoRayado, qty: 100 },
     { ingredient: mantequilla, qty: 150 },
     { ingredient: harina, qty: 150},
     { ingredient: sal, qty: 1 },

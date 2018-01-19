@@ -27,10 +27,11 @@ export const lima = {name: "Lima", type: frutas}
 export const nata = {name: "nata", type: lacteos}
 export const leche = {name: "leche", type: lacteos}
 export const parmesano = {name: "Parmesano", type: lacteos}
-export const queso = {name: "queso", type: lacteos}
+export const quesoRayado = {name: "queso rayado", type: lacteos}
 export const roquefort = {name: "Roquefort", type: lacteos}
 
 export const choclo = {name: "Choclo", type: cereales, gama: 3, congelado: true}
+export const masaPizza = {name: "Masa de pizza", type: cereales, gama: 2}
 
 export const pollo = {name: "Pollo de corral", type: carne}
 export const panceta = {name: "Panceta", type: carne}

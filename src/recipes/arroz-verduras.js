@@ -1,7 +1,6 @@
 import { arroz } from '../mealTypes'
-import { alcachofa, tomate } from '../ingredients/fridge'
+import { alcachofa, tomate, judiasVerdes } from '../ingredients/fridge'
 import { arrozBlanco, sal, aceite, zanahoria, ajo, pimenton } from '../ingredients/pantry'
-import judiasVerdes from './judias-verdes';
 
 export default {
   mealType: arroz,

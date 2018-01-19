@@ -12,6 +12,8 @@ import ensaladaEspinacas from './ensalada-espinacas';
 import ensaladaCouscous from './ensalada-couscous';
 import ensaladaJudiasBlancas from './ensalada-judias-blancas';
 import gazpacho from './gazpacho';
+import judiasBlancas from './judias-blancas-con-panceta';
+import pizza from './pizza';
 
 export default [
   espaguetisPobre,
@@ -27,7 +29,9 @@ export default [
   ensaladaEspinacas,
   ensaladaCouscous,
   ensaladaJudiasBlancas,
-  gazpacho
+  gazpacho,
+  judiasBlancas,
+  pizza
 ]
 
 // https://www.npmjs.com/package/export-all-files-in-folder

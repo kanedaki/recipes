@@ -1,11 +1,12 @@
 import { verduras } from "../mealTypes";
-import { alcachofa } from "../ingredients/fridge";
+import { masaPizza, tomate } from "../ingredients/fridge";
 import {
-  arrozBlanco,
   sal,
   aceite,
-  zanahoria,
   ajo,
+  lataAtun,
+  salsaTomate,
+  aceitunas
 } from "../ingredients/pantry";
 
 export default {
@@ -14,9 +15,12 @@ export default {
   ingredients: [
     { ingredient: sal, qty: 1},
     { ingredient: aceite, qty: 10 },
-    { ingredient: zanahoria, qty: 300 },
-    { ingredient: alcachofa, qty: 400 },
-    { ingredient: arrozBlanco, qty: 1000 },
+    { ingredient: ajo, qty: 4 },
+    { ingredient: aceitunas, qty: 50 },
+    { ingredient: masaPizza, qty: 100 },
+    { ingredient: lataAtun, qty: 400 },
+    { ingredient: tomate, qty: 100 },
+    { ingredient: salsaTomate, qty: 100 },
   ],
   steps: ["Todo el mundo sabe como hacer paella"],
 };

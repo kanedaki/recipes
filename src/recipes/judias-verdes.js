@@ -1,5 +1,5 @@
 import { verduras } from "../mealTypes";
-import { judiasVerdes, tomate } from "../ingredients/fridge";
+import { judiasVerdes, tomate, espinacas } from "../ingredients/fridge";
 import { cebolla, aceite, ajo } from "../ingredients/pantry";
 
 export default {
@@ -11,6 +11,7 @@ export default {
     { ingredient: cebolla, qty: 100 },
     { ingredient: ajo, qty: 30 },
     { ingredient: aceite, qty: 10 },
+    { ingredient: espinacas, qty: 100 },
   ],
   steps: [
     "Pelar las judias verdes, trocear",

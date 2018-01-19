@@ -1,4 +1,4 @@
-import { grasasVegetales, hortalizas, grasasAnimales, cereales, condimentos, tuberculos, lacteos, legumbres, sales, frutas, pasta, semillas, frutosSecos } from "../ingredientTypes";
+import { grasasVegetales, hortalizas, grasasAnimales, cereales, condimentos, tuberculos, lacteos, legumbres, sales, frutas, pasta, semillas, frutosSecos, pescado } from "../ingredientTypes";
 
 export const harina = {name: "Harina", type: cereales}
 export const arrozBlanco = {name: "Arroz", type: cereales}
@@ -16,6 +16,7 @@ export const espaguetis = {name: "Espaguetis", type: pasta}
 
 export const cebolla = {name: "cebolla", type: hortalizas}
 export const ajo = {name: "ajo", type: hortalizas}
+export const salsaTomate = {name: "Salsa de tomate", type: hortalizas, gama: 2}
 
 export const zanahoria = {name: "zanahoria", type: tuberculos}
 export const patata = {name: "Patatas", type: tuberculos}
@@ -33,8 +34,11 @@ export const anacardos = {name: "Anacardos", type: frutosSecos}
 export const aceite = {name: "aceite", type: grasasVegetales}
 export const mantequilla = {name: "mantequilla", type: grasasAnimales}
 
+export const lataAtun = {name: "Lata de atun", type: pescado, gama: 2}
+
 export const garbanzos = {name: "Garbanzos", type: legumbres}
 export const judiasPintas = {name: "Judias Pintas", type: legumbres}
+export const judiasBlancas = {name: "Judias Blancas", type: legumbres}
 export const lentejas = {name: "Lentejas", type: legumbres}
 
 export const caldoPollo = {name: "Caldo de pollo", type: condimentos}
