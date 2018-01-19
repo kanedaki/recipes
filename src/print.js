@@ -24,7 +24,7 @@ export const printMenu = menu => {
   );
 };
 
-export const printShoppingItem = el => `${el.ingredient.name} (${el.qty}g)`
+export const printShoppingItem = el => console.log(el) || `${el.ingredient.name} (${el.qty}g)`
 
 export const printShoppingList = list => {
   const listpp = list.map(printShoppingItem) 

@@ -14,6 +14,8 @@ export const verduras = 'verduras'
 export const hortalizas = 'hortalizas'
 export const frutas = 'frutas'
 export const condimentos = 'condimentos'
+export const semillas = 'semillas'
+export const pasta = 'pasta'
 
 
 
@@ -33,5 +35,7 @@ export default [
   verduras,
   hortalizas,
   frutas,
-  condimentos
+  condimentos,
+  semillas,
+  pasta
 ];

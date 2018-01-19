@@ -1,22 +1,27 @@
 import { legumbres} from "../mealTypes";
-import { alcachofa } from "../ingredients/fridge";
+import { alcachofa, chorizo, panceta, puerro } from "../ingredients/fridge";
 import {
   arrozBlanco,
   sal,
   aceite,
   zanahoria,
   ajo,
+  cebolla,
+  judiasPintas,
+  caldoPollo,
 } from "../ingredients/pantry";
 
 export default {
   mealType: legumbres,
   name: "Alubias rojas con chorizo",
   ingredients: [
-    { ingredient: sal, qty: 1}},
+    { ingredient: sal, qty: 1},
     { ingredient: aceite, qty: 10 },
-    { ingredient: zanahoria, qty: 200 },
-    { ingredient: alcachofa, qty: 400 },
-    { ingredient: arrozBlanco, qty: 1000 },
+    { ingredient: chorizo, qty: 100 },
+    { ingredient: panceta, qty: 100 },
+    { ingredient: judiasPintas, qty: 500 },
+    { ingredient: caldoPollo, qty: 500 },
+    { ingredient: puerro, qty: 100},
   ],
   steps: ["Todo el mundo sabe como hacer paella"],
 };

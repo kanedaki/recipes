@@ -6,6 +6,11 @@ import salmonConSoja from './salmon-soja'
 import arrozConVerduras from './arroz-verduras'
 import batidoDeFresa from './batido-fresa'
 import espaguetisPobre from './espaguetis-pobre'
+import alubiasConChorizo from './alubias-con-chorizo';
+import ceviche from './ceviche';
+import ensaladaEspinacas from './ensalada-espinacas';
+import ensaladaCouscous from './ensalada-couscous';
+import ensaladaJudiasBlancas from './ensalada-judias-blancas';
 
 export default [
   espaguetisPobre,
@@ -15,7 +20,12 @@ export default [
   polloGuisado,
   salmonConSoja,
   arrozConVerduras,
-  batidoDeFresa
+  batidoDeFresa,
+  alubiasConChorizo,
+  ceviche,
+  ensaladaEspinacas,
+  ensaladaCouscous,
+  ensaladaJudiasBlancas
 ]
 
 // https://www.npmjs.com/package/export-all-files-in-folder
