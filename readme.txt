@@ -1,38 +1,14 @@
-### Enunciado
-
-Dado una template:
-
-const template = [{comida: Verdura, cena: Carne}, - Cena Lunes: Carne
-- Comida Martes: Pasta
-- Cena Martes: Verdura
-- Comida Miercoles: Pescado
-- Cena Miercoles: Arroz
-- Comida Jueves: Verduras
-- Cena Jueves: Carne
-- Comida Viernes: Legumbres 
-- Cena Viernes: Arroz
+# ONA: Opinionated nutritional assistant (en español quedaba muy mal...)
 
 
-- Comida Lunes: Verdura
-- Cena Lunes: Carne
-- Comida Martes: Pasta
-- Cena Martes: Verdura
-- Comida Miercoles: Pescado
-- Cena Miercoles: Arroz
-- Comida Jueves: Verduras
-- Cena Jueves: Carne
-- Comida Viernes: Legumbres 
-- Cena Viernes: Arroz
+### Gamas de productos procesados
+http://www.mrwonderfood.com/clasificacion-de-alimentos-por-gama/
 
-Devolvemos un menu:
+### Preguntas para nutricionista
 
-- Comida Lunes: Menestra 
-- Cena Lunes: Chuleton con patatas 
-- Comida Martes: Espaguetis 
-- Cena Martes: Brocoli con almendras 
-- Comida Miercoles: Lubina al horno 
-- Cena Miercoles: Arroz chino
-- Comida Jueves: Coliflor bechamel 
-- Cena Jueves: Guiso de ciervo 
-- Comida Viernes: Lentejas 
-- Cena Viernes: Ensalada de arroz
+- En que tipos dividiria los ingredientes. Deberiamos incluir subtipos? varias categorias (agua, fuego/ platicos, energeticos...)
+- Que informacion es necesaria para valorar la alimentacion de una persona (nutrientes)
+- Cada cuanto podemos valorar la ingesta de todos los nutrientes necesarios? se puede hacer semanal
+- Que informacion debemos saber de una persona para recomendarle unos menus (edad, peso...)
+- Como categorizar a las personas segun sus necesidades. => cuantas templates creamos y cuales
+
