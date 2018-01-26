@@ -1,22 +1,23 @@
-import { arroz } from "../mealTypes";
-import { alcachofa } from "../ingredients/fridge";
+import { pescado} from "../mealTypes";
+import { mango, salmon } from "../ingredients/fridge";
 import {
   arrozBlanco,
   sal,
   aceite,
-  zanahoria,
   ajo,
+  salsaSoja,
 } from "../ingredients/pantry";
 
 export default {
-  mealType: arroz,
-  name: "Paella de verduras",
+  mealType: pescado,
+  name: "poke",
   ingredients: [
     { ingredient: sal, qty: 1},
     { ingredient: aceite, qty: 10 },
-    { ingredient: zanahoria, qty: 300 },
-    { ingredient: alcachofa, qty: 400 },
-    { ingredient: arrozBlanco, qty: 1000 },
+    { ingredient: salsaSoja, qty: 10 },
+    { ingredient: salmon, qty: 500 },
+    { ingredient: mango, qty: 500 },
+    { ingredient: arrozBlanco, qty: 500 },
   ],
   steps: ["Todo el mundo sabe como hacer paella"],
 };

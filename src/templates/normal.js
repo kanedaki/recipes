@@ -12,5 +12,5 @@ export default [
   { lunch: legumbres, dinner: pescado },
   { lunch: arroz, dinner: verduras },
   { lunch: verduras, dinner: carne },
-  { lunch: legumbres, dinner: arroz },
+  { lunch: legumbres, dinner: pescado},
 ];

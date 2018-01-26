@@ -14,6 +14,12 @@ import ensaladaJudiasBlancas from './ensalada-judias-blancas';
 import gazpacho from './gazpacho';
 import judiasBlancas from './judias-blancas-con-panceta';
 import pizza from './pizza';
+import poke from './poke';
+import salmonSoja from './salmon-soja';
+import sopaCebolla from './sopa-cebolla';
+import sushi from './sushi';
+import vichissoise from './vichissoise';
+import wokVerduras from './wok-verduras';
 
 export default [
   espaguetisPobre,
@@ -31,7 +37,15 @@ export default [
   ensaladaJudiasBlancas,
   gazpacho,
   judiasBlancas,
-  pizza
+  pizza,
+  poke,
+  polloGuisado,
+  salmonSoja,
+  sopaCebolla,
+  sushi,
+  vichissoise,
+  wokVerduras
+
 ]
 
 // https://www.npmjs.com/package/export-all-files-in-folder

@@ -1,6 +1,7 @@
-import { grasasVegetales, hortalizas, grasasAnimales, cereales, condimentos, tuberculos, lacteos, legumbres, sales, frutas, pasta, semillas, frutosSecos, pescado } from "../ingredientTypes";
+import { grasasVegetales, hortalizas, grasasAnimales, cereales, condimentos, tuberculos, lacteos, legumbres, sales, frutas, pasta, semillas, frutosSecos, pescado, azucares } from "../ingredientTypes";
 
 export const harina = {name: "Harina", type: cereales}
+export const pan = {name: "Pan", type: cereales}
 export const arrozBlanco = {name: "Arroz", type: cereales}
 export const espelta = {name: "Espelta", type: cereales}
 export const avena = {name: "Avena", type: cereales}
@@ -49,7 +50,11 @@ export const pimenton = {name: "Pimenton", type: condimentos}
 export const pimientaNegra = {name: "pimienta negra", type: condimentos}
 export const nuezMoscada = {name: "nuez moscada", type: condimentos}
 export const vinagre = {name: "vinagre", type: condimentos}
+export const vinagreArroz = {name: "Vinagre de arroz", type: condimentos}
+export const algaNori = {name: "Alga nori", type: condimentos}
 
 export const leche = {name: "leche", type: lacteos}
 
 export const sal = {name: "sal", type: sales}
+
+export const azucar = {name: "azucar", type: azucares}

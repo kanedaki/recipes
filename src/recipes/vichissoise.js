@@ -1,11 +1,13 @@
 import { verduras} from "../mealTypes";
-import { alcachofa } from "../ingredients/fridge";
+import { alcachofa, puerro, nata } from "../ingredients/fridge";
 import {
   arrozBlanco,
   sal,
   aceite,
   zanahoria,
   ajo,
+  mantequilla,
+  caldoPollo,
 } from "../ingredients/pantry";
 
 export default {
@@ -13,10 +15,10 @@ export default {
   name: "Vichissoise",
   ingredients: [
     { ingredient: sal, qty: 1},
-    { ingredient: aceite, qty: 10 },
-    { ingredient: zanahoria, qty: 300 },
-    { ingredient: alcachofa, qty: 400 },
-    { ingredient: arrozBlanco, qty: 1000 },
+    { ingredient: puerro, qty: 300 },
+    { ingredient: mantequilla, qty: 30 },
+    { ingredient: nata, qty: 150 },
+    { ingredient: caldoPollo, qty: 250 },
   ],
   steps: ["Todo el mundo sabe como hacer paella"],
 };

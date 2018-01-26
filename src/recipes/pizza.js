@@ -1,4 +1,4 @@
-import { verduras } from "../mealTypes";
+import { pasta } from "../mealTypes";
 import { masaPizza, tomate } from "../ingredients/fridge";
 import {
   sal,
@@ -10,7 +10,7 @@ import {
 } from "../ingredients/pantry";
 
 export default {
-  mealType: verduras,
+  mealType: pasta,
   name: "Pizza",
   ingredients: [
     { ingredient: sal, qty: 1},
