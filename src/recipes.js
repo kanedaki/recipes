@@ -1,5 +1,6 @@
 import {
   allPass,
+  all,
   propEq,
   and,
   any,
@@ -26,10 +27,12 @@ export const isDifferentDinnerRecipe = recipeName =>
 
 export const notIncludedAlready = ({ currentMenu }) => recipe => {
   const recipeName = prop('name', recipe)
-  return allPass([
-    isDifferentLunchRecipe(recipeName),
-    isDifferentDinnerRecipe(recipeName),
-  ])(currentMenu)
+  return all(
+    allPass([
+      isDifferentLunchRecipe(recipeName),
+      isDifferentDinnerRecipe(recipeName),
+    ]),
+  )(currentMenu)
 }
 
 function findRecipeByName(name) {

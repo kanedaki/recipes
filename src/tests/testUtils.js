@@ -1,3 +1,4 @@
+import { uniq, map, all } from 'ramda'
 import { matchMealType, matchMeal } from '../recipes'
 
 export function match(menu, template) {
@@ -9,4 +10,30 @@ export function match(menu, template) {
       matchMealType({ mealType: dinnerMealType })(dinner)
     )
   })
+}
+
+const getRecipesFromMenu = menu =>
+  menu.reduce((recipes, { lunch, dinner }) => {
+    recipes.push(lunch)
+    recipes.push(dinner)
+    return recipes
+  }, [])
+
+const getRecipesOfMeal = meal => menu =>
+  menu.map((recipes, dayMenu) => {
+    dayMenu[meal]
+  })
+
+export function hasRepeatedRecipes(menu) {
+  const recipes = getRecipesFromMenu(menu)
+  const uniqRecipes = uniq(recipes)
+  return uniqRecipes.length !== recipes.length
+}
+
+const belongsToMealType = meal => recipeMealTypes =>
+  recipeMealTypes.includes(meal)
+
+export function menuRecipesMatchMealTypes(mealTypes, menu) {
+  const recipes = getRecipesFromMenu(menu)
+  return all(all(map(belongsToMealType, mealTypes)))(recipes)
 }

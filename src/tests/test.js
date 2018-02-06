@@ -4,8 +4,13 @@ import {
   removeElement,
   addElementToShoppingList,
 } from '../shoppingList'
-import { match } from './testUtils'
+import {
+  match,
+  hasRepeatedRecipes,
+  menuRecipesMatchMealTypes,
+} from './testUtils'
 import recipes from '../recipes/index'
+import { printMenu } from '../print'
 import {
   pasta,
   verduras,
@@ -15,6 +20,7 @@ import {
   arroz,
   fruta,
 } from '../mealTypes'
+import { dinner, lunch } from '../meals'
 
 const template = [
   { lunch: pasta, dinner: verduras },
@@ -154,6 +160,14 @@ describe('test', () => {
   it('return a proper message for every meal if the meal type in the template does not exists', () => {
     const menu = createMenu(template2)
     expect(menu[0].lunch).toBe('no recipe found')
+  })
+  it('does not repeat recipes on the same menu', () => {
+    const menu = createMenu(template)
+    expect(hasRepeatedRecipes(menu)).toBeFalsy()
+  })
+  it('recipes from menu belongs to dinner or lunch', () => {
+    const menu = createMenu(template)
+    expect(menuRecipesMatchMealTypes([lunch, dinner], menu)).toBe(true)
   })
   describe('match', () => {
     describe('fails when the menu does not correspond to template because', () => {
