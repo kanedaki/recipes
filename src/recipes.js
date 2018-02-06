@@ -1,11 +1,15 @@
-import { propEq } from 'ramda'
+import { propEq, and, any, prop, equals } from 'ramda'
 import { getRandomFromArray, findOrMessage } from './utils'
 import MealTypes from './mealTypes'
 import recipes from './recipes/index'
+import { lunch, dinner } from './meals'
 
 export function matchMealType(recipe, mealType) {
-  if (!recipe) return false
   return propEq('mealType', mealType, recipe)
+}
+
+export function matchMeal(recipe, meal) {
+  return any(equals(meal), prop('meal', recipe))
 }
 
 function findRecipeByName(name) {
@@ -15,10 +19,10 @@ function findRecipeByName(name) {
 }
 
 export function createMenu(template) {
-  return template.map(({ lunch, dinner }) => {
+  return template.map(({ lunch: lunchMealType, dinner: dinnerMealType }) => {
     return {
-      lunch: getRecipeForMealType(lunch),
-      dinner: getRecipeForMealType(dinner)
+      lunch: getRecipeForMealType(lunchMealType, lunch),
+      dinner: getRecipeForMealType(dinnerMealType, dinner),
     }
   })
 }
@@ -26,8 +30,10 @@ export function createMenu(template) {
 const NO_RECIPE_ERROR = 'no recipe for'
 const getRecipeForMealType = findOrMessage(findRecipe, NO_RECIPE_ERROR)
 
-function findRecipe(mealType) {
+function findRecipe(mealType, meal) {
   if (!MealTypes.includes(mealType)) return undefined
-  const validRecipes = recipes.filter(recipe => matchMealType(recipe, mealType))
+  const validRecipes = recipes.filter(recipe =>
+    and(matchMealType(recipe, mealType), matchMeal(recipe, meal)),
+  )
   return getRandomFromArray(validRecipes)
 }
