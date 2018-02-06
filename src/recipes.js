@@ -59,7 +59,7 @@ export function createMenu(template) {
   )
 }
 
-const NO_RECIPE_ERROR = 'no recipe for'
+const NO_RECIPE_ERROR = 'no recipe found'
 const getRecipeForMealType = findOrMessage(findRecipes, NO_RECIPE_ERROR)
 
 export const findRecipe = options =>

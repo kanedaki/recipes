@@ -2,17 +2,10 @@ import { createMenu } from '../recipes'
 import {
   getShoppingList,
   removeElement,
-  addElementToShoppingList
+  addElementToShoppingList,
 } from '../shoppingList'
-import menu from './exampleMenu'
-import shoppingList from './exampleList'
 import { match } from './testUtils'
-import {
-  coliflorGratinada,
-  judiasVerdes,
-  polloGuisado,
-  salmonSoja
-} from '../recipes'
+import recipes from '../recipes/index'
 import {
   pasta,
   verduras,
@@ -20,29 +13,137 @@ import {
   carne,
   legumbres,
   arroz,
-  fruta
+  fruta,
 } from '../mealTypes'
 
 const template = [
   { lunch: pasta, dinner: verduras },
   { lunch: pescado, dinner: arroz },
   { lunch: verduras, dinner: carne },
-  { lunch: legumbres, dinner: arroz }
+  { lunch: legumbres, dinner: arroz },
 ]
 
 const template2 = [{ lunch: 'caramelos', dinner: 'chuches' }]
 
 const menuAlternativo = [
-  { lunch: 'Salmon con soja', dinner: 'Paella de verduras' },
-  { lunch: 'Judias verdes', dinner: 'Pollo guisado' },
-  { lunch: 'Lentejas guisadas', dinner: 'Paella de verduras' }
+  { lunch: recipes[1], dinner: recipes[2] },
+  { lunch: recipes[1], dinner: recipes[2] },
+  { lunch: recipes[1], dinner: recipes[2] },
 ]
 
 const menuDiferente = [
-  { lunch: 'Salmon con soja', dinner: 'Paella de verduras' },
-  { lunch: 'Salmon con soja', dinner: 'Paella de verduras' },
-  { lunch: 'Judias verdes', dinner: 'Pollo guisado' },
-  { lunch: 'Lentejas guisadas', dinner: 'Paella de verduras' }
+  { lunch: recipes[0], dinner: recipes[0] },
+  { lunch: recipes[0], dinner: recipes[0] },
+  { lunch: recipes[0], dinner: recipes[0] },
+  { lunch: recipes[0], dinner: recipes[0] },
+]
+
+const shoppingListForMenuAlternativo = [
+  {
+    ingredient: {
+      name: 'nata',
+      type: 'lacteos',
+    },
+    qty: 300,
+  },
+  {
+    ingredient: {
+      name: 'coliflor',
+      type: 'verduras',
+    },
+    qty: 3000,
+  },
+  {
+    ingredient: {
+      name: 'leche',
+      type: 'lacteos',
+    },
+    qty: 2250,
+  },
+  {
+    ingredient: {
+      name: 'queso rayado',
+      type: 'lacteos',
+    },
+    qty: 300,
+  },
+  {
+    ingredient: {
+      name: 'mantequilla',
+      type: 'grasas animales',
+    },
+    qty: 450,
+  },
+  {
+    ingredient: {
+      name: 'Harina',
+      type: 'cereales',
+    },
+    qty: 450,
+  },
+  {
+    ingredient: {
+      name: 'sal',
+      type: 'sales',
+    },
+    qty: 3,
+  },
+  {
+    ingredient: {
+      name: 'pimienta negra',
+      type: 'condimentos',
+    },
+    qty: 3,
+  },
+  {
+    ingredient: {
+      name: 'nuez moscada',
+      type: 'condimentos',
+    },
+    qty: 3,
+  },
+  {
+    ingredient: {
+      name: 'judias verdes',
+      type: 'legumbres',
+    },
+    qty: 3000,
+  },
+  {
+    ingredient: {
+      name: 'tomate',
+      type: 'frutas',
+    },
+    qty: 300,
+  },
+  {
+    ingredient: {
+      name: 'cebolla',
+      type: 'hortalizas',
+    },
+    qty: 300,
+  },
+  {
+    ingredient: {
+      name: 'ajo',
+      type: 'hortalizas',
+    },
+    qty: 90,
+  },
+  {
+    ingredient: {
+      name: 'aceite',
+      type: 'grasas vegetales',
+    },
+    qty: 30,
+  },
+  {
+    ingredient: {
+      name: 'Espinacas',
+      type: 'verduras',
+    },
+    qty: 300,
+  },
 ]
 
 describe('test', () => {
@@ -52,7 +153,7 @@ describe('test', () => {
   })
   it('return a proper message for every meal if the meal type in the template does not exists', () => {
     const menu = createMenu(template2)
-    expect(menu[0].lunch).toBe('no recipe for caramelos')
+    expect(menu[0].lunch).toBe('no recipe found')
   })
   describe('match', () => {
     describe('fails when the menu does not correspond to template because', () => {
@@ -66,16 +167,16 @@ describe('test', () => {
   })
   describe('shopping list', () => {
     it('returns the correct shopping list for a menu', () => {
-      const list = getShoppingList(menu)
-      expect(list).toEqual(shoppingList)
+      const list = getShoppingList(menuAlternativo)
+      expect(list).toEqual(shoppingListForMenuAlternativo)
     })
     it('removes an element that exist on the list from the list', () => {
-      const element = shoppingList[0]
+      const element = shoppingListForMenuAlternativo[0]
 
-      const newList = removeElement(shoppingList, element)
+      const newList = removeElement(shoppingListForMenuAlternativo, element)
       const ingredientNames = newList.map(element => element.ingredient)
 
-      expect(newList.length).toEqual(shoppingList.length - 1)
+      expect(newList.length).toEqual(shoppingListForMenuAlternativo.length - 1)
       expect(ingredientNames.includes(element.ingredient)).toBe(false)
     })
   })
@@ -87,9 +188,7 @@ describe('test', () => {
 
         const resultList = addElementToShoppingList(startingList, onion)
 
-        expect(resultList).toEqual([
-          { ingredient: 'onion', qty: 2 }
-        ])
+        expect(resultList).toEqual([{ ingredient: 'onion', qty: 2 }])
       })
     })
     describe('if the ingredient is not in the list', () => {
@@ -99,9 +198,7 @@ describe('test', () => {
 
         const resultList = addElementToShoppingList(startingList, onion)
 
-        expect(resultList).toEqual([
-          { ingredient: 'onion', qty:  1 }
-        ])
+        expect(resultList).toEqual([{ ingredient: 'onion', qty: 1 }])
       })
     })
   })

@@ -14,7 +14,7 @@ const getRandomFromObject = obj => {
 const findOrMessage = function(fn, msg) {
   return function(...args) {
     const result = fn.apply(this, args)
-    return result || `${msg} ${args}`
+    return result || msg
   }
 }
 
@@ -24,5 +24,5 @@ module.exports = {
   getRandomFromObject,
   getRandomFromArray,
   findOrMessage,
-  concatAll
+  concatAll,
 }
