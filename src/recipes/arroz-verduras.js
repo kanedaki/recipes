@@ -1,12 +1,21 @@
 import { arroz } from '../mealTypes'
 import { alcachofa, tomate, judiasVerdes } from '../ingredients/fridge'
-import { arrozBlanco, sal, aceite, zanahoria, ajo, pimenton } from '../ingredients/pantry'
+import {
+  arrozBlanco,
+  sal,
+  aceite,
+  zanahoria,
+  ajo,
+  pimenton,
+} from '../ingredients/pantry'
+import { lunch, dinner } from '../meals'
 
 export default {
   mealType: arroz,
   name: 'Paella de verduras',
+  meal: [lunch, dinner],
   ingredients: [
-    { ingredient: sal, qty: 1},
+    { ingredient: sal, qty: 1 },
     { ingredient: aceite, qty: 10 },
     { ingredient: ajo, qty: 200 },
     { ingredient: zanahoria, qty: 200 },
@@ -16,5 +25,5 @@ export default {
     { ingredient: pimenton, qty: 10 },
     { ingredient: arrozBlanco, qty: 1000 },
   ],
-  steps: ['Todo el mundo sabe como hacer paella']
+  steps: ['Todo el mundo sabe como hacer paella'],
 }

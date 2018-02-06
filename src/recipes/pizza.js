@@ -1,19 +1,21 @@
-import { pasta } from "../mealTypes";
-import { masaPizza, tomate } from "../ingredients/fridge";
+import { pasta } from '../mealTypes'
+import { masaPizza, tomate } from '../ingredients/fridge'
 import {
   sal,
   aceite,
   ajo,
   lataAtun,
   salsaTomate,
-  aceitunas
-} from "../ingredients/pantry";
+  aceitunas,
+} from '../ingredients/pantry'
+import { dinner } from '../meals'
 
 export default {
   mealType: pasta,
-  name: "Pizza",
+  name: 'Pizza',
+  meal: [dinner],
   ingredients: [
-    { ingredient: sal, qty: 1},
+    { ingredient: sal, qty: 1 },
     { ingredient: aceite, qty: 10 },
     { ingredient: ajo, qty: 4 },
     { ingredient: aceitunas, qty: 50 },
@@ -22,5 +24,5 @@ export default {
     { ingredient: tomate, qty: 100 },
     { ingredient: salsaTomate, qty: 100 },
   ],
-  steps: ["Todo el mundo sabe como hacer paella"],
-};
+  steps: ['Todo el mundo sabe como hacer paella'],
+}

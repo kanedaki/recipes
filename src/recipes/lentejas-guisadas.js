@@ -1,5 +1,5 @@
-import { legumbres } from "../mealTypes";
-import { chorizo, panceta } from "../ingredients/fridge";
+import { legumbres } from '../mealTypes'
+import { chorizo, panceta } from '../ingredients/fridge'
 import {
   cebolla,
   patata,
@@ -8,11 +8,13 @@ import {
   lentejas,
   zanahoria,
   ajo,
-} from "../ingredients/pantry";
+} from '../ingredients/pantry'
+import { lunch } from '../meals'
 
 export default {
   mealType: legumbres,
-  name: "Lentejas guisadas",
+  name: 'Lentejas guisadas',
+  meal: [lunch],
   ingredients: [
     { ingredient: cebolla, qty: 100 },
     { ingredient: patata, qty: 100 },
@@ -24,11 +26,11 @@ export default {
     { ingredient: panceta, qty: 100 },
   ],
   steps: [
-    "Poner las lentejas en agua, al menos 4 horas antes",
-    "Cortar la panceta en trozos pequeños",
-    "Saltear la panceta, reservar",
-    "Cortar las verduras en trozos pequeños",
-    "Hacer un sofrito con las verduras",
-    "Añadir las lentejas, el chorizo, la panceta y cubrir con agua",
+    'Poner las lentejas en agua, al menos 4 horas antes',
+    'Cortar la panceta en trozos pequeños',
+    'Saltear la panceta, reservar',
+    'Cortar las verduras en trozos pequeños',
+    'Hacer un sofrito con las verduras',
+    'Añadir las lentejas, el chorizo, la panceta y cubrir con agua',
   ],
-};
+}

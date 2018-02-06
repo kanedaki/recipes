@@ -1,5 +1,5 @@
-import { verduras} from "../mealTypes";
-import { alcachofa, puerro, nata } from "../ingredients/fridge";
+import { verduras } from '../mealTypes'
+import { alcachofa, puerro, nata } from '../ingredients/fridge'
 import {
   arrozBlanco,
   sal,
@@ -8,17 +8,19 @@ import {
   ajo,
   mantequilla,
   caldoPollo,
-} from "../ingredients/pantry";
+} from '../ingredients/pantry'
+import { lunch, dinner } from '../meals'
 
 export default {
   mealType: verduras,
-  name: "Vichissoise",
+  name: 'Vichissoise',
+  meal: [lunch, dinner],
   ingredients: [
-    { ingredient: sal, qty: 1},
+    { ingredient: sal, qty: 1 },
     { ingredient: puerro, qty: 300 },
     { ingredient: mantequilla, qty: 30 },
     { ingredient: nata, qty: 150 },
     { ingredient: caldoPollo, qty: 250 },
   ],
-  steps: ["Todo el mundo sabe como hacer paella"],
-};
+  steps: ['Todo el mundo sabe como hacer paella'],
+}
