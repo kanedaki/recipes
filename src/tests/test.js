@@ -8,6 +8,7 @@ import {
   match,
   hasRepeatedRecipes,
   menuRecipesMatchMealTypes,
+  menuRecipesMatchSeason,
 } from './testUtils'
 import recipes from '../recipes/index'
 import { printMenu } from '../print'
@@ -21,6 +22,7 @@ import {
   fruta,
 } from '../mealTypes'
 import { dinner, lunch } from '../meals'
+import { getSeason } from '../utils'
 
 const template = [
   { lunch: pasta, dinner: verduras },
@@ -153,21 +155,28 @@ const shoppingListForMenuAlternativo = [
 ]
 
 describe('test', () => {
-  it('creates a menu that matches the given template', () => {
-    const menu = createMenu(template)
-    expect(match(menu, template)).toBeTruthy()
-  })
-  it('return a proper message for every meal if the meal type in the template does not exists', () => {
-    const menu = createMenu(template2)
-    expect(menu[0].lunch).toBe('no recipe found')
-  })
-  it('does not repeat recipes on the same menu', () => {
-    const menu = createMenu(template)
-    expect(hasRepeatedRecipes(menu)).toBeFalsy()
-  })
-  it('recipes from menu belongs to dinner or lunch', () => {
-    const menu = createMenu(template)
-    expect(menuRecipesMatchMealTypes([lunch, dinner], menu)).toBe(true)
+  describe('menu restrictions', () => {
+    it('creates a menu that matches the given template', () => {
+      const menu = createMenu(template)
+      expect(match(menu, template)).toBeTruthy()
+    })
+    it('return a proper message for every meal if the meal type in the template does not exists', () => {
+      const menu = createMenu(template2)
+      expect(menu[0].lunch).toBe('no recipe found')
+    })
+    it('does not repeat recipes on the same menu', () => {
+      const menu = createMenu(template)
+      expect(hasRepeatedRecipes(menu)).toBeFalsy()
+    })
+    it('recipes from menu belongs to dinner or lunch', () => {
+      const menu = createMenu(template)
+      expect(menuRecipesMatchMealTypes([lunch, dinner], menu)).toBe(true)
+    })
+    it('includes just Season recommendations', () => {
+      const menu = createMenu(template)
+      const season = getSeason()
+      expect(menuRecipesMatchSeason(season, menu)).toBe(true)
+    })
   })
   describe('match', () => {
     describe('fails when the menu does not correspond to template because', () => {

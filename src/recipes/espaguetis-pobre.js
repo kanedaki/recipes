@@ -2,11 +2,13 @@ import { pasta } from '../mealTypes'
 import { parmesano } from '../ingredients/fridge'
 import { espaguetis, ajo, aceite, cayena } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
+import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
   mealType: pasta,
   name: 'Espaguetis a lo pobre',
   meal: [lunch, dinner],
+  seasons: [winter, autumn, summer, spring],
   ingredients: [
     { ingredient: espaguetis, qty: 500 },
     { ingredient: ajo, qty: 50 },

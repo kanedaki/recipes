@@ -1,5 +1,5 @@
-import { uniq, map, all } from 'ramda'
-import { matchMealType, matchMeal } from '../recipes'
+import { uniq, map, all, allPass, compose, any, propEq } from 'ramda'
+import { matchMealType, matchMeal, matchSeason } from '../recipes'
 
 export function match(menu, template) {
   if (menu.length !== template.length) return false
@@ -36,4 +36,9 @@ const belongsToMealType = meal => recipeMealTypes =>
 export function menuRecipesMatchMealTypes(mealTypes, menu) {
   const recipes = getRecipesFromMenu(menu)
   return all(all(map(belongsToMealType, mealTypes)))(recipes)
+}
+
+export function menuRecipesMatchSeason(season, menu) {
+  const recipes = getRecipesFromMenu(menu)
+  return all(matchSeason(season))(recipes)
 }

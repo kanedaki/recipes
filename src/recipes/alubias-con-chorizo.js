@@ -11,11 +11,13 @@ import {
   caldoPollo,
 } from '../ingredients/pantry'
 import { lunch } from '../meals'
+import { autumn, winter } from '../seasons'
 
 export default {
   mealType: legumbres,
   name: 'Alubias rojas con chorizo',
   meal: [lunch],
+  seasons: [winter, autumn],
   ingredients: [
     { ingredient: sal, qty: 1 },
     { ingredient: aceite, qty: 10 },

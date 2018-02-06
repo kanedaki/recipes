@@ -2,11 +2,13 @@ import { verduras } from '../mealTypes'
 import { espinacas, roquefort, tomateSeco } from '../ingredients/fridge'
 import { sal, aceite, nueces } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
+import { spring, summer, autumn } from '../seasons'
 
 export default {
   mealType: verduras,
   name: 'Ensalada de espinacas',
   meal: [lunch, dinner],
+  seasons: [autumn, summer, spring],
   ingredients: [
     { ingredient: sal, qty: 1 },
     { ingredient: aceite, qty: 10 },

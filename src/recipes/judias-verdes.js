@@ -2,11 +2,13 @@ import { verduras } from '../mealTypes'
 import { judiasVerdes, tomate, espinacas } from '../ingredients/fridge'
 import { cebolla, aceite, ajo } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
+import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
   mealType: verduras,
   name: 'Judias verdes rehogadas',
   meal: [lunch, dinner],
+  seasons: [winter, autumn, summer, spring],
   ingredients: [
     { ingredient: judiasVerdes, qty: 1000 },
     { ingredient: tomate, qty: 100 },

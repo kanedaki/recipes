@@ -2,11 +2,13 @@ import { carne } from '../mealTypes'
 import { pollo } from '../ingredients/fridge'
 import { cebolla, caldoPollo, ajo } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
+import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
   mealType: carne,
   name: 'Pollo guisado',
   meal: [lunch, dinner],
+  seasons: [winter, autumn, summer, spring],
   ingredients: [
     { ingredient: cebolla, qty: 100 },
     { ingredient: ajo, qty: 10 },

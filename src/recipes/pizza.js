@@ -9,11 +9,13 @@ import {
   aceitunas,
 } from '../ingredients/pantry'
 import { dinner } from '../meals'
+import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
   mealType: pasta,
   name: 'Pizza',
   meal: [dinner],
+  seasons: [winter, autumn, summer, spring],
   ingredients: [
     { ingredient: sal, qty: 1 },
     { ingredient: aceite, qty: 10 },

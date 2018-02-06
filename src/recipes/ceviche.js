@@ -18,11 +18,13 @@ import {
   aceitunas,
 } from '../ingredients/pantry'
 import { dinner } from '../meals'
+import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
   mealType: pescado,
   name: 'Ceviche',
   meal: [dinner],
+  seasons: [winter, autumn, summer, spring],
   ingredients: [
     { ingredient: sal, qty: 5 },
     { ingredient: aceite, qty: 20 },

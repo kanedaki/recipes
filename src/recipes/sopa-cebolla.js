@@ -11,11 +11,13 @@ import {
   caldoPollo,
 } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
+import { spring, autumn, winter } from '../seasons'
 
 export default {
   mealType: verduras,
   name: 'Sopa de cebolla',
   meal: [lunch, dinner],
+  seasons: [winter, autumn, spring],
   ingredients: [
     { ingredient: sal, qty: 1 },
     { ingredient: aceite, qty: 10 },

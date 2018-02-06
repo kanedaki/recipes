@@ -10,11 +10,13 @@ import {
   caldoPollo,
 } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
+import { spring, summer, autumn } from '../seasons'
 
 export default {
   mealType: verduras,
   name: 'Vichissoise',
   meal: [lunch, dinner],
+  seasons: [autumn, summer, spring],
   ingredients: [
     { ingredient: sal, qty: 1 },
     { ingredient: puerro, qty: 300 },

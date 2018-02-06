@@ -8,11 +8,13 @@ import {
   nuezMoscada,
 } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
+import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
   mealType: verduras,
   name: 'Coliflor gratinada',
   meal: [lunch, dinner],
+  seasons: [winter, autumn, summer, spring],
   ingredients: [
     { ingredient: nata, qty: 100 },
     { ingredient: coliflor, qty: 1000 },

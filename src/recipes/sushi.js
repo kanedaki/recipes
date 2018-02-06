@@ -12,11 +12,13 @@ import {
   algaNori,
 } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
+import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
   mealType: arroz,
   name: 'Sushi (makis, sandwiches o conos)',
   meal: [lunch, dinner],
+  seasons: [winter, autumn, summer, spring],
   ingredients: [
     { ingredient: zanahoria, qty: 300 },
     { ingredient: salsaSoja, qty: 30 },

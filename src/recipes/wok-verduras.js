@@ -7,11 +7,13 @@ import {
 } from '../ingredients/fridge'
 import { sal, aceite, zanahoria, ajo, cebolla } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
+import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
   mealType: verduras,
   name: 'Wok de verduras',
   meal: [lunch, dinner],
+  seasons: [winter, autumn, summer, spring],
   ingredients: [
     { ingredient: sal, qty: 1 },
     { ingredient: aceite, qty: 10 },

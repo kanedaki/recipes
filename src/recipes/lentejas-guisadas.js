@@ -10,11 +10,13 @@ import {
   ajo,
 } from '../ingredients/pantry'
 import { lunch } from '../meals'
+import { spring, winter, autumn } from '../seasons'
 
 export default {
   mealType: legumbres,
   name: 'Lentejas guisadas',
   meal: [lunch],
+  seasons: [winter, autumn, spring],
   ingredients: [
     { ingredient: cebolla, qty: 100 },
     { ingredient: patata, qty: 100 },

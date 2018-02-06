@@ -10,12 +10,15 @@ import {
   not,
   path,
 } from 'ramda'
-import { getRandomFromArray, findOrMessage } from './utils'
+import { getRandomFromArray, findOrMessage, getSeason } from './utils'
 import MealTypes from './mealTypes'
 import recipes from './recipes/index'
 import { lunch, dinner } from './meals'
 
 export const matchMealType = ({ mealType }) => propEq('mealType', mealType)
+
+export const matchSeason = season =>
+  compose(any(equals(season)), prop('seasons'))
 
 export const matchMeal = ({ meal }) => compose(any(equals(meal)), prop('meal'))
 
@@ -69,6 +72,7 @@ export const findRecipe = options =>
   allPass([
     matchMeal(options),
     matchMealType(options),
+    matchSeason(getSeason()),
     notIncludedAlready(options),
   ])
 
