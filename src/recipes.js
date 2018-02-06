@@ -1,15 +1,35 @@
-import { propEq, and, any, prop, equals } from 'ramda'
+import {
+  allPass,
+  propEq,
+  and,
+  any,
+  prop,
+  equals,
+  compose,
+  not,
+  path,
+} from 'ramda'
 import { getRandomFromArray, findOrMessage } from './utils'
 import MealTypes from './mealTypes'
 import recipes from './recipes/index'
 import { lunch, dinner } from './meals'
 
-export function matchMealType(recipe, mealType) {
-  return propEq('mealType', mealType, recipe)
-}
+export const matchMealType = ({ mealType }) => propEq('mealType', mealType)
 
-export function matchMeal(recipe, meal) {
-  return any(equals(meal), prop('meal', recipe))
+export const matchMeal = ({ meal }) => compose(any(equals(meal)), prop('meal'))
+
+export const isDifferentLunchRecipe = recipeName =>
+  compose(not, equals(recipeName), path(['lunch', 'name']))
+
+export const isDifferentDinnerRecipe = recipeName =>
+  compose(not, equals(recipeName), path(['dinner', 'name']))
+
+export const notIncludedAlready = ({ currentMenu }) => recipe => {
+  const recipeName = prop('name', recipe)
+  return allPass([
+    isDifferentLunchRecipe(recipeName),
+    isDifferentDinnerRecipe(recipeName),
+  ])(currentMenu)
 }
 
 function findRecipeByName(name) {
@@ -19,21 +39,38 @@ function findRecipeByName(name) {
 }
 
 export function createMenu(template) {
-  return template.map(({ lunch: lunchMealType, dinner: dinnerMealType }) => {
-    return {
-      lunch: getRecipeForMealType(lunchMealType, lunch),
-      dinner: getRecipeForMealType(dinnerMealType, dinner),
-    }
-  })
+  return template.reduce(
+    (currentMenu, { lunch: lunchMealType, dinner: dinnerMealType }) => {
+      currentMenu.push({
+        lunch: getRecipeForMealType({
+          mealType: lunchMealType,
+          meal: lunch,
+          currentMenu,
+        }),
+        dinner: getRecipeForMealType({
+          mealType: dinnerMealType,
+          meal: dinner,
+          currentMenu,
+        }),
+      })
+      return currentMenu
+    },
+    [],
+  )
 }
 
 const NO_RECIPE_ERROR = 'no recipe for'
-const getRecipeForMealType = findOrMessage(findRecipe, NO_RECIPE_ERROR)
+const getRecipeForMealType = findOrMessage(findRecipes, NO_RECIPE_ERROR)
 
-function findRecipe(mealType, meal) {
-  if (!MealTypes.includes(mealType)) return undefined
-  const validRecipes = recipes.filter(recipe =>
-    and(matchMealType(recipe, mealType), matchMeal(recipe, meal)),
-  )
+export const findRecipe = options =>
+  allPass([
+    matchMeal(options),
+    matchMealType(options),
+    notIncludedAlready(options),
+  ])
+
+function findRecipes(options) {
+  if (!MealTypes.includes(options.mealType)) return undefined
+  const validRecipes = recipes.filter(findRecipe(options))
   return getRandomFromArray(validRecipes)
 }
