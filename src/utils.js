@@ -1,5 +1,5 @@
 import { concat, reduce } from 'ramda'
-import { winter, summer, autumn, spring } from './seasons'
+import { winter, summer, autumn, spring } from './enums/seasons'
 
 const getRandomNumber = n => Math.round(Math.random() * n)
 

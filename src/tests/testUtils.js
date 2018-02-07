@@ -1,5 +1,5 @@
 import { uniq, map, all, allPass, compose, any, propEq } from 'ramda'
-import { matchMealType, matchMeal, matchSeason } from '../recipes'
+import { matchMealType, matchMeal, matchSeason } from '../menu'
 
 export function match(menu, template) {
   if (menu.length !== template.length) return false

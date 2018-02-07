@@ -1,4 +1,4 @@
-import { createMenu } from '../recipes'
+import { createMenu } from '../menu'
 import {
   getShoppingList,
   removeElement,
@@ -10,7 +10,6 @@ import {
   menuRecipesMatchMealTypes,
   menuRecipesMatchSeason,
 } from './testUtils'
-import recipes from '../recipes/index'
 import { printMenu } from '../print'
 import {
   pasta,
@@ -20,9 +19,17 @@ import {
   legumbres,
   arroz,
   fruta,
-} from '../mealTypes'
-import { dinner, lunch } from '../meals'
+} from '../enums/mealTypes'
+import { dinner, lunch } from '../enums/meals'
 import { getSeason } from '../utils'
+import { getRecipesFromUser } from '../repo/fileSystemRepo'
+
+const recipes = getRecipesFromUser()
+
+const nutritionalThreshold = {
+  cereales: 20,
+  hortalizas: 30,
+}
 
 const template = [
   { lunch: pasta, dinner: verduras },

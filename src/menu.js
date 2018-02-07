@@ -11,9 +11,9 @@ import {
   path,
 } from 'ramda'
 import { getRandomFromArray, findOrMessage, getSeason } from './utils'
-import MealTypes from './mealTypes'
-import recipes from './recipes/index'
-import { lunch, dinner } from './meals'
+import MealTypes from './enums/mealTypes'
+import { getRecipesFromUser, findRecipeByName } from './repo/fileSystemRepo'
+import { lunch, dinner } from './enums/meals'
 
 export const matchMealType = ({ mealType }) => propEq('mealType', mealType)
 
@@ -36,12 +36,6 @@ export const notIncludedAlready = ({ currentMenu }) => recipe => {
       isDifferentDinnerRecipe(recipeName),
     ]),
   )(currentMenu)
-}
-
-function findRecipeByName(name) {
-  return Object.values(recipes)
-    .map(recipe => recipe.name)
-    .find(recipe => recipe.name === name)
 }
 
 export function createMenu(template) {
@@ -78,6 +72,7 @@ export const findRecipe = options =>
 
 function findRecipes(options) {
   if (!MealTypes.includes(options.mealType)) return undefined
+  const recipes = getRecipesFromUser()
   const validRecipes = recipes.filter(findRecipe(options))
   return getRandomFromArray(validRecipes)
 }
