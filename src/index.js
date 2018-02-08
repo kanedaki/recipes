@@ -12,5 +12,6 @@ const user = {
 }
 const menu = createBalancedMenu(normalTemplate, user)
 printMenu(menu)
+
 const list = getShoppingList(menu)
 printShoppingList(list)

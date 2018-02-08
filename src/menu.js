@@ -13,6 +13,7 @@ import {
   path,
   curry,
   values,
+  keys,
 } from 'ramda'
 import {
   getRandomNumber,
@@ -20,30 +21,25 @@ import {
   findOrMessage,
   getSeason,
 } from './utils'
-import MealTypes from './enums/mealTypes'
 import { getRecipesFromUser, findRecipeByName } from './repo/fileSystemRepo'
 import { lunch, dinner } from './enums/meals'
 import { tasaMetabolismoBasal, activityFactor } from './constraints/calories'
-
-export const matchMealType = ({ mealType }) => propEq('mealType', mealType)
 
 export const matchSeason = season =>
   compose(any(equals(season)), prop('seasons'))
 
 export const matchMeal = ({ meal }) => compose(any(equals(meal)), prop('meal'))
 
-const isDifferentLunchRecipe = recipeName =>
-  compose(not, equals(recipeName), path(['lunch', 'name']))
+const isDifferentRecipe = (meal, recipeName) =>
+  compose(not, equals(recipeName), path([meal, 'name']))
 
-const isDifferentDinnerRecipe = recipeName =>
-  compose(not, equals(recipeName), path(['dinner', 'name']))
-
-const notIncludedAlready = ({ currentMenu }) => recipe => {
+const notIncludedAlready = ({ currentMenu, dayRecipes }) => recipe => {
   const recipeName = prop('name', recipe)
+  if (values(dayRecipes).includes(recipe)) return false
   return all(
     allPass([
-      isDifferentLunchRecipe(recipeName),
-      isDifferentDinnerRecipe(recipeName),
+      isDifferentRecipe(lunch, recipeName),
+      isDifferentRecipe(dinner, recipeName),
     ]),
   )(currentMenu)
 }
@@ -95,24 +91,18 @@ export const createBalancedMenu = (template, user) => {
 }
 
 export function createMenu(template) {
-  return template.reduce(
-    (currentMenu, { lunch: lunchMealType, dinner: dinnerMealType }) => {
-      currentMenu.push({
-        lunch: getRecipeForMealType({
-          mealType: lunchMealType,
-          meal: lunch,
-          currentMenu,
-        }),
-        dinner: getRecipeForMealType({
-          mealType: dinnerMealType,
-          meal: dinner,
-          currentMenu,
-        }),
+  return template.reduce((currentMenu, meals) => {
+    const dayRecipes = keys(meals).reduce((dayRecipes, meal) => {
+      dayRecipes[meal] = getRecipeForMealType({
+        meal,
+        currentMenu,
+        dayRecipes,
       })
-      return currentMenu
-    },
-    [],
-  )
+      return dayRecipes
+    }, {})
+    currentMenu.push(dayRecipes)
+    return currentMenu
+  }, [])
 }
 
 const NO_RECIPE_ERROR = 'no recipe found'
@@ -121,13 +111,11 @@ const getRecipeForMealType = findOrMessage(findRecipes, NO_RECIPE_ERROR)
 const findRecipe = options =>
   allPass([
     matchMeal(options),
-    // matchMealType(options),
     matchSeason(getSeason()),
     notIncludedAlready(options),
   ])
 
 function findRecipes(options) {
-  if (!MealTypes.includes(options.mealType)) return undefined
   const recipes = getRecipesFromUser()
   const validRecipes = recipes.filter(findRecipe(options))
   return getRandomFromArray(validRecipes)

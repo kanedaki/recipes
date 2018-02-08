@@ -1,16 +1,9 @@
-import {
-  verduras,
-  pasta,
-  legumbres,
-  pescado,
-  arroz,
-  carne,
-} from "../mealTypes";
+import { lunch, dinner } from '../meals'
 
 export default [
-  { lunch: pasta, dinner: verduras },
-  { lunch: legumbres, dinner: pescado },
-  { lunch: arroz, dinner: verduras },
-  { lunch: verduras, dinner: carne },
-  { lunch: legumbres, dinner: pescado},
-];
+  { [lunch]: true, [dinner]: true },
+  { [lunch]: true, [dinner]: true },
+  { [lunch]: true, [dinner]: true },
+  { [lunch]: true, [dinner]: true },
+  { [lunch]: true, [dinner]: true },
+]

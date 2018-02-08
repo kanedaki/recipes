@@ -32,25 +32,25 @@ const nutritionalThreshold = {
 }
 
 const template = [
-  { lunch: pasta, dinner: verduras },
-  { lunch: pescado, dinner: arroz },
-  { lunch: verduras, dinner: carne },
-  { lunch: legumbres, dinner: arroz },
+  { [lunch]: true, [dinner]: true },
+  { [lunch]: true, [dinner]: true },
+  { [lunch]: true, [dinner]: true },
+  { [lunch]: true, [dinner]: true },
 ]
 
-const template2 = [{ lunch: 'caramelos', dinner: 'chuches' }]
+const template2 = [{ [lunch]: true, [dinner]: true }]
 
 const menuAlternativo = [
-  { lunch: recipes[1], dinner: recipes[2] },
-  { lunch: recipes[1], dinner: recipes[2] },
-  { lunch: recipes[1], dinner: recipes[2] },
+  { [lunch]: recipes[1], [dinner]: recipes[2] },
+  { [lunch]: recipes[1], [dinner]: recipes[2] },
+  { [lunch]: recipes[1], [dinner]: recipes[2] },
 ]
 
 const menuDiferente = [
-  { lunch: recipes[0], dinner: recipes[0] },
-  { lunch: recipes[0], dinner: recipes[0] },
-  { lunch: recipes[0], dinner: recipes[0] },
-  { lunch: recipes[0], dinner: recipes[0] },
+  { [lunch]: recipes[0], [dinner]: recipes[0] },
+  { [lunch]: recipes[0], [dinner]: recipes[0] },
+  { [lunch]: recipes[0], [dinner]: recipes[0] },
+  { [lunch]: recipes[0], [dinner]: recipes[0] },
 ]
 
 const shoppingListForMenuAlternativo = [
@@ -163,14 +163,6 @@ const shoppingListForMenuAlternativo = [
 
 describe('test', () => {
   describe('menu restrictions', () => {
-    it('creates a menu that matches the given template', () => {
-      const menu = createMenu(template)
-      expect(match(menu, template)).toBeTruthy()
-    })
-    it('return a proper message for every meal if the meal type in the template does not exists', () => {
-      const menu = createMenu(template2)
-      expect(menu[0].lunch).toBe('no recipe found')
-    })
     it('does not repeat recipes on the same menu', () => {
       const menu = createMenu(template)
       expect(hasRepeatedRecipes(menu)).toBeFalsy()
@@ -187,11 +179,12 @@ describe('test', () => {
   })
   describe('match', () => {
     describe('fails when the menu does not correspond to template because', () => {
+      it('creates a menu that matches the given template', () => {
+        const menu = createMenu(template)
+        expect(match(menu, template)).toBe(true)
+      })
       it('different number of days', () => {
         expect(match(menuAlternativo, template)).toBe(false)
-      })
-      it('different meal types', () => {
-        expect(match(menuDiferente, template)).toBe(false)
       })
     })
   })
@@ -233,7 +226,7 @@ describe('test', () => {
     })
   })
   describe('Balanced menu', () => {
-    it.only('should work', () => {
+    it('should work', () => {
       const balancedMenu = createBalancedMenu(template, {
         activity: 'light',
         sex: 'male',
