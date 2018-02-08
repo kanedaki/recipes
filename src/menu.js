@@ -22,7 +22,7 @@ import {
   getSeason,
 } from './utils'
 import { getRecipesFromUser, findRecipeByName } from './repo/fileSystemRepo'
-import { lunch, dinner } from './enums/meals'
+import * as meals from './enums/meals'
 import { tasaMetabolismoBasal, activityFactor } from './constraints/calories'
 
 export const matchSeason = season =>
@@ -30,18 +30,17 @@ export const matchSeason = season =>
 
 export const matchMeal = ({ meal }) => compose(any(equals(meal)), prop('meal'))
 
-const isDifferentRecipe = (meal, recipeName) =>
-  compose(not, equals(recipeName), path([meal, 'name']))
+const isDifferentRecipe = curry((recipeName, meal) =>
+  compose(not, equals(recipeName), path([meal, 'name'])),
+)
 
 const notIncludedAlready = ({ currentMenu, dayRecipes }) => recipe => {
   const recipeName = prop('name', recipe)
   if (values(dayRecipes).includes(recipe)) return false
-  return all(
-    allPass([
-      isDifferentRecipe(lunch, recipeName),
-      isDifferentRecipe(dinner, recipeName),
-    ]),
-  )(currentMenu)
+  const notIncludedOnDay = allPass(
+    map(isDifferentRecipe(recipeName), keys(meals)),
+  )
+  return all(notIncludedOnDay)(currentMenu)
 }
 
 const MAX_ITERATIONS = 200

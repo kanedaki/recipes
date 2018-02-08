@@ -13,9 +13,12 @@ import {
   append,
   curry,
   prop,
+  flatten,
+  keys,
 } from 'ramda'
 const util = require('util')
 import { concatAll } from './utils'
+import * as meals from './enums/meals'
 
 const hasIngredient = propEq('ingredient')
 
@@ -44,8 +47,9 @@ export const getShoppingList = menu => {
   return s
 }
 
-const extractIngredientsFromDayMenu = ({ lunch, dinner }) => {
-  return [...lunch.ingredients, ...dinner.ingredients]
+const extractIngredientsFromDayMenu = day => {
+  const dayMeals = keys(day)
+  return flatten([dayMeals.map(meal => path([meal, 'ingredients'], day))])
 }
 
 export const removeElement = (shoppingList, element) => {

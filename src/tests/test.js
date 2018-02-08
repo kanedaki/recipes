@@ -11,7 +11,7 @@ import {
   menuRecipesMatchSeason,
 } from './testUtils'
 import { printMenu } from '../print'
-import { dinner, lunch } from '../enums/meals'
+import { dinner, lunch, breakfast } from '../enums/meals'
 import { getSeason } from '../utils'
 import { getRecipesFromUser } from '../repo/fileSystemRepo'
 
@@ -26,7 +26,7 @@ const template = [
   { [lunch]: true, [dinner]: true },
   { [lunch]: true, [dinner]: true },
   { [lunch]: true, [dinner]: true },
-  { [lunch]: true, [dinner]: true },
+  { [lunch]: true, [dinner]: true, [breakfast]: true },
 ]
 
 const template2 = [{ [lunch]: true, [dinner]: true }]
@@ -160,7 +160,7 @@ describe('test', () => {
     })
     it('recipes from menu belongs to dinner or lunch', () => {
       const menu = createMenu(template)
-      expect(menuRecipesMatchMeals([lunch, dinner], menu)).toBe(true)
+      expect(menuRecipesMatchMeals([lunch, dinner, breakfast], menu)).toBe(true)
     })
     it('includes just Season recommendations', () => {
       const menu = createMenu(template)

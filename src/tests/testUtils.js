@@ -3,11 +3,13 @@ import {
   map,
   all,
   allPass,
+  anyPass,
   compose,
   any,
   propEq,
   equals,
   keys,
+  curry,
 } from 'ramda'
 import { matchMeal, matchSeason } from '../menu'
 
@@ -17,9 +19,8 @@ export function match(menu, template) {
 }
 
 const getRecipesFromMenu = menu =>
-  menu.reduce((recipes, { lunch, dinner }) => {
-    recipes.push(lunch)
-    recipes.push(dinner)
+  menu.reduce((recipes, day) => {
+    keys(day).forEach(meal => recipes.push(day[meal]))
     return recipes
   }, [])
 
@@ -34,11 +35,11 @@ export function hasRepeatedRecipes(menu) {
   return uniqRecipes.length !== recipes.length
 }
 
-const belongsToMeal = meal => recipeMeals => recipeMeals.includes(meal)
+const belongsToMeal = curry((meal, recipe) => recipe.meal.includes(meal))
 
 export function menuRecipesMatchMeals(meals, menu) {
   const recipes = getRecipesFromMenu(menu)
-  return all(all(map(belongsToMeal, meals)))(recipes)
+  return all(anyPass(map(belongsToMeal, meals)))(recipes)
 }
 
 export function menuRecipesMatchSeason(season, menu) {
