@@ -241,7 +241,6 @@ describe('test', () => {
         height: 185,
         weight: 85,
       })
-      console.log(balancedMenu)
       expect(balancedMenu).toBeTruthy()
     })
   })

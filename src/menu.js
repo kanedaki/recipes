@@ -70,11 +70,13 @@ const calculateFitness = curry((desiredCalories, menu) =>
 const numberOfMeals = template =>
   template.reduce((meals, day) => meals + Object.keys(day).length, 0)
 
-export const createBalancedMenu = (template, { activity, ...user }) => {
-  const userCaloriesPerMenu =
-    (activityFactor(activity) + tasaMetabolismoBasal(user)) *
-    numberOfMeals(template)
-  const getFitness = calculateFitness(userCaloriesPerMenu)
+const userCaloriesPerMenu = (template, { activity, ...user }) =>
+  (activityFactor(activity) + tasaMetabolismoBasal(user)) *
+  numberOfMeals(template)
+
+export const createBalancedMenu = (template, user) => {
+  const desiredCalories = userCaloriesPerMenu(template, user)
+  const getFitness = calculateFitness(desiredCalories)
   let bestMenu = createMenu(template)
   let fitness = getFitness(bestMenu)
   let iteration = 0
@@ -89,7 +91,7 @@ export const createBalancedMenu = (template, { activity, ...user }) => {
       bestMenu = menu
     }
   }
-  return { menu, fitness }
+  return menu
 }
 
 export function createMenu(template) {
