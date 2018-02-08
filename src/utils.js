@@ -1,7 +1,7 @@
 import { concat, reduce } from 'ramda'
 import { winter, summer, autumn, spring } from './enums/seasons'
 
-const getRandomNumber = n => Math.round(Math.random() * n)
+export const getRandomNumber = n => Math.round(Math.random() * n)
 
 export const getRandomFromArray = arr => {
   if (!Array.isArray(arr) || !arr.length) return

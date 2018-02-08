@@ -1,4 +1,4 @@
-import { createMenu } from '../menu'
+import { createMenu, createBalancedMenu } from '../menu'
 import {
   getShoppingList,
   removeElement,
@@ -230,6 +230,19 @@ describe('test', () => {
 
         expect(resultList).toEqual([{ ingredient: 'onion', qty: 1 }])
       })
+    })
+  })
+  describe('Balanced menu', () => {
+    it.only('should work', () => {
+      const balancedMenu = createBalancedMenu(template, {
+        activity: 'light',
+        sex: 'male',
+        age: 34,
+        height: 185,
+        weight: 85,
+      })
+      console.log(balancedMenu)
+      expect(balancedMenu).toBeTruthy()
     })
   })
 })
