@@ -9,7 +9,7 @@ import {
   equals,
   keys,
 } from 'ramda'
-import { matchMealType, matchMeal, matchSeason } from '../menu'
+import { matchMeal, matchSeason } from '../menu'
 
 export function match(menu, template) {
   if (menu.length !== template.length) return false
@@ -34,12 +34,11 @@ export function hasRepeatedRecipes(menu) {
   return uniqRecipes.length !== recipes.length
 }
 
-const belongsToMealType = meal => recipeMealTypes =>
-  recipeMealTypes.includes(meal)
+const belongsToMeal = meal => recipeMeals => recipeMeals.includes(meal)
 
-export function menuRecipesMatchMealTypes(mealTypes, menu) {
+export function menuRecipesMatchMeals(meals, menu) {
   const recipes = getRecipesFromMenu(menu)
-  return all(all(map(belongsToMealType, mealTypes)))(recipes)
+  return all(all(map(belongsToMeal, meals)))(recipes)
 }
 
 export function menuRecipesMatchSeason(season, menu) {

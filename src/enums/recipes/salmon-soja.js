@@ -1,11 +1,9 @@
-import { pescado } from '../mealTypes'
 import { salmon } from '../ingredients/fridge'
 import { salsaSoja, eneldo } from '../ingredients/pantry'
 import { dinner, lunch } from '../meals'
 import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
-  mealType: pescado,
   name: 'Salmon con soja',
   meal: [dinner, lunch],
   seasons: [winter, autumn, summer, spring],

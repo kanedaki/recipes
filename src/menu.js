@@ -93,7 +93,7 @@ export const createBalancedMenu = (template, user) => {
 export function createMenu(template) {
   return template.reduce((currentMenu, meals) => {
     const dayRecipes = keys(meals).reduce((dayRecipes, meal) => {
-      dayRecipes[meal] = getRecipeForMealType({
+      dayRecipes[meal] = getMatchingRecipe({
         meal,
         currentMenu,
         dayRecipes,
@@ -106,7 +106,7 @@ export function createMenu(template) {
 }
 
 const NO_RECIPE_ERROR = 'no recipe found'
-const getRecipeForMealType = findOrMessage(findRecipes, NO_RECIPE_ERROR)
+const getMatchingRecipe = findOrMessage(findRecipes, NO_RECIPE_ERROR)
 
 const findRecipe = options =>
   allPass([

@@ -1,11 +1,9 @@
-import { verduras } from '../mealTypes'
 import { pepino, tomate, pimientoVerde } from '../ingredients/fridge'
 import { sal, aceite, vinagre, zanahoria, ajo } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
 import { summer, spring } from '../seasons'
 
 export default {
-  mealType: verduras,
   name: 'Gazpacho',
   meal: [lunch, dinner],
   seasons: [summer, spring],

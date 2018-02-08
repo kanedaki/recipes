@@ -1,11 +1,9 @@
-import { legumbres } from '../mealTypes'
 import { panceta } from '../ingredients/fridge'
 import { sal, aceite, judiasBlancas, cebolla } from '../ingredients/pantry'
 import { lunch } from '../meals'
 import { spring, autumn, winter } from '../seasons'
 
 export default {
-  mealType: legumbres,
   name: 'Judias blancas con panceta',
   meal: [lunch],
   seasons: [winter, autumn, spring],

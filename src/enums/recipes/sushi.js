@@ -1,4 +1,3 @@
-import { arroz } from '../mealTypes'
 import { alcachofa, pepino, aguacate, salmon } from '../ingredients/fridge'
 import {
   arrozBlanco,
@@ -15,7 +14,6 @@ import { lunch, dinner } from '../meals'
 import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
-  mealType: arroz,
   name: 'Sushi (makis, sandwiches o conos)',
   meal: [lunch, dinner],
   seasons: [winter, autumn, summer, spring],

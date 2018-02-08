@@ -1,4 +1,3 @@
-import { verduras } from '../mealTypes'
 import { alcachofa, quesoRayado } from '../ingredients/fridge'
 import {
   arrozBlanco,
@@ -14,7 +13,6 @@ import { lunch, dinner } from '../meals'
 import { spring, autumn, winter } from '../seasons'
 
 export default {
-  mealType: verduras,
   name: 'Sopa de cebolla',
   meal: [lunch, dinner],
   seasons: [winter, autumn, spring],

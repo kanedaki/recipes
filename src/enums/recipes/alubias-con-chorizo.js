@@ -1,4 +1,3 @@
-import { legumbres } from '../mealTypes'
 import { alcachofa, chorizo, panceta, puerro } from '../ingredients/fridge'
 import {
   arrozBlanco,
@@ -14,7 +13,6 @@ import { lunch } from '../meals'
 import { autumn, winter } from '../seasons'
 
 export default {
-  mealType: legumbres,
   name: 'Alubias rojas con chorizo',
   meal: [lunch],
   seasons: [winter, autumn],

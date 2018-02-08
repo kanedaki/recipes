@@ -7,19 +7,10 @@ import {
 import {
   match,
   hasRepeatedRecipes,
-  menuRecipesMatchMealTypes,
+  menuRecipesMatchMeals,
   menuRecipesMatchSeason,
 } from './testUtils'
 import { printMenu } from '../print'
-import {
-  pasta,
-  verduras,
-  pescado,
-  carne,
-  legumbres,
-  arroz,
-  fruta,
-} from '../enums/mealTypes'
 import { dinner, lunch } from '../enums/meals'
 import { getSeason } from '../utils'
 import { getRecipesFromUser } from '../repo/fileSystemRepo'
@@ -169,7 +160,7 @@ describe('test', () => {
     })
     it('recipes from menu belongs to dinner or lunch', () => {
       const menu = createMenu(template)
-      expect(menuRecipesMatchMealTypes([lunch, dinner], menu)).toBe(true)
+      expect(menuRecipesMatchMeals([lunch, dinner], menu)).toBe(true)
     })
     it('includes just Season recommendations', () => {
       const menu = createMenu(template)

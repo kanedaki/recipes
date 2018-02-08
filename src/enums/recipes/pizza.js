@@ -1,4 +1,3 @@
-import { pasta } from '../mealTypes'
 import { masaPizza, tomate } from '../ingredients/fridge'
 import {
   sal,
@@ -12,7 +11,6 @@ import { dinner } from '../meals'
 import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
-  mealType: pasta,
   name: 'Pizza',
   meal: [dinner],
   seasons: [winter, autumn, summer, spring],

@@ -1,4 +1,3 @@
-import { verduras } from '../mealTypes'
 import { alcachofa, puerro, nata } from '../ingredients/fridge'
 import {
   arrozBlanco,
@@ -13,7 +12,6 @@ import { lunch, dinner } from '../meals'
 import { spring, summer, autumn } from '../seasons'
 
 export default {
-  mealType: verduras,
   name: 'Vichissoise',
   meal: [lunch, dinner],
   seasons: [autumn, summer, spring],

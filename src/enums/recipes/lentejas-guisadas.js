@@ -1,4 +1,3 @@
-import { legumbres } from '../mealTypes'
 import { chorizo, panceta } from '../ingredients/fridge'
 import {
   cebolla,
@@ -13,7 +12,6 @@ import { lunch } from '../meals'
 import { spring, winter, autumn } from '../seasons'
 
 export default {
-  mealType: legumbres,
   name: 'Lentejas guisadas',
   meal: [lunch],
   seasons: [winter, autumn, spring],

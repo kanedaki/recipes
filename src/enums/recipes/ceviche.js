@@ -1,4 +1,3 @@
-import { pescado } from '../mealTypes'
 import {
   alcachofa,
   choclo,
@@ -21,7 +20,6 @@ import { dinner } from '../meals'
 import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
-  mealType: pescado,
   name: 'Ceviche',
   meal: [dinner],
   seasons: [winter, autumn, summer, spring],

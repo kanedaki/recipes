@@ -1,11 +1,9 @@
-import { legumbres } from '../mealTypes'
 import { tomate, bacalao } from '../ingredients/fridge'
 import { aceite, salsaSoja, cebolla } from '../ingredients/pantry'
 import { lunch } from '../meals'
 import { spring, summer, autumn } from '../seasons'
 
 export default {
-  mealType: legumbres,
   name: 'Ensalada judias blancas',
   meal: [lunch],
   seasons: [autumn, summer, spring],

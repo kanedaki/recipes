@@ -1,4 +1,3 @@
-import { verduras } from '../mealTypes'
 import {
   alcachofa,
   calabacin,
@@ -10,7 +9,6 @@ import { lunch, dinner } from '../meals'
 import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
-  mealType: verduras,
   name: 'Wok de verduras',
   meal: [lunch, dinner],
   seasons: [winter, autumn, summer, spring],

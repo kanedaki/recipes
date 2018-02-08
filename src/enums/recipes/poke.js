@@ -1,11 +1,9 @@
-import { pescado } from '../mealTypes'
 import { mango, salmon } from '../ingredients/fridge'
 import { arrozBlanco, sal, aceite, ajo, salsaSoja } from '../ingredients/pantry'
 import { dinner } from '../meals'
 import { spring, summer, autumn, winter } from '../seasons'
 
 export default {
-  mealType: pescado,
   name: 'poke',
   meal: [dinner],
   seasons: [winter, autumn, summer, spring],
