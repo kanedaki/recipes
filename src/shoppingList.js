@@ -1,24 +1,20 @@
 import {
   map,
-  concat,
   compose,
   reduce,
   propEq,
   over,
   add,
-  defaultTo,
   path,
   findIndex,
   lensPath,
   append,
-  curry,
-  prop,
   flatten,
   keys,
 } from 'ramda'
-const util = require('util')
+
+
 import { concatAll } from './utils'
-import * as meals from './enums/meals'
 
 const hasIngredient = propEq('ingredient')
 
@@ -33,12 +29,16 @@ export const addElementToShoppingList = (shoppingList, shoppingItem) => {
   const index = findItemInList(shoppingItem.ingredient, shoppingList)
   if (index === -1) {
     return addItemToList(shoppingItem, shoppingList)
-  } else {
-    return addQtyToList(index, shoppingItem, shoppingList)
   }
+  return addQtyToList(index, shoppingItem, shoppingList)
 }
 
-export const getShoppingList = menu => {
+const extractIngredientsFromDayMenu = (day) => {
+  const dayMeals = keys(day)
+  return flatten([dayMeals.map(meal => path([meal, 'ingredients'], day))])
+}
+
+export const getShoppingList = (menu) => {
   const s = compose(
     reduce(addElementToShoppingList, []),
     concatAll,
@@ -47,13 +47,5 @@ export const getShoppingList = menu => {
   return s
 }
 
-const extractIngredientsFromDayMenu = day => {
-  const dayMeals = keys(day)
-  return flatten([dayMeals.map(meal => path([meal, 'ingredients'], day))])
-}
-
-export const removeElement = (shoppingList, element) => {
-  return shoppingList.filter(
-    ({ ingredient }) => ingredient !== element.ingredient,
-  )
-}
+export const removeElement = (shoppingList, element) =>
+  shoppingList.filter(({ ingredient }) => ingredient !== element.ingredient)

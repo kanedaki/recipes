@@ -1,5 +1,4 @@
 import {
-  alcachofa,
   choclo,
   aguacate,
   mango,
@@ -8,12 +7,9 @@ import {
   corvina,
 } from '../ingredients/fridge'
 import {
-  arrozBlanco,
   cebolla,
   sal,
   aceite,
-  zanahoria,
-  ajo,
   aceitunas,
 } from '../ingredients/pantry'
 import { dinner } from '../meals'

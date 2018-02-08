@@ -1,3 +1,4 @@
+/* globals describe, it, expect */
 import { createMenu, createBalancedMenu } from '../menu'
 import {
   getShoppingList,
@@ -10,17 +11,11 @@ import {
   menuRecipesMatchMeals,
   menuRecipesMatchSeason,
 } from './testUtils'
-import { printMenu } from '../print'
 import { dinner, lunch, breakfast } from '../enums/meals'
 import { getSeason } from '../utils'
 import { getRecipesFromUser } from '../repo/fileSystemRepo'
 
 const recipes = getRecipesFromUser()
-
-const nutritionalThreshold = {
-  cereales: 20,
-  hortalizas: 30,
-}
 
 const template = [
   { [lunch]: true, [dinner]: true },
@@ -29,19 +24,10 @@ const template = [
   { [lunch]: true, [dinner]: true, [breakfast]: true },
 ]
 
-const template2 = [{ [lunch]: true, [dinner]: true }]
-
 const menuAlternativo = [
   { [lunch]: recipes[1], [dinner]: recipes[2] },
   { [lunch]: recipes[1], [dinner]: recipes[2] },
   { [lunch]: recipes[1], [dinner]: recipes[2] },
-]
-
-const menuDiferente = [
-  { [lunch]: recipes[0], [dinner]: recipes[0] },
-  { [lunch]: recipes[0], [dinner]: recipes[0] },
-  { [lunch]: recipes[0], [dinner]: recipes[0] },
-  { [lunch]: recipes[0], [dinner]: recipes[0] },
 ]
 
 const shoppingListForMenuAlternativo = [

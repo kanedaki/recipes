@@ -1,10 +1,7 @@
-import { alcachofa, pepino, aguacate, salmon } from '../ingredients/fridge'
+import { pepino, aguacate, salmon } from '../ingredients/fridge'
 import {
   arrozBlanco,
-  sal,
-  aceite,
   zanahoria,
-  ajo,
   salsaSoja,
   azucar,
   vinagreArroz,

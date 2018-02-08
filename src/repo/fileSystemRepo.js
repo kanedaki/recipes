@@ -1,13 +1,13 @@
 import recipes from '../enums/recipes'
 
-export const getRecipesFromUser = id => recipes
+export const getRecipesFromUser = () => recipes
 
 export const findRecipeByName = name =>
   Object.values(recipes)
     .map(recipe => recipe.name)
     .find(recipe => recipe.name === name)
 
-export const getNutrients = food => ({
+export const getNutrients = () => ({
   minerals: {
     calcium: { units: 'mg', amount: 143 },
     iron: { units: 'mg', amount: 2 },

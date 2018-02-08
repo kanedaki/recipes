@@ -1,5 +1,5 @@
-export const cereales = 'cereales';
-export const tuberculos= 'tuberculos'
+export const cereales = 'cereales'
+export const tuberculos = 'tuberculos'
 export const azucares = 'azucares'
 export const sales = 'sales'
 export const grasasVegetales = 'grasas vegetales'
@@ -18,14 +18,13 @@ export const semillas = 'semillas'
 export const pasta = 'pasta'
 
 
-
 export default [
-  cereales, 
-  tuberculos, 
+  cereales,
+  tuberculos,
   azucares,
   sales,
-  grasasAnimales, 
-  grasasVegetales, 
+  grasasAnimales,
+  grasasVegetales,
   lacteos,
   carne,
   pescado,
@@ -37,5 +36,5 @@ export default [
   frutas,
   condimentos,
   semillas,
-  pasta
-];
+  pasta,
+]

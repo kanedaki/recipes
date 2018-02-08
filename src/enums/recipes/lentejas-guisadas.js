@@ -6,7 +6,6 @@ import {
   aceite,
   lentejas,
   zanahoria,
-  ajo,
 } from '../ingredients/pantry'
 import { lunch } from '../meals'
 import { spring, winter, autumn } from '../seasons'

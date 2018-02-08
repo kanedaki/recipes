@@ -1,11 +1,11 @@
 // UL:Tolerable Upper Intake levels
 // RDA: Recommended dietary allowances and Adequate Intakes
 const ALAP = Symbol.for('As low as possible')
-const ND = Symbol.for('Not determined')
+// const ND = Symbol.for('Not determined')
 
-const water = { rda: () => 3.7 }
+export const water = { rda: () => 3.7 }
 
-const macronutrients = {
+export const macronutrients = {
   fiber: { rda: () => 38 },
   carbohydrates: {
     percentage: () => ({
@@ -27,12 +27,12 @@ const macronutrients = {
   },
 }
 
-const protein = {
+export const protein = {
   vegetal: { percentage: { min: 66 } },
   animal: { percentage: { max: 33 } },
 }
 
-const fats = {
+export const fats = {
   colesterol: { max: () => ({ amount: 300, units: 'mg' }) },
   poliunsaturated: { percentage: { min: 10 } },
   monounsaturated: { percentage: { min: 50 } },
@@ -40,17 +40,17 @@ const fats = {
   trans: ALAP,
 }
 
-const fiber = {
+export const fiber = {
   soluble: { rda: { max: 50 } },
   unsoluble: { rda: { min: 50 } },
 }
 
-const sugars = {
+export const sugars = {
   addedSugars: { max: () => ({ amount: 10, units: '%' }) },
 }
 
 // Micronutrients
-const minerals = {
+export const minerals = {
   arsenic: { ul: 0, units: 'mg' },
   borom: { ul: 20, units: 'mg' },
   calcium: { ul: 2500, rda: 1000, units: 'mg' },
@@ -72,7 +72,7 @@ const minerals = {
   chloride: { ul: 3.6, rda: 2.3, units: 'g' },
 }
 
-const vitamins = {
+export const vitamins = {
   A: () => ({
     ul: 3000,
     rda: 900,
@@ -107,8 +107,12 @@ const vitamins = {
     name: 'antihemorragica',
     soluble: 'fat',
   }),
-  B1: () => ({ rda: 1200, units: 'ug', name: 'Tiamina', soluble: 'water' }),
-  B2: () => ({ rda: 1200, units: 'ug', name: 'Riboflavina', soluble: 'water' }),
+  B1: () => ({
+    rda: 1200, units: 'ug', name: 'Tiamina', soluble: 'water',
+  }),
+  B2: () => ({
+    rda: 1200, units: 'ug', name: 'Riboflavina', soluble: 'water',
+  }),
   B3: () => ({
     ul: 35000,
     rda: 15,
@@ -136,7 +140,9 @@ const vitamins = {
     name: 'Acido folico',
     soluble: 'water',
   }),
-  B12: () => ({ rda: 2.4, units: 'ug', name: 'Cobalamina', soluble: 'water' }),
+  B12: () => ({
+    rda: 2.4, units: 'ug', name: 'Cobalamina', soluble: 'water',
+  }),
   inositol: () => ({
     rda: { min: 50, max: 500 },
     units: 'mg',

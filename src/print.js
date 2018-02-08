@@ -14,12 +14,15 @@ const daysInWeek = [
 
 const getWeek = () => moment().week()
 
-export const printMenu = menu => {
+export const printMenu = (menu) => {
   const menupp = menu.map((day, i) => {
     const dayMenu = {
       Dia: daysInWeek[i],
     }
-    keys(meals).forEach(meal => (dayMenu[meal] = day[meal]))
+    keys(meals).forEach((meal) => {
+      dayMenu[meal] = day[meal]
+      return undefined
+    })
     return dayMenu
   })
   console.log(
@@ -30,7 +33,7 @@ export const printMenu = menu => {
 
 export const printShoppingItem = el => `${el.ingredient.name} (${el.qty}g)`
 
-export const printShoppingList = list => {
+export const printShoppingList = (list) => {
   const listpp = list.map(printShoppingItem)
   console.log('ShoppingList', JSON.stringify(listpp, null, 4))
 }

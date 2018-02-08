@@ -1,10 +1,8 @@
-import { alcachofa, quesoRayado } from '../ingredients/fridge'
+import { quesoRayado } from '../ingredients/fridge'
 import {
-  arrozBlanco,
   sal,
   pan,
   aceite,
-  zanahoria,
   ajo,
   cebolla,
   caldoPollo,

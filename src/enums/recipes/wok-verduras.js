@@ -1,5 +1,4 @@
 import {
-  alcachofa,
   calabacin,
   pollo,
   pimientoRojo,

@@ -1,5 +1,5 @@
 import { parmesano } from '../ingredients/fridge'
-import { espaguetis, ajo, aceite, cayena } from '../ingredients/pantry'
+import { espaguetis, ajo, aceite } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
 import { spring, summer, autumn, winter } from '../seasons'
 

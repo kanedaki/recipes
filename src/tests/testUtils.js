@@ -1,17 +1,5 @@
-import {
-  uniq,
-  map,
-  all,
-  allPass,
-  anyPass,
-  compose,
-  any,
-  propEq,
-  equals,
-  keys,
-  curry,
-} from 'ramda'
-import { matchMeal, matchSeason } from '../menu'
+import { uniq, map, all, anyPass, equals, keys, curry } from 'ramda'
+import { matchSeason } from '../recipe'
 
 export function match(menu, template) {
   if (menu.length !== template.length) return false
@@ -23,11 +11,6 @@ const getRecipesFromMenu = menu =>
     keys(day).forEach(meal => recipes.push(day[meal]))
     return recipes
   }, [])
-
-const getRecipesOfMeal = meal => menu =>
-  menu.map((recipes, dayMenu) => {
-    dayMenu[meal]
-  })
 
 export function hasRepeatedRecipes(menu) {
   const recipes = getRecipesFromMenu(menu)

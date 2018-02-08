@@ -6,20 +6,19 @@ import salmonConSoja from './salmon-soja'
 import arrozConVerduras from './arroz-verduras'
 import batidoDeFresa from './batido-fresa'
 import espaguetisPobre from './espaguetis-pobre'
-import alubiasConChorizo from './alubias-con-chorizo';
-import ceviche from './ceviche';
-import ensaladaEspinacas from './ensalada-espinacas';
-import ensaladaCouscous from './ensalada-couscous';
-import ensaladaJudiasBlancas from './ensalada-judias-blancas';
-import gazpacho from './gazpacho';
-import judiasBlancas from './judias-blancas-con-panceta';
-import pizza from './pizza';
-import poke from './poke';
-import salmonSoja from './salmon-soja';
-import sopaCebolla from './sopa-cebolla';
-import sushi from './sushi';
-import vichissoise from './vichissoise';
-import wokVerduras from './wok-verduras';
+import alubiasConChorizo from './alubias-con-chorizo'
+import ceviche from './ceviche'
+import ensaladaEspinacas from './ensalada-espinacas'
+import ensaladaCouscous from './ensalada-couscous'
+import ensaladaJudiasBlancas from './ensalada-judias-blancas'
+import gazpacho from './gazpacho'
+import judiasBlancas from './judias-blancas-con-panceta'
+import pizza from './pizza'
+import poke from './poke'
+import sopaCebolla from './sopa-cebolla'
+import sushi from './sushi'
+import vichissoise from './vichissoise'
+import wokVerduras from './wok-verduras'
 
 export default [
   espaguetisPobre,
@@ -40,11 +39,10 @@ export default [
   pizza,
   poke,
   polloGuisado,
-  salmonSoja,
   sopaCebolla,
   sushi,
   vichissoise,
-  wokVerduras
+  wokVerduras,
 
 ]
 

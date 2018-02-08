@@ -1,11 +1,7 @@
-import { alcachofa, chorizo, panceta, puerro } from '../ingredients/fridge'
+import { chorizo, panceta, puerro } from '../ingredients/fridge'
 import {
-  arrozBlanco,
   sal,
   aceite,
-  zanahoria,
-  ajo,
-  cebolla,
   judiasPintas,
   caldoPollo,
 } from '../ingredients/pantry'

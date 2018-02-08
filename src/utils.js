@@ -3,21 +3,18 @@ import { winter, summer, autumn, spring } from './enums/seasons'
 
 export const getRandomNumber = n => Math.round(Math.random() * n)
 
-export const getRandomFromArray = arr => {
-  if (!Array.isArray(arr) || !arr.length) return
+export const getRandomFromArray = (arr) => {
+  if (!Array.isArray(arr) || !arr.length) return undefined
   return arr[getRandomNumber(arr.length - 1)]
 }
 
-export const getRandomFromObject = obj => {
-  return getRandomFromArray(Object.values(obj))
-}
+export const getRandomFromObject = obj => getRandomFromArray(Object.values(obj))
 
-export const findOrMessage = function(fn, msg) {
-  return function(...args) {
+export const findOrMessage = (fn, msg) =>
+  (...args) => {
     const result = fn.apply(this, args)
     return result || msg
   }
-}
 
 export const concatAll = reduce(concat, [])
 

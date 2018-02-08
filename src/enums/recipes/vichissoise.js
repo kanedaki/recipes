@@ -1,10 +1,6 @@
-import { alcachofa, puerro, nata } from '../ingredients/fridge'
+import { puerro, nata } from '../ingredients/fridge'
 import {
-  arrozBlanco,
   sal,
-  aceite,
-  zanahoria,
-  ajo,
   mantequilla,
   caldoPollo,
 } from '../ingredients/pantry'

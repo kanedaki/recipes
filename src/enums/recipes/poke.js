@@ -1,5 +1,5 @@
 import { mango, salmon } from '../ingredients/fridge'
-import { arrozBlanco, sal, aceite, ajo, salsaSoja } from '../ingredients/pantry'
+import { arrozBlanco, sal, aceite, salsaSoja } from '../ingredients/pantry'
 import { dinner } from '../meals'
 import { spring, summer, autumn, winter } from '../seasons'
 
