@@ -14,6 +14,7 @@ import {
 import { dinner, lunch, breakfast } from '../enums/meals'
 import { getSeason } from '../utils'
 import { getRecipesFromUser } from '../repo/fileSystemRepo'
+import { macronutrientsAveragePercentage, macronutrientsRda } from '../constraints/nutrients'
 
 const recipes = getRecipesFromUser()
 
@@ -212,6 +213,26 @@ describe('test', () => {
         weight: 85,
       })
       expect(balancedMenu).toBeTruthy()
+    })
+  })
+  describe('Nutrients', () => {
+    it('gets the average nutrients for user', () => {
+      const user = { sex: 'male' }
+      const nutrients = macronutrientsAveragePercentage(user)
+      expect(nutrients).toEqual({
+        carbohydrates: 57,
+        fat: 25,
+        protein: 15,
+      })
+    })
+    it('gets the rda nutrients for user', () => {
+      const user = { sex: 'male' }
+      const nutrients = macronutrientsRda(user)
+      expect(nutrients).toEqual({
+        carbohydrates: 130,
+        fat: Symbol.for('Not determined'),
+        protein: 56,
+      })
     })
   })
 })

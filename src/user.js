@@ -1,3 +1,5 @@
+import { macronutrientsAveragePercentage } from './constraints/nutrients'
+
 const tasaMetabolismoBasal = ({
   sex, weight, height, age,
 }) =>
@@ -22,3 +24,5 @@ const activityFactor = (activity) => {
 
 export const dayCalories = ({ activity, ...user }) =>
   activityFactor(activity) + tasaMetabolismoBasal(user)
+
+export const dayPercentageNutrients = user => macronutrientsAveragePercentage(user)

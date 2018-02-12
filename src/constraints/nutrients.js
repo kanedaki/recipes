@@ -1,31 +1,50 @@
+import { path, call } from 'ramda'
 // UL:Tolerable Upper Intake levels
 // RDA: Recommended dietary allowances and Adequate Intakes
 const ALAP = Symbol.for('As low as possible')
-// const ND = Symbol.for('Not determined')
+const ND = Symbol.for('Not determined')
 
 export const water = { rda: () => 3.7 }
 
-export const macronutrients = {
-  fiber: { rda: () => 38 },
+const macronutrients = {
+  fiber: { rda: () => 38, percentage: () => 3 },
   carbohydrates: {
-    percentage: () => ({
-      min: 45,
-      max: 65,
-    }),
-    rda: 130,
+    percentage: {
+      min: () => 45,
+      average: () => 57,
+      max: () => 65,
+    },
+    rda: () => 130,
   },
-  fat: () => ({
-    min: 20,
-    max: 35,
-  }),
+  fat: {
+    percentage: {
+      min: () => 20,
+      average: () => 25,
+      max: () => 35,
+    },
+    rda: () => ND,
+  },
   protein: {
-    percentage: () => ({
-      min: 10,
-      max: 35,
-    }),
+    percentage: {
+      min: () => 10,
+      average: () => 15,
+      max: () => 35,
+    },
     rda: ({ sex }) => (sex === 'male' ? 56 : 46),
   },
 }
+
+export const macronutrientsAveragePercentage = user => ({
+  carbohydrates: call(path(['carbohydrates', 'percentage', 'average'], macronutrients), user),
+  fat: call(path(['fat', 'percentage', 'average'], macronutrients), user),
+  protein: call(path(['protein', 'percentage', 'average'], macronutrients), user),
+})
+
+export const macronutrientsRda = user => ({
+  carbohydrates: call(path(['carbohydrates', 'rda'], macronutrients), user),
+  fat: call(path(['fat', 'rda'], macronutrients), user),
+  protein: call(path(['protein', 'rda'], macronutrients), user),
+})
 
 export const protein = {
   vegetal: { percentage: { min: 66 } },

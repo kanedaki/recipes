@@ -1,8 +1,8 @@
 import { map, curry, compose, not, equals, prop, values, allPass, sum, keys, all } from 'ramda'
-import { findOrMessage } from './utils'
+import { findOrMessage, normalizeWith, sumKeys } from './utils'
 import * as meals from './enums/meals'
-import { dayCalories } from './user'
-import { calculateRecipeCalories, findRecipes } from './recipe'
+import { dayCalories, dayPercentageNutrients, keysToPercentage } from './user'
+import { calculateRecipeCalories, findRecipes, calculateRecipeNutrients } from './recipe'
 import { numberOfMeals } from './template'
 
 const MAX_ITERATIONS = 200
@@ -19,10 +19,26 @@ export const notIncludedAlready = ({ currentMenu, dayRecipes }) => (recipe) => {
 
 const calculateDayCalories = day => compose(sum, map(calculateRecipeCalories), values)(day)
 
-const calculateCalories = menu => compose(sum, map(calculateDayCalories))(menu)
+const calculateMenuCalories = menu => compose(sum, map(calculateDayCalories))(menu)
 
-const calculateFitness = curry((desiredCalories, menu) =>
-  Math.abs(desiredCalories - calculateCalories(menu)))
+const calculateDayNutrients = (day) => {
+  console.log('day nutrients')
+  return map(compose(sumKeys, calculateRecipeNutrients, values))(day)
+}
+
+const calculateMenuNutrientsPercentage = (menu) => {
+  console.log('nut % ', calculateDayNutrients(menu[0]))
+  return map(compose(keysToPercentage, sumKeys, calculateDayNutrients))(menu)
+}
+
+const calculateFitness = curry((desiredCalories, desiredNutrientsPercentage, menu) => {
+  const caloriesPoints = normalizeWith(desiredCalories, calculateMenuCalories(menu))
+  const nutrientsPoints = normalizeWith(
+    desiredNutrientsPercentage,
+    calculateMenuNutrientsPercentage(menu),
+  )
+  return caloriesPoints + nutrientsPoints
+})
 
 const userCaloriesPerMenu = (template, user) => dayCalories(user) * numberOfMeals(template)
 
@@ -43,7 +59,8 @@ export function createMenu(template) {
 }
 export const createBalancedMenu = (template, user) => {
   const desiredCalories = userCaloriesPerMenu(template, user)
-  const getFitness = calculateFitness(desiredCalories)
+  const desiredNutrientsPercentage = dayPercentageNutrients(user)
+  const getFitness = calculateFitness(desiredCalories, desiredNutrientsPercentage)
   let bestMenu = createMenu(template)
   let fitness = getFitness(bestMenu)
   let iteration = 0

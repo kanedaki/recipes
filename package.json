@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "babel-node src/index.js",
+    "store": "babel-node src/persistence/store-ingredients.js",
     "test": "jest --watch",
     "lint": "eslint --fix ."
   },
