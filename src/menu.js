@@ -1,7 +1,7 @@
-import { map, curry, compose, not, equals, prop, values, allPass, sum, keys, all } from 'ramda'
-import { findOrMessage, normalizeWith, sumKeys } from './utils'
+import { map, curry, compose, not, equals, prop, values, allPass, sum, keys, all, mergeWith, add, reduce } from 'ramda'
+import { findOrMessage, normalizeWith, keysToPercentage, objNormalizeWith } from './utils'
 import * as meals from './enums/meals'
-import { dayCalories, dayPercentageNutrients, keysToPercentage } from './user'
+import { dayCalories, dayPercentageNutrients } from './user'
 import { calculateRecipeCalories, findRecipes, calculateRecipeNutrients } from './recipe'
 import { numberOfMeals } from './template'
 
@@ -21,19 +21,15 @@ const calculateDayCalories = day => compose(sum, map(calculateRecipeCalories), v
 
 const calculateMenuCalories = menu => compose(sum, map(calculateDayCalories))(menu)
 
-const calculateDayNutrients = (day) => {
-  console.log('day nutrients')
-  return map(compose(sumKeys, calculateRecipeNutrients, values))(day)
-}
+const calculateDayNutrients = day =>
+  reduce(mergeWith(add), {}, map(calculateRecipeNutrients, values(day)))
 
-const calculateMenuNutrientsPercentage = (menu) => {
-  console.log('nut % ', calculateDayNutrients(menu[0]))
-  return map(compose(keysToPercentage, sumKeys, calculateDayNutrients))(menu)
-}
+const calculateMenuNutrientsPercentage = menu =>
+  keysToPercentage(reduce(mergeWith(add), {}, map(calculateDayNutrients, menu)))
 
 const calculateFitness = curry((desiredCalories, desiredNutrientsPercentage, menu) => {
   const caloriesPoints = normalizeWith(desiredCalories, calculateMenuCalories(menu))
-  const nutrientsPoints = normalizeWith(
+  const nutrientsPoints = objNormalizeWith(
     desiredNutrientsPercentage,
     calculateMenuNutrientsPercentage(menu),
   )

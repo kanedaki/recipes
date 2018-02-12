@@ -1,5 +1,5 @@
-import { allPass, any, sum, map, prop, equals, compose } from 'ramda'
-import { getSeason, getRandomFromArray, sumKeys } from './utils'
+import { allPass, any, sum, map, prop, equals, compose, reduce, mergeWith, add } from 'ramda'
+import { getSeason, getRandomFromArray } from './utils'
 import { getFoodCalories, getFoodNutrients } from './food'
 import { notIncludedAlready } from './menu'
 import { getRecipesFromUser } from './repo/fileSystemRepo'
@@ -15,10 +15,9 @@ const calculateIngredientCalories = ({ ingredient, qty }) =>
 export const calculateRecipeCalories = recipe =>
   compose(sum, map(calculateIngredientCalories))(recipe.ingredients)
 
-export const calculateRecipeNutrients = (recipe) => {
-  console.log('hoy', recipe)
-  return map(compose(sumKeys, getFoodNutrients))(recipe.ingredients)
-}
+
+export const calculateRecipeNutrients = recipe =>
+  reduce(mergeWith(add), {}, map(getFoodNutrients, prop('ingredients', recipe)))
 
 const findRecipe = options =>
   allPass([
