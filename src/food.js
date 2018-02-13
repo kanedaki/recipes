@@ -1,9 +1,10 @@
 import { getRandomNumber } from './utils'
+import { findIngredient } from './repo/mongo-repo'
 
 export const getFoodCalories = () => getRandomNumber(200)
 
-export const getFoodNutrients = () => ({
-  carbohydrates: getRandomNumber(57),
-  fat: getRandomNumber(25),
-  protein: getRandomNumber(15),
-})
+export const getFoodCalories1 = (ingredient) => {
+  const ingredientInfo = findIngredient(ingredient)
+}
+
+export const getFoodNutrients = findIngredient
