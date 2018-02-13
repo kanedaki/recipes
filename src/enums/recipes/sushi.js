@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { pepino, aguacate, salmon } from '../ingredients/fridge'
 import {
   arrozBlanco,
@@ -15,12 +16,12 @@ export default {
   meal: [lunch, dinner],
   seasons: [winter, autumn, summer, spring],
   ingredients: [
-    { ingredient: zanahoria, qty: 300 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da5e'), qty: 300 },
     { ingredient: salsaSoja, qty: 30 },
     { ingredient: pepino, qty: 400 },
     { ingredient: aguacate, qty: 1000 },
     { ingredient: salmon, qty: 200, tip: 'Atun u otros pescados' },
-    { ingredient: arrozBlanco, qty: 400 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024d8d2'), qty: 400 },
     { ingredient: vinagreArroz, qty: 40 },
     { ingredient: azucar, qty: 20 },
     { ingredient: algaNori, qty: 10 },

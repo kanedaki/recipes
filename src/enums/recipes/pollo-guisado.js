@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { pollo } from '../ingredients/fridge'
 import { cebolla, caldoPollo, ajo } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
@@ -9,7 +10,7 @@ export default {
   seasons: [winter, autumn, summer, spring],
   ingredients: [
     { ingredient: cebolla, qty: 100 },
-    { ingredient: ajo, qty: 10 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da76'), qty: 10 },
     { ingredient: pollo, qty: 750, tip: 'contramuslos sin piel' },
     { ingredient: caldoPollo, qty: 1000 },
   ],

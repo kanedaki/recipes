@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { tomate, bacalao } from '../ingredients/fridge'
 import { aceite, salsaSoja, cebolla } from '../ingredients/pantry'
 import { lunch } from '../meals'
@@ -8,9 +9,9 @@ export default {
   meal: [lunch],
   seasons: [autumn, summer, spring],
   ingredients: [
-    { ingredient: aceite, qty: 10 },
-    { ingredient: bacalao, qty: 300, tip: 'Desmigado' },
-    { ingredient: tomate, qty: 200 },
+    { ingredient: ObjectId('5a83449cd9594c4b4024d7e2'), qty: 10 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024d9d5'), qty: 300, tip: 'Desmigado' },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da9d'), qty: 200 },
     { ingredient: cebolla, qty: 100 },
     { ingredient: salsaSoja, qty: 10 },
   ],

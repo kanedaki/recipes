@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { chorizo, panceta } from '../ingredients/fridge'
 import {
   cebolla,
@@ -17,12 +18,12 @@ export default {
   ingredients: [
     { ingredient: cebolla, qty: 100 },
     { ingredient: patata, qty: 100 },
-    { ingredient: sal, qty: 1 },
-    { ingredient: aceite, qty: 10 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da28'), qty: 1 },
+    { ingredient: ObjectId('5a83449cd9594c4b4024d7e2'), qty: 10 },
     { ingredient: lentejas, qty: 500 },
-    { ingredient: zanahoria, qty: 100 },
-    { ingredient: chorizo, qty: 100 },
-    { ingredient: panceta, qty: 100 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da5e'), qty: 100 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024d86c'), qty: 100 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024d862'), qty: 100 },
   ],
   steps: [
     'Poner las lentejas en agua, al menos 4 horas antes',

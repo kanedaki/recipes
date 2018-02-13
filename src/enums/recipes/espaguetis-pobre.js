@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { parmesano } from '../ingredients/fridge'
 import { espaguetis, ajo, aceite } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
@@ -9,8 +10,8 @@ export default {
   seasons: [winter, autumn, summer, spring],
   ingredients: [
     { ingredient: espaguetis, qty: 500 },
-    { ingredient: ajo, qty: 50 },
-    { ingredient: aceite, qty: 10 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da76'), qty: 50 },
+    { ingredient: ObjectId('5a83449cd9594c4b4024d7e2'), qty: 10 },
     { ingredient: parmesano, qty: 100 },
   ],
   steps: [

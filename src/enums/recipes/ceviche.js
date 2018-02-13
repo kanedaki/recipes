@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import {
   choclo,
   aguacate,
@@ -20,8 +21,8 @@ export default {
   meal: [dinner],
   seasons: [winter, autumn, summer, spring],
   ingredients: [
-    { ingredient: sal, qty: 5 },
-    { ingredient: aceite, qty: 20 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da28'), qty: 5 },
+    { ingredient: ObjectId('5a83449cd9594c4b4024d7e2'), qty: 20 },
     { ingredient: lima, qty: 500 },
     { ingredient: aji, qty: 2, tip: 'Sirve otros picantes, estilo guindilla' },
     { ingredient: aceitunas, qty: 50 },

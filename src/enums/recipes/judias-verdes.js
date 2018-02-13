@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { judiasVerdes, tomate, espinacas } from '../ingredients/fridge'
 import { cebolla, aceite, ajo } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
@@ -8,12 +9,12 @@ export default {
   meal: [lunch, dinner],
   seasons: [winter, autumn, summer, spring],
   ingredients: [
-    { ingredient: judiasVerdes, qty: 1000 },
-    { ingredient: tomate, qty: 100 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da95'), qty: 1000 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da9d'), qty: 100 },
     { ingredient: cebolla, qty: 100 },
-    { ingredient: ajo, qty: 30 },
-    { ingredient: aceite, qty: 10 },
-    { ingredient: espinacas, qty: 100 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da76'), qty: 30 },
+    { ingredient: ObjectId('5a83449cd9594c4b4024d7e2'), qty: 10 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da91'), qty: 100 },
   ],
   steps: [
     'Pelar las judias verdes, trocear',

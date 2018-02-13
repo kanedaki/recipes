@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import {
   calabacin,
   pollo,
@@ -12,12 +13,12 @@ export default {
   meal: [lunch, dinner],
   seasons: [winter, autumn, summer, spring],
   ingredients: [
-    { ingredient: sal, qty: 1 },
-    { ingredient: aceite, qty: 10 },
-    { ingredient: zanahoria, qty: 200 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da28'), qty: 1 },
+    { ingredient: ObjectId('5a83449cd9594c4b4024d7e2'), qty: 10 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da5e'), qty: 200 },
     { ingredient: calabacin, qty: 200 },
     { ingredient: pollo, qty: 200 },
-    { ingredient: ajo, qty: 200 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da76'), qty: 200 },
     { ingredient: pimientoRojo, qty: 200 },
     { ingredient: cebolla, qty: 200 },
   ],
