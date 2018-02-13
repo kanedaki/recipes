@@ -20,7 +20,7 @@ export const printMenu = (menu) => {
       Dia: daysInWeek[i],
     }
     keys(meals).forEach((meal) => {
-      dayMenu[meal] = day[meal]
+      dayMenu[meal] = day[meal] ? day[meal].name : undefined
       return undefined
     })
     return dayMenu

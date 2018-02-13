@@ -62,7 +62,9 @@ const storeIngredientInfo =
   curry(async (category, subcategory, [name, { calories, nutritional }]) => {
     const db = await getDB()
     const info = parseInfo(calories, nutritional)
-    db.collection('ingredients').insertMany([{ name, ...info }])
+    db.collection('ingredients').insertMany([{
+      name, category, subcategory, ...info,
+    }])
   })
 
 function storeIngredients() {

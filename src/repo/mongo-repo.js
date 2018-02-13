@@ -23,8 +23,6 @@ export const getDB = () => {
 
 export const findIngredient = async (name) => {
   const db = await getDB()
-  console.log('wtf', name)
-  const i = await db.collection('ingredients').find({ name }).toArray()
-  console.log('ingredient;', i)
-  return i
+  const ingredients = await db.collection('ingredients').find({ name }).toArray()
+  return ingredients[0]
 }

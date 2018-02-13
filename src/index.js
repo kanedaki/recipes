@@ -10,8 +10,12 @@ const user = {
   height: 185,
   weight: 85,
 }
-const menu = createBalancedMenu(normalTemplate, user)
-printMenu(menu)
 
-const list = getShoppingList(menu)
-printShoppingList(list)
+const main = async () => {
+  const menu = await createBalancedMenu(normalTemplate, user)
+  printMenu(menu)
+  const list = getShoppingList(menu)
+  printShoppingList(list)
+}
+
+main().then(() => process.exit())

@@ -21,17 +21,21 @@ const calculateDayCalories = day => compose(sum, map(calculateRecipeCalories), v
 
 const calculateMenuCalories = menu => compose(sum, map(calculateDayCalories))(menu)
 
-const calculateDayNutrients = day =>
-  reduce(mergeWith(add), {}, map(calculateRecipeNutrients, values(day)))
+const calculateDayNutrients = async (day) => {
+  const nutrients = await Promise.all(map(calculateRecipeNutrients, values(day)))
+  return reduce(mergeWith(add), {}, nutrients)
+}
 
-const calculateMenuNutrientsPercentage = menu =>
-  keysToPercentage(reduce(mergeWith(add), {}, map(calculateDayNutrients, menu)))
+const calculateMenuNutrientsPercentage = async (menu) => {
+  const nutrients = await Promise.all(map(calculateDayNutrients, menu))
+  return keysToPercentage(reduce(mergeWith(add), {}, nutrients))
+}
 
-const calculateFitness = curry((desiredCalories, desiredNutrientsPercentage, menu) => {
+const calculateFitness = curry(async (desiredCalories, desiredNutrientsPercentage, menu) => {
   const caloriesPoints = normalizeWith(desiredCalories, calculateMenuCalories(menu))
   const nutrientsPoints = objNormalizeWith(
     desiredNutrientsPercentage,
-    calculateMenuNutrientsPercentage(menu),
+    await calculateMenuNutrientsPercentage(menu),
   )
   return caloriesPoints + nutrientsPoints
 })
@@ -53,7 +57,7 @@ export function createMenu(template) {
     return currentMenu
   }, [])
 }
-export const createBalancedMenu = (template, user) => {
+export const createBalancedMenu = async (template, user) => {
   const desiredCalories = userCaloriesPerMenu(template, user)
   const desiredNutrientsPercentage = dayPercentageNutrients(user)
   const getFitness = calculateFitness(desiredCalories, desiredNutrientsPercentage)
@@ -65,7 +69,7 @@ export const createBalancedMenu = (template, user) => {
   while (fitness !== 0 && iteration < MAX_ITERATIONS) {
     iteration += 1
     menu = createMenu(template)
-    individualFitness = getFitness(menu)
+    individualFitness = await getFitness(menu)
     if (individualFitness < fitness) {
       fitness = individualFitness
       bestMenu = menu
