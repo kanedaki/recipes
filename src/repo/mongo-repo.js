@@ -51,7 +51,18 @@ export const insertIngredient = async (category, subcategory, name, info) => {
   }])
 }
 
-export const insertRecipes = async function storeRecipes(recipes) {
+export const insertRecipes = async (recipes) => {
   const db = await getDB()
   return db.collection('recipes').insertMany(recipes)
+}
+
+export const getUser = async (username) => {
+  const db = await getDB()
+  const users = await db.collection('users').find({ username }).toArray()
+  return users[0]
+}
+
+export const insertUser = async (username, description, template) => {
+  const db = await getDB()
+  return db.collection('users').insertOne({ username, description, template })
 }

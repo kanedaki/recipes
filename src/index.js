@@ -1,18 +1,14 @@
 import { createBalancedMenu } from './businessLogic/menu'
 import { getShoppingList } from './businessLogic/shoppingList'
-import normalTemplate from './businessLogic/enums/templates/normal'
 import { printMenu, printShoppingList } from './print'
+import { getUser } from './repo/mongo-repo'
 
-const user = {
-  activity: 'light',
-  sex: 'male',
-  age: 34,
-  height: 185,
-  weight: 85,
-}
+
+const username = 'kanedaki'
 
 const main = async () => {
-  const menu = await createBalancedMenu(normalTemplate, user)
+  const { template, description } = await getUser(username)
+  const menu = await createBalancedMenu(template, description)
   printMenu(menu)
   const list = getShoppingList(menu)
   return printShoppingList(list)

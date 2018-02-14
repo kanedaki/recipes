@@ -1,4 +1,5 @@
 import { macronutrientsAveragePercentage } from './constraints/nutrients'
+import { none, light, moderate, high } from './enums/activity'
 
 const tasaMetabolismoBasal = ({
   sex, weight, height, age,
@@ -9,13 +10,13 @@ const tasaMetabolismoBasal = ({
 
 const activityFactor = (activity) => {
   switch (activity) {
-    case 'none':
+    case none:
       return 1.2
-    case 'light':
+    case light:
       return 1.375
-    case 'moderate':
+    case moderate:
       return 1.55
-    case 'high':
+    case high:
       return 1.725
     default:
       return 1

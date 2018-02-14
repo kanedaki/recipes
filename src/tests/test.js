@@ -15,6 +15,7 @@ import { dinner, lunch, breakfast } from '../businessLogic/enums/meals'
 import { getSeason } from '../utils'
 import { getUserRecipes } from '../repo/mongo-repo'
 import { macronutrientsAveragePercentage, macronutrientsRda } from '../businessLogic/constraints/nutrients'
+import { light } from '../businessLogic/enums/activity'
 
 const template = [
   { [lunch]: true, [dinner]: true },
@@ -106,7 +107,7 @@ describe('test', () => {
     it('should work', async () => {
       jest.setTimeout(20000)
       const balancedMenu = await createBalancedMenu(template, {
-        activity: 'light',
+        activity: light,
         sex: 'male',
         age: 34,
         height: 185,

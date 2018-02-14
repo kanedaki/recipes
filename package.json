@@ -7,6 +7,7 @@
     "start": "babel-node src/index.js",
     "store-ingredients": "babel-node src/repo/persistence/store-ingredients.js",
     "store-recipes": "babel-node src/repo/persistence/store-recipes.js",
+    "store-users": "babel-node src/repo/persistence/store-users.js",
     "test": "jest --watch",
     "lint": "eslint --fix ."
   },
