@@ -1,10 +1,4 @@
 import { ObjectId } from 'mongodb'
-import {
-  calabacin,
-  pollo,
-  pimientoRojo,
-} from '../ingredients/fridge'
-import { sal, aceite, zanahoria, ajo, cebolla } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
 import { spring, summer, autumn, winter } from '../seasons'
 
@@ -16,11 +10,11 @@ export default {
     { ingredient: ObjectId('5a83449dd9594c4b4024da28'), qty: 1 },
     { ingredient: ObjectId('5a83449cd9594c4b4024d7e2'), qty: 10 },
     { ingredient: ObjectId('5a83449dd9594c4b4024da5e'), qty: 200 },
-    { ingredient: calabacin, qty: 200 },
-    { ingredient: pollo, qty: 200 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da86'), qty: 200 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024d854'), qty: 200, tip: 'Mejor contramuslos sin piel ni hueso' },
     { ingredient: ObjectId('5a83449dd9594c4b4024da76'), qty: 200 },
-    { ingredient: pimientoRojo, qty: 200 },
-    { ingredient: cebolla, qty: 200 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da99'), qty: 200 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da89'), qty: 200 },
   ],
   steps: ['Todo el mundo sabe como hacer paella'],
 }

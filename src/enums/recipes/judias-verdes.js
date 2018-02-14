@@ -1,6 +1,4 @@
 import { ObjectId } from 'mongodb'
-import { judiasVerdes, tomate, espinacas } from '../ingredients/fridge'
-import { cebolla, aceite, ajo } from '../ingredients/pantry'
 import { lunch, dinner } from '../meals'
 import { spring, summer, autumn, winter } from '../seasons'
 
@@ -11,7 +9,7 @@ export default {
   ingredients: [
     { ingredient: ObjectId('5a83449dd9594c4b4024da95'), qty: 1000 },
     { ingredient: ObjectId('5a83449dd9594c4b4024da9d'), qty: 100 },
-    { ingredient: cebolla, qty: 100 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da89'), qty: 100 },
     { ingredient: ObjectId('5a83449dd9594c4b4024da76'), qty: 30 },
     { ingredient: ObjectId('5a83449cd9594c4b4024d7e2'), qty: 10 },
     { ingredient: ObjectId('5a83449dd9594c4b4024da91'), qty: 100 },

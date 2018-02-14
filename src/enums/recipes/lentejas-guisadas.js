@@ -1,13 +1,4 @@
 import { ObjectId } from 'mongodb'
-import { chorizo, panceta } from '../ingredients/fridge'
-import {
-  cebolla,
-  patata,
-  sal,
-  aceite,
-  lentejas,
-  zanahoria,
-} from '../ingredients/pantry'
 import { lunch } from '../meals'
 import { spring, winter, autumn } from '../seasons'
 
@@ -16,11 +7,11 @@ export default {
   meal: [lunch],
   seasons: [winter, autumn, spring],
   ingredients: [
-    { ingredient: cebolla, qty: 100 },
-    { ingredient: patata, qty: 100 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da89'), qty: 100 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024da5a'), qty: 100 },
     { ingredient: ObjectId('5a83449dd9594c4b4024da28'), qty: 1 },
     { ingredient: ObjectId('5a83449cd9594c4b4024d7e2'), qty: 10 },
-    { ingredient: lentejas, qty: 500 },
+    { ingredient: ObjectId('5a83449dd9594c4b4024d9aa'), qty: 500 },
     { ingredient: ObjectId('5a83449dd9594c4b4024da5e'), qty: 100 },
     { ingredient: ObjectId('5a83449dd9594c4b4024d86c'), qty: 100 },
     { ingredient: ObjectId('5a83449dd9594c4b4024d862'), qty: 100 },
