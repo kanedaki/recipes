@@ -5,13 +5,15 @@
   "main": "src/index.js",
   "scripts": {
     "start": "babel-node src/index.js",
-    "store": "babel-node src/persistence/store-ingredients.js",
+    "store-ingredients": "babel-node src/persistence/store-ingredients.js",
+    "store-recipes": "babel-node src/persistence/store-recipes.js",
     "test": "jest --watch",
     "lint": "eslint --fix ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "eslint": "^4.17.0",
     "moment": "^2.20.1",
     "mongodb": "^3.0.2",

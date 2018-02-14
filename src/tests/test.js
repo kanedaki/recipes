@@ -1,4 +1,4 @@
-/* globals describe, it, expect */
+/* globals describe, it, expect, jest */
 import { createMenu, createBalancedMenu } from '../menu'
 import {
   getShoppingList,
@@ -13,10 +13,8 @@ import {
 } from './testUtils'
 import { dinner, lunch, breakfast } from '../enums/meals'
 import { getSeason } from '../utils'
-import { getRecipesFromUser } from '../repo/fileSystemRepo'
+import { getUserRecipes } from '../repo/mongo-repo'
 import { macronutrientsAveragePercentage, macronutrientsRda } from '../constraints/nutrients'
-
-const recipes = getRecipesFromUser()
 
 const template = [
   { [lunch]: true, [dinner]: true },
@@ -25,150 +23,51 @@ const template = [
   { [lunch]: true, [dinner]: true, [breakfast]: true },
 ]
 
-const menuAlternativo = [
-  { [lunch]: recipes[1], [dinner]: recipes[2] },
-  { [lunch]: recipes[1], [dinner]: recipes[2] },
-  { [lunch]: recipes[1], [dinner]: recipes[2] },
-]
+const menuAlternativo = async () => {
+  const [recipe1, recipe2] = await getUserRecipes()
+  return [
+    { [lunch]: recipe1, [dinner]: recipe2 },
+    { [lunch]: recipe1, [dinner]: recipe2 },
+    { [lunch]: recipe1, [dinner]: recipe2 },
+  ]
+}
 
-const shoppingListForMenuAlternativo = [
-  {
-    ingredient: {
-      name: 'nata',
-      type: 'lacteos',
-    },
-    qty: 300,
-  },
-  {
-    ingredient: {
-      name: 'coliflor',
-      type: 'verduras',
-    },
-    qty: 3000,
-  },
-  {
-    ingredient: {
-      name: 'leche',
-      type: 'lacteos',
-    },
-    qty: 2250,
-  },
-  {
-    ingredient: {
-      name: 'queso rayado',
-      type: 'lacteos',
-    },
-    qty: 300,
-  },
-  {
-    ingredient: {
-      name: 'mantequilla',
-      type: 'grasas animales',
-    },
-    qty: 450,
-  },
-  {
-    ingredient: {
-      name: 'Harina',
-      type: 'cereales',
-    },
-    qty: 450,
-  },
-  {
-    ingredient: {
-      name: 'sal',
-      type: 'sales',
-    },
-    qty: 3,
-  },
-  {
-    ingredient: {
-      name: 'pimienta negra',
-      type: 'condimentos',
-    },
-    qty: 3,
-  },
-  {
-    ingredient: {
-      name: 'nuez moscada',
-      type: 'condimentos',
-    },
-    qty: 3,
-  },
-  {
-    ingredient: {
-      name: 'judias verdes',
-      type: 'legumbres',
-    },
-    qty: 3000,
-  },
-  {
-    ingredient: {
-      name: 'tomate',
-      type: 'frutas',
-    },
-    qty: 300,
-  },
-  {
-    ingredient: {
-      name: 'cebolla',
-      type: 'hortalizas',
-    },
-    qty: 300,
-  },
-  {
-    ingredient: {
-      name: 'ajo',
-      type: 'hortalizas',
-    },
-    qty: 90,
-  },
-  {
-    ingredient: {
-      name: 'aceite',
-      type: 'grasas vegetales',
-    },
-    qty: 30,
-  },
-  {
-    ingredient: {
-      name: 'Espinacas',
-      type: 'verduras',
-    },
-    qty: 300,
-  },
-]
+const shoppingListForMenuAlternativo = [{ ingredient: '5a83449dd9594c4b4024d8ec', qty: 1500, tip: 'Espaguetis' }, { ingredient: '5a83449dd9594c4b4024da76', qty: 150 }, { ingredient: '5a83449cd9594c4b4024d7e2', qty: 30 }, { ingredient: '5a83449dd9594c4b4024d981', qty: 300 }, { ingredient: '5a83449dd9594c4b4024d95c', qty: 300 }, { ingredient: '5a83449dd9594c4b4024da8d', qty: 3000 }, { ingredient: '5a83449dd9594c4b4024d953', qty: 2250 }, { ingredient: '5a83449dd9594c4b4024d974', qty: 300 }, { ingredient: '5a83449cd9594c4b4024d7e5', qty: 450 }, { ingredient: '5a83449dd9594c4b4024d8d9', qty: 450 }, { ingredient: '5a83449dd9594c4b4024da28', qty: 3 }, { ingredient: '5a83449dd9594c4b4024da27', qty: 3 }, { ingredient: '5a83449dd9594c4b4024da22', qty: 3 }]
+
 
 describe('test', () => {
   describe('menu restrictions', () => {
-    it('does not repeat recipes on the same menu', () => {
-      const menu = createMenu(template)
+    it('does not repeat recipes on the same menu', async () => {
+      const menu = await createMenu(template)
       expect(hasRepeatedRecipes(menu)).toBeFalsy()
     })
-    it('recipes from menu belongs to dinner or lunch', () => {
-      const menu = createMenu(template)
+    it('recipes from menu belongs to dinner or lunch', async () => {
+      const menu = await createMenu(template)
       expect(menuRecipesMatchMeals([lunch, dinner, breakfast], menu)).toBe(true)
     })
-    it('includes just Season recommendations', () => {
-      const menu = createMenu(template)
+    it('includes just Season recommendations', async () => {
+      const menu = await createMenu(template)
       const season = getSeason()
       expect(menuRecipesMatchSeason(season, menu)).toBe(true)
     })
   })
   describe('match', () => {
     describe('fails when the menu does not correspond to template because', () => {
-      it('creates a menu that matches the given template', () => {
-        const menu = createMenu(template)
+      it('creates a menu that matches the given template', async () => {
+        const menu = await createMenu(template)
         expect(match(menu, template)).toBe(true)
       })
-      it('different number of days', () => {
-        expect(match(menuAlternativo, template)).toBe(false)
+      it('different number of days', async () => {
+        const menu = await menuAlternativo()
+        expect(match(menu, template)).toBe(false)
       })
     })
   })
   describe('shopping list', () => {
-    it('returns the correct shopping list for a menu', () => {
-      const list = getShoppingList(menuAlternativo)
+    it('returns the correct shopping list for a menu', async () => {
+      const menu = await menuAlternativo()
+      // ObjectId needs to be stringified to be tested
+      const list = JSON.parse(JSON.stringify(getShoppingList(menu)))
       expect(list).toEqual(shoppingListForMenuAlternativo)
     })
     it('removes an element that exist on the list from the list', () => {
@@ -204,8 +103,9 @@ describe('test', () => {
     })
   })
   describe('Balanced menu', () => {
-    it('should work', () => {
-      const balancedMenu = createBalancedMenu(template, {
+    it('should work', async () => {
+      jest.setTimeout(20000)
+      const balancedMenu = await createBalancedMenu(template, {
         activity: 'light',
         sex: 'male',
         age: 34,

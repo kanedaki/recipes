@@ -1,4 +1,4 @@
-import { concat, reduce, values, zipObj, keys, map, sum, curry } from 'ramda'
+import { concat, reduce, values, zipObj, keys, map, sum, curry, compose, sequence, filter } from 'ramda'
 import { winter, summer, autumn, spring } from './enums/seasons'
 
 export const getRandomNumber = n => Math.round(Math.random() * n)
@@ -11,8 +11,8 @@ export const getRandomFromArray = (arr) => {
 export const getRandomFromObject = obj => getRandomFromArray(Object.values(obj))
 
 export const findOrMessage = (fn, msg) =>
-  (...args) => {
-    const result = fn.apply(this, args)
+  async (...args) => {
+    const result = await fn(...args)
     return result || msg
   }
 
@@ -36,4 +36,3 @@ export const keysToPercentage = (obj) => {
   const total = sum(values(obj))
   return zipObj(keys(obj), map(toPercentage(total), values(obj)))
 }
-

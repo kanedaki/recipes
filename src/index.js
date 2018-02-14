@@ -15,7 +15,7 @@ const main = async () => {
   const menu = await createBalancedMenu(normalTemplate, user)
   printMenu(menu)
   const list = getShoppingList(menu)
-  printShoppingList(list)
+  return printShoppingList(list)
 }
 
 main().then(() => process.exit())

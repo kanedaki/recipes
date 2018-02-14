@@ -1,8 +1,15 @@
-import { allPass, any, sum, map, prop, equals, compose, reduce, mergeWith, add } from 'ramda'
+import { and, not, curry, values, allPass, any, sum, map, prop, equals, compose, reduce, mergeWith, add } from 'ramda'
 import { getSeason, getRandomFromArray } from './utils'
 import { getFoodCalories, getFoodNutrients } from './food'
-import { notIncludedAlready } from './menu'
-import { getRecipesFromUser } from './repo/fileSystemRepo'
+import { getUserRecipes } from './repo/mongo-repo'
+
+const hasRecipeOnDay = curry((recipe, dayRecipes) =>
+  values(dayRecipes).map(r => r.name).includes(recipe.name))
+
+const notIncludedAlready = ({ currentMenu, dayRecipes }) => recipe => and(
+  not(hasRecipeOnDay(recipe, dayRecipes)),
+  not(any(hasRecipeOnDay(recipe), currentMenu)),
+)
 
 export const matchSeason = season =>
   compose(any(equals(season)), prop('seasons'))
@@ -28,8 +35,8 @@ const findRecipe = options =>
     notIncludedAlready(options),
   ])
 
-export function findRecipes(options) {
-  const recipes = getRecipesFromUser()
-  const validRecipes = recipes.filter(findRecipe(options))
+export async function findRecipes(currentMenu, dayRecipes, meal) {
+  const userRecipes = await getUserRecipes()
+  const validRecipes = userRecipes.filter(findRecipe({ currentMenu, dayRecipes, meal }))
   return getRandomFromArray(validRecipes)
 }
