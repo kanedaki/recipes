@@ -1,4 +1,5 @@
 import { path, call } from 'ramda'
+import { male } from '../enums/sex'
 // UL:Tolerable Upper Intake levels
 // RDA: Recommended dietary allowances and Adequate Intakes
 const ALAP = Symbol.for('As low as possible')
@@ -30,20 +31,20 @@ const macronutrients = {
       average: () => 15,
       max: () => 35,
     },
-    rda: ({ sex }) => (sex === 'male' ? 56 : 46),
+    rda: ({ sex }) => (sex === male ? 56 : 46),
   },
 }
 
-export const macronutrientsAveragePercentage = user => ({
-  carbohydrates: call(path(['carbohydrates', 'percentage', 'average'], macronutrients), user),
-  fat: call(path(['fat', 'percentage', 'average'], macronutrients), user),
-  protein: call(path(['protein', 'percentage', 'average'], macronutrients), user),
+export const macronutrientsAveragePercentage = userDescription => ({
+  carbohydrates: call(path(['carbohydrates', 'percentage', 'average'], macronutrients), userDescription),
+  fat: call(path(['fat', 'percentage', 'average'], macronutrients), userDescription),
+  protein: call(path(['protein', 'percentage', 'average'], macronutrients), userDescription),
 })
 
-export const macronutrientsRda = user => ({
-  carbohydrates: call(path(['carbohydrates', 'rda'], macronutrients), user),
-  fat: call(path(['fat', 'rda'], macronutrients), user),
-  protein: call(path(['protein', 'rda'], macronutrients), user),
+export const macronutrientsRda = userDescription => ({
+  carbohydrates: call(path(['carbohydrates', 'rda'], macronutrients), userDescription),
+  fat: call(path(['fat', 'rda'], macronutrients), userDescription),
+  protein: call(path(['protein', 'rda'], macronutrients), userDescription),
 })
 
 export const protein = {

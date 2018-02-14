@@ -16,6 +16,15 @@ import { getSeason } from '../utils'
 import { getUserRecipes } from '../repo/mongo-repo'
 import { macronutrientsAveragePercentage, macronutrientsRda } from '../businessLogic/constraints/nutrients'
 import { light } from '../businessLogic/enums/activity'
+import { male } from '../businessLogic/enums/sex'
+
+const userDescription = {
+  sex: male,
+  activity: light,
+  age: 34,
+  height: 179,
+  weight: 78,
+}
 
 const template = [
   { [lunch]: true, [dinner]: true },
@@ -39,15 +48,15 @@ const shoppingListForMenuAlternativo = [{ ingredient: '5a83449dd9594c4b4024d8ec'
 describe('test', () => {
   describe('menu restrictions', () => {
     it('does not repeat recipes on the same menu', async () => {
-      const menu = await createMenu(template)
+      const menu = await createMenu(userDescription, template)
       expect(hasRepeatedRecipes(menu)).toBeFalsy()
     })
     it('recipes from menu belongs to dinner or lunch', async () => {
-      const menu = await createMenu(template)
+      const menu = await createMenu(userDescription, template)
       expect(menuRecipesMatchMeals([lunch, dinner, breakfast], menu)).toBe(true)
     })
     it('includes just Season recommendations', async () => {
-      const menu = await createMenu(template)
+      const menu = await createMenu(userDescription, template)
       const season = getSeason()
       expect(menuRecipesMatchSeason(season, menu)).toBe(true)
     })
@@ -55,7 +64,7 @@ describe('test', () => {
   describe('match', () => {
     describe('fails when the menu does not correspond to template because', () => {
       it('creates a menu that matches the given template', async () => {
-        const menu = await createMenu(template)
+        const menu = await createMenu(userDescription, template)
         expect(match(menu, template)).toBe(true)
       })
       it('different number of days', async () => {
@@ -106,20 +115,13 @@ describe('test', () => {
   describe('Balanced menu', () => {
     it('should work', async () => {
       jest.setTimeout(20000)
-      const balancedMenu = await createBalancedMenu(template, {
-        activity: light,
-        sex: 'male',
-        age: 34,
-        height: 185,
-        weight: 85,
-      })
+      const balancedMenu = await createBalancedMenu('kanedaki')
       expect(balancedMenu).toBeTruthy()
     })
   })
   describe('Nutrients', () => {
     it('gets the average nutrients for user', () => {
-      const user = { sex: 'male' }
-      const nutrients = macronutrientsAveragePercentage(user)
+      const nutrients = macronutrientsAveragePercentage(userDescription)
       expect(nutrients).toEqual({
         carbohydrates: 57,
         fat: 25,
@@ -127,8 +129,7 @@ describe('test', () => {
       })
     })
     it('gets the rda nutrients for user', () => {
-      const user = { sex: 'male' }
-      const nutrients = macronutrientsRda(user)
+      const nutrients = macronutrientsRda(userDescription)
       expect(nutrients).toEqual({
         carbohydrates: 130,
         fat: Symbol.for('Not determined'),

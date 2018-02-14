@@ -1,10 +1,11 @@
 import { macronutrientsAveragePercentage } from './constraints/nutrients'
 import { none, light, moderate, high } from './enums/activity'
+import { male } from './enums/sex'
 
 const tasaMetabolismoBasal = ({
   sex, weight, height, age,
 }) =>
-  (sex === 'male'
+  (sex === male
     ? 10 * weight + 6.25 * height - 5 * age + 5
     : 10 * weight + 6.25 * height - 5 * age - 161)
 
@@ -26,4 +27,5 @@ const activityFactor = (activity) => {
 export const dayCalories = ({ activity, ...user }) =>
   activityFactor(activity) + tasaMetabolismoBasal(user)
 
-export const dayPercentageNutrients = user => macronutrientsAveragePercentage(user)
+export const dayPercentageNutrients = userDescription =>
+  macronutrientsAveragePercentage(userDescription)

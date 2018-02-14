@@ -4,6 +4,7 @@ import { findOrMessage, normalizeWith, keysToPercentage, objNormalizeWith } from
 import { dayCalories, dayPercentageNutrients } from './user'
 import { calculateRecipeCalories, findRecipes, calculateRecipeNutrients } from './recipe'
 import { numberOfMeals } from './template'
+import { getUser } from '../repo/mongo-repo'
 
 const MAX_ITERATIONS = 200
 const NO_RECIPE_ERROR = 'no recipe found'
@@ -33,9 +34,10 @@ const calculateFitness = curry(async (desiredCalories, desiredNutrientsPercentag
   return caloriesPoints + nutrientsPoints
 })
 
-const userCaloriesPerMenu = (template, user) => dayCalories(user) * numberOfMeals(template)
+const userCaloriesPerMenu = (template, userDescription) =>
+  dayCalories(userDescription) * numberOfMeals(template)
 
-const assocRecipeToMeal = currentMenu => async (dayRecipes, meal) => {
+const assocRecipeToMeal = (user, currentMenu) => async (dayRecipes, meal) => {
   const recipe = await getMatchingRecipe(
     currentMenu,
     dayRecipes,
@@ -44,27 +46,29 @@ const assocRecipeToMeal = currentMenu => async (dayRecipes, meal) => {
   return assoc(meal, recipe, dayRecipes)
 }
 
-export const createDayMenu = async (currentMenu, meals) => {
-  const dayMenu = await asyncReduce(keys(meals), assocRecipeToMeal(currentMenu), {})
+export const createDayMenu = curry(async (user, currentMenu, meals) => {
+  const dayMenu = await asyncReduce(keys(meals), assocRecipeToMeal(user, currentMenu), {})
   currentMenu.push(dayMenu)
   return currentMenu
-}
+})
 
-export const createMenu = template =>
-  asyncReduce(template, createDayMenu, [])
+export const createMenu = (userDescription, template) =>
+  asyncReduce(template, createDayMenu(userDescription), [])
 
-export const createBalancedMenu = async (template, user) => {
-  const desiredCalories = userCaloriesPerMenu(template, user)
-  const desiredNutrientsPercentage = dayPercentageNutrients(user)
+export const createBalancedMenu = async (username, customTemplate) => {
+  const { description: userDescription, template: userTemplate } = await getUser(username)
+  const template = customTemplate || userTemplate
+  const desiredCalories = userCaloriesPerMenu(template, userDescription)
+  const desiredNutrientsPercentage = dayPercentageNutrients(userDescription)
   const getFitness = calculateFitness(desiredCalories, desiredNutrientsPercentage)
-  let bestMenu = await createMenu(template)
+  let bestMenu = await createMenu(userDescription, template)
   let fitness = getFitness(bestMenu)
   let iteration = 0
   let individualFitness
   let menu
   while (fitness !== 0 && iteration < MAX_ITERATIONS) {
     iteration += 1
-    menu = await createMenu(template)
+    menu = await createMenu(userDescription, template)
     individualFitness = await getFitness(menu)
     if (individualFitness < fitness) {
       fitness = individualFitness
