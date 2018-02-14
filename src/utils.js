@@ -1,5 +1,5 @@
-import { concat, reduce, values, zipObj, keys, map, sum, curry, compose, sequence, filter } from 'ramda'
-import { winter, summer, autumn, spring } from './enums/seasons'
+import { concat, reduce, values, zipObj, keys, map, sum, curry } from 'ramda'
+import { winter, summer, autumn, spring } from './businessLogic/enums/seasons'
 
 export const getRandomNumber = n => Math.round(Math.random() * n)
 

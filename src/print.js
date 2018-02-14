@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { keys, prop } from 'ramda'
-import * as meals from './enums/meals'
+import * as meals from './businessLogic/enums/meals'
 import { findIngredientById } from './repo/mongo-repo'
 
 const daysInWeek = [

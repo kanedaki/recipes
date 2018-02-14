@@ -1,20 +1,20 @@
 /* globals describe, it, expect, jest */
-import { createMenu, createBalancedMenu } from '../menu'
+import { createMenu, createBalancedMenu } from '../businessLogic/menu'
 import {
   getShoppingList,
   removeElement,
   addElementToShoppingList,
-} from '../shoppingList'
+} from '../businessLogic/shoppingList'
 import {
   match,
   hasRepeatedRecipes,
   menuRecipesMatchMeals,
   menuRecipesMatchSeason,
 } from './testUtils'
-import { dinner, lunch, breakfast } from '../enums/meals'
+import { dinner, lunch, breakfast } from '../businessLogic/enums/meals'
 import { getSeason } from '../utils'
 import { getUserRecipes } from '../repo/mongo-repo'
-import { macronutrientsAveragePercentage, macronutrientsRda } from '../constraints/nutrients'
+import { macronutrientsAveragePercentage, macronutrientsRda } from '../businessLogic/constraints/nutrients'
 
 const template = [
   { [lunch]: true, [dinner]: true },

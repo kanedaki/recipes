@@ -1,6 +1,6 @@
 import { pathOr } from 'ramda'
-import { getRandomNumber } from './utils'
-import { findIngredientById } from './repo/mongo-repo'
+import { getRandomNumber } from '../utils'
+import { findIngredientById } from '../repo/mongo-repo'
 
 export const getFoodCalories = async ({ ingredient: ingredientId }) => {
   const ingredient = await findIngredientById(ingredientId)

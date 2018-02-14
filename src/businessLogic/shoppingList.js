@@ -14,7 +14,7 @@ import {
 } from 'ramda'
 
 
-import { concatAll } from './utils'
+import { concatAll } from '../utils'
 
 const hasIngredient = propEq('ingredient')
 

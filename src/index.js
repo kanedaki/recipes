@@ -1,6 +1,6 @@
-import { createBalancedMenu } from './menu'
-import { getShoppingList } from './shoppingList'
-import normalTemplate from './enums/templates/normal'
+import { createBalancedMenu } from './businessLogic/menu'
+import { getShoppingList } from './businessLogic/shoppingList'
+import normalTemplate from './businessLogic/enums/templates/normal'
 import { printMenu, printShoppingList } from './print'
 
 const user = {

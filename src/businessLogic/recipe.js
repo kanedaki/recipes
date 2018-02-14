@@ -1,7 +1,7 @@
 import { and, not, curry, values, allPass, any, sum, map, prop, equals, compose, reduce, mergeWith, add } from 'ramda'
-import { getSeason, getRandomFromArray } from './utils'
+import { getSeason, getRandomFromArray } from '../utils'
 import { getFoodCalories, getFoodNutrients } from './food'
-import { getUserRecipes } from './repo/mongo-repo'
+import { getUserRecipes } from '../repo/mongo-repo'
 
 const hasRecipeOnDay = curry((recipe, dayRecipes) =>
   values(dayRecipes).map(r => r.name).includes(recipe.name))

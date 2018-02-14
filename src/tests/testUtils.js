@@ -1,5 +1,5 @@
 import { uniq, map, all, anyPass, equals, keys, curry } from 'ramda'
-import { matchSeason } from '../recipe'
+import { matchSeason } from '../businessLogic/recipe'
 
 export function match(menu, template) {
   if (menu.length !== template.length) return false

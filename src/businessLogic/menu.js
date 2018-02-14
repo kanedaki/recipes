@@ -1,6 +1,6 @@
 import { reduce as asyncReduce } from 'bluebird'
 import { assoc, map, curry, compose, values, sum, keys, mergeWith, add, reduce } from 'ramda'
-import { findOrMessage, normalizeWith, keysToPercentage, objNormalizeWith } from './utils'
+import { findOrMessage, normalizeWith, keysToPercentage, objNormalizeWith } from '../utils'
 import { dayCalories, dayPercentageNutrients } from './user'
 import { calculateRecipeCalories, findRecipes, calculateRecipeNutrients } from './recipe'
 import { numberOfMeals } from './template'

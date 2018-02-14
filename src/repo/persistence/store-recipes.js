@@ -1,4 +1,4 @@
-import recipes from '../enums/recipes'
+import recipes from './recipes'
 import { insertRecipes } from '../mongo-repo'
 
 insertRecipes(recipes)
