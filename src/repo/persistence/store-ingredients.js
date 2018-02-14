@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { curry } from 'ramda'
-import { getDB } from '../repo/mongo-repo'
+import { insertIngredient } from '../mongo-repo'
 
 const NA = Symbol.for('NA')
 
@@ -60,15 +60,12 @@ const parseInfo = (general, detail) => {
 
 const storeIngredientInfo =
   curry(async (category, subcategory, [name, { calories, nutritional }]) => {
-    const db = await getDB()
     const info = parseInfo(calories, nutritional)
-    db.collection('ingredients').insertMany([{
-      name, category, subcategory, ...info,
-    }])
+    return insertIngredient(category, subcategory, name, info)
   })
 
 function storeIngredients() {
-  const nutritionalInfo = JSON.parse(fs.readFileSync('src/enums/ingredients/ingredients-info-tree.json', 'utf8'))
+  const nutritionalInfo = JSON.parse(fs.readFileSync('src/persistence/ingredients-info-tree.json', 'utf8'))
   let currentCategory
   let currentSubcategory
   nutritionalInfo.forEach((firstLevel) => {

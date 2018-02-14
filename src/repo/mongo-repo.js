@@ -44,3 +44,14 @@ export const getUserRecipes = async () => {
   return db.collection('recipes').find({}).toArray()
 }
 
+export const insertIngredient = async (category, subcategory, name, info) => {
+  const db = await getDB()
+  return db.collection('ingredients').insertMany([{
+    name, category, subcategory, ...info,
+  }])
+}
+
+export const insertRecipes = async function storeRecipes(recipes) {
+  const db = await getDB()
+  return db.collection('recipes').insertMany(recipes)
+}
