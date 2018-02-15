@@ -9,19 +9,28 @@ const saltRounds = 10
 const routes = (app) => {
   app.post('/register', async (req, res) => {
     const { username, password, email } = req.body
-    const hash = await bcrypt.hash(password, saltRounds)
-    const response = await insertUser(username, hash, email)
-    res.send(response)
+    const alreadyExists = await getUser(username)
+    if (alreadyExists) {
+      res.send({ error: 'User already exists' })
+    } else {
+      const hash = await bcrypt.hash(password, saltRounds)
+      const response = await insertUser(username, hash, email)
+      res.send(response)
+    }
   })
   app.post('/login', async (req, res) => {
     const { username, password } = req.body
     const user = await getUser(username)
-    const equals = await bcrypt.compare(password, user.password)
-    if (!equals) {
-      res.sendStatus(401)
+    if (!user) {
+      res.send({ error: 'User does not exists' })
     } else {
-      const token = jwt.sign({}, app.get('supersecret'))
-      res.send({ token, ...user })
+      const equals = await bcrypt.compare(password, user.password)
+      if (!equals) {
+        res.sendStatus(401)
+      } else {
+        const token = jwt.sign({}, app.get('supersecret'))
+        res.send({ token, ...user })
+      }
     }
   })
   app.get('/logout', async (req, res) => {
