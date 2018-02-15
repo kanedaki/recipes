@@ -2,7 +2,7 @@ import { MongoClient } from 'mongodb'
 
 let db
 
-function connectToDB() {
+export function connectToDB() {
   const url = 'mongodb://localhost:27017'
   const dbName = 'recipes'
   db = MongoClient.connect(url)
@@ -21,15 +21,28 @@ export const getDB = () => {
   return connectToDB()
 }
 
+/* *************************** Ingredients ********************* */
+
 export const findIngredient = async (name) => {
   const db = await getDB()
-  const ingredients = await db.collection('ingredients').find({ name }).toArray()
+  const ingredients = await db.collection('ingredients').find({ name }).project({ _id: 0 }).toArray()
   return ingredients[0]
 }
 
-export const findRecipeByName = async (name) => {
+export const insertIngredient = async (category, subcategory, name, info) => {
   const db = await getDB()
-  const recipes = await db.collection('recipes').find({ name }).toArray()
+  return db.collection('ingredients').insertMany([{
+    name, category, subcategory, ...info,
+  }])
+}
+
+
+/* *************************** Recipes ********************* */
+
+export const getRecipe = async (name) => {
+  const db = await getDB()
+  const recipes = await db.collection('recipes').find({ name }).project({ _id: 0 }).limit(1)
+    .toArray()
   return recipes[0]
 }
 
@@ -43,14 +56,7 @@ export const updateRecipe = async (recipe) => {
 
 export const getUserRecipes = async () => {
   const db = await getDB()
-  return db.collection('recipes').find({}).toArray()
-}
-
-export const insertIngredient = async (category, subcategory, name, info) => {
-  const db = await getDB()
-  return db.collection('ingredients').insertMany([{
-    name, category, subcategory, ...info,
-  }])
+  return db.collection('recipes').find({}).project({ _id: 0 }).toArray()
 }
 
 export const insertRecipes = async (recipes) => {
@@ -58,15 +64,29 @@ export const insertRecipes = async (recipes) => {
   return db.collection('recipes').insertMany(recipes)
 }
 
+/* *************************** User ********************* */
 export const getUser = async (username) => {
   const db = await getDB()
-  const users = await db.collection('users').find({ username }).toArray()
+  const users = await db.collection('users').find({ username }).project({ _id: 0 }).limit(1)
+    .toArray()
   return users[0]
 }
 
-export const insertUser = async (username, description, template) => {
+export const insertUser = async (username, password, email) => {
   const db = await getDB()
-  return db.collection('users').insertOne({ username, description, template })
+  return db.collection('users').insertOne({ username, password, email })
+}
+
+export const getUserSettings = async (username) => {
+  const db = await getDB()
+  const users = await db.collection('settings').find({ username }).project({ _id: 0 }).limit(1)
+    .toArray()
+  return users[0]
+}
+
+export const insertUserSettings = async (username, description, template) => {
+  const db = await getDB()
+  return db.collection('settings').insertOne({ username, description, template })
 }
 
 export const insertUserMenu = async (username, menu) => {

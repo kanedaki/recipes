@@ -4,7 +4,7 @@ import { findOrMessage, normalizeWith, keysToPercentage, objNormalizeWith } from
 import { dayCalories, dayPercentageNutrients } from './user'
 import { calculateRecipeCalories, findRecipes, calculateRecipeNutrients } from './recipe'
 import { numberOfMeals } from './template'
-import { getUser } from '../repo/mongo-repo'
+import { getUserSettings } from '../repo/mongo-repo'
 
 const MAX_ITERATIONS = 200
 const NO_RECIPE_ERROR = 'no recipe found'
@@ -56,7 +56,7 @@ export const createMenu = (userDescription, template) =>
   asyncReduce(template, createDayMenu(userDescription), [])
 
 export const createBalancedMenu = async (username, customTemplate) => {
-  const { description: userDescription, template: userTemplate } = await getUser(username)
+  const { description: userDescription, template: userTemplate } = await getUserSettings(username)
   const template = customTemplate || userTemplate
   const desiredCalories = userCaloriesPerMenu(template, userDescription)
   const desiredNutrientsPercentage = dayPercentageNutrients(userDescription)

@@ -1,4 +1,4 @@
-import { insertUser, getUser } from '../mongo-repo'
+import { getUser, insertUserSettings } from '../mongo-repo'
 import { lunch, dinner, breakfast } from '../../businessLogic/enums/meals'
 import { light, none } from '../../businessLogic/enums/activity'
 import { male, female } from '../../businessLogic/enums/sex'
@@ -37,8 +37,8 @@ const description2 = {
 }
 
 
-Promise.all([insertUser('kanedaki', description1, template1),
-  insertUser('storresm', description2, template2)])
+Promise.all([insertUserSettings('kanedaki', description1, template1),
+  insertUserSettings('storresm', description2, template2)])
   .then(() => getUser('kanedaki'))
   .then(() => process.exit())
 
