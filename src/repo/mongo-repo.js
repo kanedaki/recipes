@@ -27,16 +27,18 @@ export const findIngredient = async (name) => {
   return ingredients[0]
 }
 
-export const findIngredientById = async (_id) => {
-  const db = await getDB()
-  const ingredients = await db.collection('ingredients').find({ _id }).toArray()
-  return ingredients[0]
-}
-
 export const findRecipeByName = async (name) => {
   const db = await getDB()
   const recipes = await db.collection('recipes').find({ name }).toArray()
   return recipes[0]
+}
+
+export const updateRecipe = async (recipe) => {
+  const db = await getDB()
+  return db.collection('recipes').update(
+    { name: recipe.name },
+    recipe,
+  )
 }
 
 export const getUserRecipes = async () => {
@@ -65,4 +67,28 @@ export const getUser = async (username) => {
 export const insertUser = async (username, description, template) => {
   const db = await getDB()
   return db.collection('users').insertOne({ username, description, template })
+}
+
+export const insertUserMenu = async (username, menu) => {
+  const db = await getDB()
+  return db.collection('userMenus').insertOne({ username, menu })
+}
+
+export const getUserMenu = async (username) => {
+  const db = await getDB()
+  const userMenus = await db.collection('userMenus').find({ username }).sort({ _id: -1 }).limit(1)
+    .toArray()
+  return userMenus.length ? userMenus[0].menu : []
+}
+
+export const insertUserShoppingList = async (username, list) => {
+  const db = await getDB()
+  return db.collection('userShoppingList').insertOne({ username, list })
+}
+
+export const getUserShoppingList = async (username) => {
+  const db = await getDB()
+  const userList = await db.collection('userShoppingList').find({ username }).sort({ _id: -1 }).limit(1)
+    .toArray()
+  return userList.length ? userList[0].list : []
 }

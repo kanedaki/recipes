@@ -1,14 +1,14 @@
 import { pathOr } from 'ramda'
 import { getRandomNumber } from '../utils'
-import { findIngredientById } from '../repo/mongo-repo'
+import { findIngredient } from '../repo/mongo-repo'
 
-export const getFoodCalories = async ({ ingredient: ingredientId }) => {
-  const ingredient = await findIngredientById(ingredientId)
+export const getFoodCalories = async (ingredientName) => {
+  const ingredient = await findIngredient(ingredientName)
   return pathOr(getRandomNumber(200), ['general', 'calories', 'value'], ingredient)
 }
 
-export const getFoodNutrients = async ({ ingredient: ingredientId }) => {
-  const ingredient = await findIngredientById(ingredientId)
+export const getFoodNutrients = async ({ ingredient: ingredientName }) => {
+  const ingredient = await findIngredient(ingredientName)
   return {
     carbohydrates: pathOr(['general', 'macro', 'carbohydrates'], ingredient),
     fats: pathOr(['general', 'macro', 'fats'], ingredient),

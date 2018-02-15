@@ -1,7 +1,6 @@
 import moment from 'moment'
-import { keys, prop } from 'ramda'
+import { keys } from 'ramda'
 import * as meals from './businessLogic/enums/meals'
-import { findIngredientById } from './repo/mongo-repo'
 
 const daysInWeek = [
   'Lunes',
@@ -32,15 +31,12 @@ export const printMenu = (menu) => {
   )
 }
 
-export const getIngredientName = async (ingredientId) => {
-  const ingredient = await findIngredientById(ingredientId)
-  return prop('name', ingredient)
-}
 
-export const printShoppingItem = async el => `${await getIngredientName(el.ingredient)} (${el.qty}g)`
+export const printShoppingItem = el => `${el.ingredient} (${el.qty}g)`
 
 export const printShoppingList = async (list) => {
-  const listpp = await Promise.all(list.map(printShoppingItem))
+  console.log(list)
+  const listpp = list.map(printShoppingItem)
   console.log('ShoppingList', JSON.stringify(listpp, null, 4))
   return true
 }

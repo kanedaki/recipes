@@ -1,7 +1,7 @@
 /* globals describe, it, expect, jest */
 import { createMenu, createBalancedMenu } from '../businessLogic/menu'
 import {
-  getShoppingList,
+  createShoppingList,
   removeElement,
   addElementToShoppingList,
 } from '../businessLogic/shoppingList'
@@ -42,7 +42,7 @@ const menuAlternativo = async () => {
   ]
 }
 
-const shoppingListForMenuAlternativo = [{ ingredient: '5a83449dd9594c4b4024d8ec', qty: 1500, tip: 'Espaguetis' }, { ingredient: '5a83449dd9594c4b4024da76', qty: 150 }, { ingredient: '5a83449cd9594c4b4024d7e2', qty: 30 }, { ingredient: '5a83449dd9594c4b4024d981', qty: 300 }, { ingredient: '5a83449dd9594c4b4024d95c', qty: 300 }, { ingredient: '5a83449dd9594c4b4024da8d', qty: 3000 }, { ingredient: '5a83449dd9594c4b4024d953', qty: 2250 }, { ingredient: '5a83449dd9594c4b4024d974', qty: 300 }, { ingredient: '5a83449cd9594c4b4024d7e5', qty: 450 }, { ingredient: '5a83449dd9594c4b4024d8d9', qty: 450 }, { ingredient: '5a83449dd9594c4b4024da28', qty: 3 }, { ingredient: '5a83449dd9594c4b4024da27', qty: 3 }, { ingredient: '5a83449dd9594c4b4024da22', qty: 3 }]
+const shoppingListForMenuAlternativo = [{ ingredient: 'pasta', qty: 1500, tip: 'Espaguetis' }, { ingredient: 'ajo', qty: 150, tip: null }, { ingredient: 'aceite de oliva virgen', qty: 30, tip: null }, { ingredient: 'queso parmesano', qty: 300, tip: null }, { ingredient: 'nata liquida para cocinar', qty: 300, tip: null }, { ingredient: 'coliflor', qty: 3000, tip: null }, { ingredient: 'leche de vaca entera', qty: 2250, tip: null }, { ingredient: 'queso emmental', qty: 300, tip: null }, { ingredient: 'mantequilla', qty: 450, tip: null }, { ingredient: 'harina de trigo', qty: 450, tip: null }, { ingredient: 'sal comun', qty: 3, tip: null }, { ingredient: 'pimienta negra', qty: 3, tip: null }, { ingredient: 'nuez moscada', qty: 3, tip: null }]
 
 
 describe('test', () => {
@@ -77,7 +77,7 @@ describe('test', () => {
     it('returns the correct shopping list for a menu', async () => {
       const menu = await menuAlternativo()
       // ObjectId needs to be stringified to be tested
-      const list = JSON.parse(JSON.stringify(getShoppingList(menu)))
+      const list = JSON.parse(JSON.stringify(createShoppingList(menu)))
       expect(list).toEqual(shoppingListForMenuAlternativo)
     })
     it('removes an element that exist on the list from the list', () => {

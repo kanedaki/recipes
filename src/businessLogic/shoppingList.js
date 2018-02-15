@@ -38,7 +38,7 @@ const extractIngredientsFromDayMenu = (day) => {
   return flatten([dayMeals.map(meal => path([meal, 'ingredients'], day))])
 }
 
-export const getShoppingList = menu => compose(
+export const createShoppingList = menu => compose(
   reduce(addElementToShoppingList, []),
   concatAll,
   map(extractIngredientsFromDayMenu),
