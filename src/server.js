@@ -13,10 +13,10 @@ async function main() {
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
 
-  await connectToDB()
-
+  const db = await connectToDB()
   app.use(jwt({ secret: app.get('supersecret') }).unless({ path: ['/register', '/login'] }))
   routes(app, {})
+  services(app, db)
   app.listen(port, () => {
     console.log(`We are live on ${port}`)
   })

@@ -6,7 +6,7 @@ import { createShoppingList } from './businessLogic/shoppingList'
 
 const saltRounds = 10
 
-const routes = (app) => {
+const routes = (app, db) => {
   app.post('/register', async (req, res) => {
     const { username, password, email } = req.body
     const alreadyExists = await getUser(username)

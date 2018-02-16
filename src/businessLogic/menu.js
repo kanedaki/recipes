@@ -59,8 +59,6 @@ export const createMenu = (userDescription, template) =>
   asyncReduce(template, createDayMenu(userDescription), [])
 
 export const createBalancedMenu = async (username, customTemplate) => {
-  const { description: userDescription, template: userTemplate } = await getUserSettings(username)
-  const template = customTemplate || userTemplate
   const desiredCalories = userCaloriesPerMenu(template, userDescription)
   const desiredNutrientsPercentage = dayPercentageNutrients(userDescription)
   const getFitness = calculateFitness(desiredCalories, desiredNutrientsPercentage)
