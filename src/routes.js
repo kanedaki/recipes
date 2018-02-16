@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { insertUser, insertUserSettings, getUserSettings, getUserMenu, getUserShoppingList, insertUserMenu, insertUserShoppingList, getUser } from './repo/mongo-repo'
-import { createBalancedMenu } from './businessLogic/menu'
+import { createBalancedMenu, insertMenuAndNutrientsIntoHistoric } from './businessLogic/menu'
 import { createShoppingList } from './businessLogic/shoppingList'
 
 const saltRounds = 10
@@ -75,6 +75,12 @@ const routes = (app) => {
   app.post('/user/:username/list', async (req, res) => {
     const { list } = req.body
     const response = await insertUserShoppingList(req.params.username, list)
+    res.send(response)
+  })
+
+  app.post('/user/:username/historic', async (req, res) => {
+    const { template, menu } = req.body
+    const response = await insertMenuAndNutrientsIntoHistoric(req.params.username, menu, template)
     res.send(response)
   })
 }

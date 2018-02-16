@@ -1,4 +1,4 @@
-import { concat, reduce, values, zipObj, keys, map, sum, curry } from 'ramda'
+import { pipe, filter, apply, adjust, fromPairs, toPairs, concat, reduce, values, zipObj, keys, map, sum, curry } from 'ramda'
 import { winter, summer, autumn, spring } from './businessLogic/enums/seasons'
 
 export const getRandomNumber = n => Math.round(Math.random() * n)
@@ -36,3 +36,12 @@ export const keysToPercentage = (obj) => {
   const total = sum(values(obj))
   return zipObj(keys(obj), map(toPercentage(total), values(obj)))
 }
+
+export const mapKeys = curry((fn, obj) =>
+  fromPairs(map(adjust(fn, 0), toPairs(obj))))
+
+export const filterWithKeys = (pred, obj) => pipe(
+  toPairs,
+  filter(apply(pred)),
+  fromPairs,
+)(obj)

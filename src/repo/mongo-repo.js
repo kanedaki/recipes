@@ -1,4 +1,5 @@
 import { MongoClient } from 'mongodb'
+import { pathOr } from 'ramda'
 
 let db
 
@@ -81,7 +82,7 @@ export const getUserSettings = async (username) => {
   const db = await getDB()
   const users = await db.collection('settings').find({ username }).project({ _id: 0 }).limit(1)
     .toArray()
-  return users[0]
+  return pathOr({}, [0], users)
 }
 
 export const insertUserSettings = async (username, description, template) => {
@@ -98,7 +99,7 @@ export const getUserMenu = async (username) => {
   const db = await getDB()
   const userMenus = await db.collection('userMenus').find({ username }).sort({ _id: -1 }).limit(1)
     .toArray()
-  return userMenus.length ? userMenus[0].menu : []
+  return pathOr([], [0, 'menu'], userMenus)
 }
 
 export const insertUserShoppingList = async (username, list) => {
@@ -110,5 +111,27 @@ export const getUserShoppingList = async (username) => {
   const db = await getDB()
   const userList = await db.collection('userShoppingList').find({ username }).sort({ _id: -1 }).limit(1)
     .toArray()
-  return userList.length ? userList[0].list : []
+  return pathOr([], [0, 'list'], userList)
+}
+
+export const insertMenuIntoHistoric = async (username, menu) => {
+  const db = await getDB()
+  return db.collection('historicMenus').insertOne({ username, menu, createdAt: new Date() })
+}
+
+export const insertNutrientsIntoHistoric = async (username, nutrients) => {
+  const db = await getDB()
+  return db.collection('historicNutrients').insertOne({ username, nutrients, createdAt: new Date() })
+}
+
+export const getUserNutrientsBalance = async (username) => {
+  const db = await getDB()
+  const userBalances = await db.collection('userNutrientsBalance').find({ username }).sort({ _id: -1 }).limit(1)
+    .toArray()
+  return pathOr(undefined, [0, 'balance'], userBalances)
+}
+
+export const insertUserNutrientsBalance = async (username, balance) => {
+  const db = await getDB()
+  return db.collection('userNutrientsBalance').insertOne({ username, balance })
 }

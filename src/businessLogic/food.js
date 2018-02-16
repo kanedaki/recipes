@@ -10,9 +10,9 @@ export const getFoodCalories = async (ingredientName) => {
 export const getFoodNutrients = async ({ ingredient: ingredientName }) => {
   const ingredient = await findIngredient(ingredientName)
   return {
-    carbohydrates: pathOr(['general', 'macro', 'carbohydrates'], ingredient),
-    fats: pathOr(['general', 'macro', 'fats'], ingredient),
-    protein: pathOr(['general', 'macro', 'protein'], ingredient),
+    carbohydrates: pathOr(0, ['general', 'macro', 'carbohydrates', 'value'], ingredient),
+    fats: pathOr(0, ['general', 'macro', 'fat', 'value'], ingredient),
+    protein: pathOr(0, ['general', 'macro', 'protein', 'value'], ingredient),
   }
 }
 
