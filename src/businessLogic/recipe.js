@@ -1,6 +1,5 @@
 import { and, not, curry, values, allPass, any, prop, equals, compose } from 'ramda'
 import { getSeason, getRandomFromArray } from '../utils'
-import { getUserRecipes } from '../repo/mongo-repo'
 
 const hasRecipeOnDay = curry((recipe, dayRecipes) =>
   values(dayRecipes).map(r => r.name).includes(recipe.name))
@@ -22,8 +21,7 @@ const findRecipe = options =>
     notIncludedAlready(options),
   ])
 
-export async function findRecipes(currentMenu, dayRecipes, meal) {
-  const userRecipes = await getUserRecipes()
+export async function findMatchingRecipes(userRecipes, currentMenu, dayRecipes, meal) {
   const validRecipes = userRecipes.filter(findRecipe({ currentMenu, dayRecipes, meal }))
   return getRandomFromArray(validRecipes)
 }

@@ -13,17 +13,24 @@ const createMenuFactory = (app, {
     const ingredient = await findIngredient(ingredientName)
     return pathOr(0, ['general', 'calories', 'value'], ingredient)
   }
-  const calculateIngredientCalories = ({ ingredient, qty }) =>
-    qty / 100 * getFoodCalories(ingredient)
-  const calculateRecipeCalories = recipe =>
-    compose(sum, map(calculateIngredientCalories))(recipe.ingredients)
-  const calculateDayCalories = day => compose(sum, map(calculateRecipeCalories), values)(day)
-  const calculateMenuCalories = menu => compose(sum, map(calculateDayCalories))(menu)
+  const calculateIngredientCalories = async ({ ingredient, qty }) => qty / 100 * await getFoodCalories(ingredient)
+  const calculateRecipeCalories = async (recipe) => {
+    const ingredientCalories = await Promise.all(map(calculateIngredientCalories, recipe.ingredients))
+    return sum(ingredientCalories)
+  }
+  const calculateDayCalories = async (day) => {
+    const recipeCalories = await Promise.all(map(calculateRecipeCalories, values(day)))
+    return sum(recipeCalories)
+  }
+  const calculateMenuCalories = async (menu) => {
+    const dayCalories = await Promise.all(map(calculateDayCalories, menu))
+    return sum(dayCalories)
+  }
 
 
   /* ***************** calculate nutients *************** */
   const calculateMenuNutrientsPercentage = async menu =>
-    keysToPercentage(services.calculateMenuNutrients(menu))
+    keysToPercentage(await services.calculateMenuNutrients(menu))
 
 
   /* **************** create Menu ********************************* */
@@ -50,20 +57,60 @@ const createMenuFactory = (app, {
   const createMenu = (userDescription, template) =>
     asyncReduce(template, createDayMenu(userDescription), [])
 
-  const makeMenuIterator = (userDescription, template) => {
-    const iteration = 0
+  /* const makeMenuIterator = (userDescription, template) => {
+    let iteration = 0
     return {
-      next: async () => {
+      [Symbol.iterator]() {
+        return {
+          next: async function* () {
+            console.log('wwwwww')
+            iteration++
+            if (iteration < MAX_ITERATIONS) {
+              console.log('ite', iteration)
+              const menu = await createMenu(userDescription, template)
+              const calories = await calculateMenuCalories(menu)
+              const nutrients = await calculateMenuNutrientsPercentage(menu)
+              yield { done: false, value: { menu, calories, nutrients } }
+            } else {
+              yield { done: true }
+            }
+          }
+        }
+      }
+    }
+  } */
+
+  /* const makeMenuIterator = (userDescription, template) => {
+    let iteration = 0
+    return {
+      [Symbol.iterator]: async function* () {
+        iteration++
         if (iteration < MAX_ITERATIONS) {
+          console.log('ite', iteration)
           const menu = await createMenu(userDescription, template)
           const calories = await calculateMenuCalories(menu)
           const nutrients = await calculateMenuNutrientsPercentage(menu)
-          return {
+          yield {
             done: false, value: { menu, calories, nutrients },
           }
+        } else {
+          console.log('end')
+          yield { done: true, value: undefined }
         }
-        return { done: true }
       },
+    }
+  } */
+
+  const makeMenuIterator = (userDescription, template) => {
+    let iteration = 0
+    return async () => {
+      iteration += 1
+      const menu = await createMenu(userDescription, template)
+      const calories = await calculateMenuCalories(menu)
+      const nutrients = await calculateMenuNutrientsPercentage(menu)
+      return {
+        menu, calories, nutrients, iteration,
+      }
     }
   }
 

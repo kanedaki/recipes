@@ -28,6 +28,8 @@
     "ramda": "^0.25.0"
   },
   "devDependencies": {
+    "babel-plugin-syntax-async-generators": "^6.13.0",
+    "babel-plugin-transform-async-generator-functions": "^6.24.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",

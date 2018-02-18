@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import jwt from 'express-jwt'
 import config from '../config.json'
 import routes from './routes'
-import { connectToDB } from './repo/mongo-repo'
+import connectToDB from './repo/mongo-repo'
 import serviceFactory from './services'
 
 const port = process.env.port || 8000

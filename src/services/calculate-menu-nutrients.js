@@ -5,7 +5,7 @@ const factory = (app, { findIngredient }) => {
     const ingredient = await findIngredient(ingredientName)
     return {
       carbohydrates: pathOr(0, ['general', 'macro', 'carbohydrates', 'value'], ingredient),
-      fats: pathOr(0, ['general', 'macro', 'fat', 'value'], ingredient),
+      fat: pathOr(0, ['general', 'macro', 'fat', 'value'], ingredient),
       protein: pathOr(0, ['general', 'macro', 'protein', 'value'], ingredient),
     }
   }

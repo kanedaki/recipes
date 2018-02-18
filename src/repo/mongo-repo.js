@@ -1,79 +1,79 @@
 import { MongoClient } from 'mongodb'
-import { pathOr, curry } from 'ramda'
+import { partial, pathOr } from 'ramda'
 
 /* *************************** Ingredients ********************* */
 
-const findIngredient = curry(async (db, name) => {
+const findIngredient = async (db, name) => {
   const ingredients = await db.collection('ingredients').find({ name }).project({ _id: 0 }).toArray()
   return ingredients[0]
-})
+}
 
-const insertIngredient = curry(async (db, category, subcategory, name, info) => db.collection('ingredients').insertMany([{
+const insertIngredient = async (db, category, subcategory, name, info) => db.collection('ingredients').insertMany([{
   name, category, subcategory, ...info,
-}]))
+}])
 
 
 /* *************************** Recipes ********************* */
 
-const getRecipe = curry(async (db, name) => {
+const getRecipe = async (db, name) => {
   const recipes = await db.collection('recipes').find({ name }).project({ _id: 0 }).limit(1)
     .toArray()
   return recipes[0]
-})
+}
 
-const updateRecipe = curry(async (db, recipe) => db.collection('recipes').update(
+const updateRecipe = async (db, recipe) => db.collection('recipes').update(
   { name: recipe.name },
   recipe,
-))
+)
 
-const getUserRecipes = curry(async db => db.collection('recipes').find({}).project({ _id: 0 }).toArray())
+const getUserRecipes = async db => db.collection('recipes').find({}).project({ _id: 0 }).toArray()
 
-const insertRecipes = curry(async (db, recipes) => db.collection('recipes').insertMany(recipes))
+const insertRecipes = async (db, recipes) => db.collection('recipes').insertMany(recipes)
 
 /* *************************** User ********************* */
-const getUser = curry(async (db, username) => {
+const getUser = async (db, username) => {
   const users = await db.collection('users').find({ username }).project({ _id: 0 }).limit(1)
     .toArray()
   return users[0]
-})
+}
 
-const insertUser = curry(async (db, username, password, email) => db.collection('users').insertOne({ username, password, email }))
+const insertUser = async (db, username, password, email) => db.collection('users').insertOne({ username, password, email })
 
-const getUserSettings = curry(async (db, username) => {
+const getUserSettings = async (db, username) => {
   const users = await db.collection('settings').find({ username }).project({ _id: 0 }).limit(1)
     .toArray()
   return pathOr({}, [0], users)
-})
+}
 
-const insertUserSettings = curry(async (db, username, description, template) => db.collection('settings').insertOne({ username, description, template }))
+const insertUserSettings = async (db, username, description, template) => db.collection('settings').insertOne({ username, description, template })
 
-const insertUserMenu = curry(async (db, username, menu) => db.collection('userMenus').insertOne({ username, menu }))
+const insertUserMenu = async (db, username, menu) => db.collection('userMenus').insertOne({ username, menu })
 
-const getUserMenu = curry(async (db, username) => {
+const getUserMenu = async (db, username) => {
   const userMenus = await db.collection('userMenus').find({ username }).sort({ _id: -1 }).limit(1)
     .toArray()
   return pathOr([], [0, 'menu'], userMenus)
-})
+}
 
-const insertUserShoppingList = curry(async (db, username, list) => db.collection('userShoppingList').insertOne({ username, list }))
+const insertUserShoppingList = async (db, username, list) => db.collection('userShoppingList').insertOne({ username, list })
 
-const getUserShoppingList = curry(async (db, username) => {
+const getUserShoppingList = async (db, username) => {
   const userList = await db.collection('userShoppingList').find({ username }).sort({ _id: -1 }).limit(1)
     .toArray()
   return pathOr([], [0, 'list'], userList)
-})
+}
 
-const insertMenuIntoHistoric = curry(async (db, username, menu) => db.collection('historicMenus').insertOne({ username, menu, createdAt: new Date() }))
+const insertMenuIntoHistoric = async (db, username, menu) => db.collection('historicMenus').insertOne({ username, menu, createdAt: new Date() })
 
-const insertNutrientsIntoHistoric = curry(async (db, username, nutrients) => db.collection('historicNutrients').insertOne({ username, nutrients, createdAt: new Date() }))
+const insertNutrientsIntoHistoric = async (db, username, nutrients) => db.collection('historicNutrients').insertOne({ username, nutrients, createdAt: new Date() })
 
-const getUserNutrientsBalance = curry(async (db, username) => {
+const getUserNutrientsBalance = async (db, username) => {
   const userBalances = await db.collection('userNutrientsBalance').find({ username }).sort({ _id: -1 }).limit(1)
     .toArray()
   return pathOr(undefined, [0, 'balance'], userBalances)
-})
+}
 
-const insertUserNutrientsBalance = curry(async (db, username, balance) => db.collection('userNutrientsBalance').insertOne({ username, balance }))
+const insertUserNutrientsBalance = async (db, username, balance) => db.collection('userNutrientsBalance').insertOne({ username, balance })
 
 export default async function connectToDB() {
   const url = 'mongodb://localhost:27017'
@@ -85,23 +85,23 @@ export default async function connectToDB() {
     })
     .catch(err => console.log('Error connecting db', err))
   return {
-    findIngredient: findIngredient(db),
-    insertIngredient: insertIngredient(db),
-    getRecipe: getRecipe(db),
-    updateRecipe: updateRecipe(db),
-    getUserRecipes: getUserRecipes(db),
-    insertRecipes: insertRecipes(db),
-    getUser: getUser(db),
-    insertUser: insertUser(db),
-    getUserSettings: getUserSettings(db),
-    insertUserSettings: insertUserSettings(db),
-    getUserMenu: getUserMenu(db),
-    insertUserMenu: insertUserMenu(db),
-    getUserShoppingList: getUserShoppingList(db),
-    insertUserShoppingList: insertUserShoppingList(db),
-    insertMenuIntoHistoric: insertMenuIntoHistoric(db),
-    insertNutrientsIntoHistoric: insertNutrientsIntoHistoric(db),
-    getUserNutrientsBalance: getUserNutrientsBalance(db),
-    insertUserNutrientsBalance: insertUserNutrientsBalance(db),
+    findIngredient: partial(findIngredient, [db]),
+    insertIngredient: partial(insertIngredient, [db]),
+    getRecipe: partial(getRecipe, [db]),
+    updateRecipe: partial(updateRecipe, [db]),
+    getUserRecipes: partial(getUserRecipes, [db]),
+    insertRecipes: partial(insertRecipes, [db]),
+    getUser: partial(getUser, [db]),
+    insertUser: partial(insertUser, [db]),
+    getUserSettings: partial(getUserSettings, [db]),
+    insertUserSettings: partial(insertUserSettings, [db]),
+    getUserMenu: partial(getUserMenu, [db]),
+    insertUserMenu: partial(insertUserMenu, [db]),
+    getUserShoppingList: partial(getUserShoppingList, [db]),
+    insertUserShoppingList: partial(insertUserShoppingList, [db]),
+    insertMenuIntoHistoric: partial(insertMenuIntoHistoric, [db]),
+    insertNutrientsIntoHistoric: partial(insertNutrientsIntoHistoric, [db]),
+    getUserNutrientsBalance: partial(getUserNutrientsBalance, [db]),
+    insertUserNutrientsBalance: partial(insertUserNutrientsBalance, [db]),
   }
 }

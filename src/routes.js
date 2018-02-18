@@ -46,7 +46,7 @@ const routes = (app, db, services) => {
   })
 
   app.post('/menu/:username', async (req, res) => {
-    const menu = await services.createBalancedMenu(req.params.username, req.template)
+    const menu = await services.createMenu(req.params.username, req.template)
     res.send(menu)
   })
   app.post('/list', async (req, res) => {

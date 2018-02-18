@@ -6,12 +6,14 @@ import { numberOfMeals } from './template'
 export const MAX_ITERATIONS = 200
 
 export const calculateFitness =
-  curry(async (desiredCalories, desiredNutrientsPercentage, menuCalories, menuNutrientsPercentage) => {
-    const caloriesPoints = normalizeWith(desiredCalories)
+  curry((desiredCalories, desiredNutrientsPercentage, menuCalories, menuNutrientsPercentage) => {
+    const caloriesPoints = normalizeWith(desiredCalories, menuCalories)
+    console.log('c points', caloriesPoints)
     const nutrientsPoints = objNormalizeWith(
       desiredNutrientsPercentage,
       menuNutrientsPercentage,
     )
+    console.log('n points', nutrientsPoints)
     return caloriesPoints + nutrientsPoints
   })
 
@@ -25,7 +27,7 @@ const userCaloriesPerMenu = (template, userDescription) =>
 
 const MIN_FITNESS = 1000
 
-export const findBestMenu = (menuIterator, template, userDescription) => {
+export const findBestMenu = async (menuIterator, template, userDescription) => {
   const desiredCalories = userCaloriesPerMenu(template, userDescription)
   const desiredNutrientsPercentage = dayPercentageNutrients(userDescription)
   const getFitness = calculateFitness(desiredCalories, desiredNutrientsPercentage)
@@ -33,14 +35,17 @@ export const findBestMenu = (menuIterator, template, userDescription) => {
   let bestFitness = MIN_FITNESS
   let fitness
   let bestMenu = 'No menu found'
-  /* eslint-disable  */
-  for (const { menu, nutrients, calories } of menuIterator) {
+  let iteration = 0
+
+  while (iteration < MAX_ITERATIONS) {
+    iteration += 1
+    const { menu, calories, nutrients } = await menuIterator()
     fitness = getFitness(calories, nutrients)
-    if (bestFitness < fitness) {
+    if (fitness < bestFitness) {
       bestFitness = fitness
       bestMenu = menu
     }
+    if (fitness < 2 || iteration > MAX_ITERATIONS) break
   }
-  /* eslint-enable */
   return bestMenu
 }
