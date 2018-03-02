@@ -35,23 +35,33 @@ const routes = (app, db, services) => {
     res.send('ok')
   })
 
+  app.post('/user/:username', async (req, res) => {
+    const { description } = req.body
+    const user = await db.insertUserSettings(req.params.username, description)
+    res.send(user)
+  })
+  app.get('/user/:username', async (req, res) => {
+    const { template } = await db.getUserSettings(req.params.username)
+    res.send({ template })
+  })
+
   app.post('/user/:username/settings', async (req, res) => {
-    const { description, template } = req.body
-    const user = await db.insertUserSettings(req.params.username, description, template)
+    const { template } = req.body
+    const user = await db.insertUserSettings(req.params.username, template)
     res.send(user)
   })
   app.get('/user/:username/settings', async (req, res) => {
-    const user = await db.getUserSettings(req.params.username)
-    res.send(user)
+    const { template } = await db.getUserSettings(req.params.username)
+    res.send({ template })
   })
 
   app.post('/menu/:username', async (req, res) => {
     const menu = await services.createMenu(req.params.username, req.template)
     res.send(menu)
   })
-  app.post('/list', async (req, res) => {
+  app.post('/list', (req, res) => {
     const { menu } = req.body
-    const list = await createShoppingList(menu)
+    const list = createShoppingList(menu)
     res.send(list)
   })
 
@@ -75,9 +85,9 @@ const routes = (app, db, services) => {
     res.send(response)
   })
 
-  app.post('/user/:username/historic', async (req, res) => {
+  app.post('/user/:username/log', async (req, res) => {
     const { template, menu } = req.body
-    const response = await services.insertMenuAndNutrientsIntoHistoric(req.params.username, menu, template)
+    const response = await services.insertMenuAndNutrientsIntoLog(req.params.username, menu, template)
     res.send(response)
   })
 }

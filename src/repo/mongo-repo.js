@@ -63,9 +63,9 @@ const getUserShoppingList = async (db, username) => {
   return pathOr([], [0, 'list'], userList)
 }
 
-const insertMenuIntoHistoric = async (db, username, menu) => db.collection('historicMenus').insertOne({ username, menu, createdAt: new Date() })
+const insertMenuIntoLog = async (db, username, menu) => db.collection('LogMenus').insertOne({ username, menu, createdAt: new Date() })
 
-const insertNutrientsIntoHistoric = async (db, username, nutrients) => db.collection('historicNutrients').insertOne({ username, nutrients, createdAt: new Date() })
+const insertNutrientsIntoLog = async (db, username, nutrients) => db.collection('LogNutrients').insertOne({ username, nutrients, createdAt: new Date() })
 
 const getUserNutrientsBalance = async (db, username) => {
   const userBalances = await db.collection('userNutrientsBalance').find({ username }).sort({ _id: -1 }).limit(1)
@@ -99,8 +99,8 @@ export default async function connectToDB() {
     insertUserMenu: partial(insertUserMenu, [db]),
     getUserShoppingList: partial(getUserShoppingList, [db]),
     insertUserShoppingList: partial(insertUserShoppingList, [db]),
-    insertMenuIntoHistoric: partial(insertMenuIntoHistoric, [db]),
-    insertNutrientsIntoHistoric: partial(insertNutrientsIntoHistoric, [db]),
+    insertMenuIntoLog: partial(insertMenuIntoLog, [db]),
+    insertNutrientsIntoLog: partial(insertNutrientsIntoLog, [db]),
     getUserNutrientsBalance: partial(getUserNutrientsBalance, [db]),
     insertUserNutrientsBalance: partial(insertUserNutrientsBalance, [db]),
   }

@@ -25,7 +25,7 @@ const addQtyToList = (index, item, list) => {
   return over(elLens, add(item.qty), list)
 }
 
-export const addElementToShoppingList = (shoppingList, shoppingItem) => {
+const addElementToShoppingList = (shoppingList, shoppingItem) => {
   const index = findItemInList(shoppingItem.ingredient, shoppingList)
   if (index === -1) {
     return addItemToList(shoppingItem, shoppingList)
@@ -43,6 +43,3 @@ export const createShoppingList = menu => compose(
   concatAll,
   map(extractIngredientsFromDayMenu),
 )(menu)
-
-export const removeElement = (shoppingList, element) =>
-  shoppingList.filter(({ ingredient }) => ingredient !== element.ingredient)

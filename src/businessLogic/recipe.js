@@ -9,10 +9,10 @@ const notIncludedAlready = ({ currentMenu, dayRecipes }) => recipe => and(
   not(any(hasRecipeOnDay(recipe), currentMenu)),
 )
 
-export const matchSeason = season =>
+const matchSeason = season =>
   compose(any(equals(season)), prop('seasons'))
 
-export const matchMeal = ({ meal }) => compose(any(equals(meal)), prop('meal'))
+const matchMeal = ({ meal }) => compose(any(equals(meal)), prop('meal'))
 
 const findRecipe = options =>
   allPass([

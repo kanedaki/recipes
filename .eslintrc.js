@@ -7,5 +7,9 @@ module.exports = {
     ['dangle-comma']: 0,
     ['no-shadow']: 0,
     ["no-mixed-operators"]: 0,
+    ["no-restricted-syntax"]: 0,
   },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  }
 }

@@ -1,4 +1,4 @@
-import { prop, curry } from 'ramda'
+import { filter, keys, prop, curry } from 'ramda'
 import { normalizeWith, objNormalizeWith, filterWithKeys } from '../utils'
 import { dayPercentageNutrients, dayCalories } from './user'
 import { numberOfMeals } from './template'
@@ -20,10 +20,11 @@ const calculateFitness =
 const userCaloriesPerMenu = (template, userDescription) =>
   dayCalories(userDescription) * numberOfMeals(template)
 
-export const removeNotConsumed = (menu, template) => menu.map((dayMenu, i) => {
-  const dayTemplate = template[i] || {}
-  return filterWithKeys(key => (prop(key, dayTemplate)), dayMenu)
-})
+export const removeNotConsumed = (menu, template) =>
+  filter((day => keys(day).length > 0), menu.map((dayMenu, i) => {
+    const dayTemplate = template[i] || {}
+    return filterWithKeys(key => (prop(key, dayTemplate)), dayMenu)
+  }))
 
 export const findBestMenu = async (menuIterator, template, userDescription) => {
   const desiredCalories = userCaloriesPerMenu(template, userDescription)

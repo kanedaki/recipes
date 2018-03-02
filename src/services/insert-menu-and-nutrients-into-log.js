@@ -3,8 +3,8 @@ import { removeNotConsumed } from '../businessLogic/menu'
 
 const factory = (app, {
   getUserNutrientsBalance,
-  insertMenuIntoHistoric,
-  insertNutrientsIntoHistoric,
+  insertMenuIntoLog,
+  insertNutrientsIntoLog,
   insertUserNutrientsBalance,
 }, services) => {
   const updateNutrientsAverage = async (username, nutrients) => {
@@ -18,15 +18,15 @@ const factory = (app, {
     return insertUserNutrientsBalance(username, newBalance)
   }
 
-  const insertMenuAndNutrientsIntoHistoric = async (username, menu, template) => {
+  const insertMenuAndNutrientsIntoLog = async (username, menu, template) => {
     const consumedMenu = removeNotConsumed(menu, template)
     const nutrients = await services.calculateMenuNutrients(consumedMenu)
     return Promise.all([
-      insertMenuIntoHistoric(username, consumedMenu),
-      insertNutrientsIntoHistoric(username, nutrients),
+      insertMenuIntoLog(username, consumedMenu),
+      insertNutrientsIntoLog(username, nutrients),
       updateNutrientsAverage(username, nutrients)])
   }
-  return insertMenuAndNutrientsIntoHistoric
+  return insertMenuAndNutrientsIntoLog
 }
 
 export default factory
