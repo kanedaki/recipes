@@ -6,7 +6,7 @@ import { findBestMenu } from '../businessLogic/menu'
 
 
 const createMenuFactory = (app, {
-  getUserSettings, getUserRecipes, findIngredient,
+  getUserSettings, getUserRecipes, findIngredient, getUser
 }, services) => {
   /* ***************** calculate calories *************** */
   const getFoodCalories = async (ingredientName) => {
@@ -73,7 +73,8 @@ const createMenuFactory = (app, {
   }
 
   const createBalancedMenu = async (username, customTemplate) => {
-    const { description: userDescription, template: userTemplate } = await getUserSettings(username)
+    const userDescription = await getUser(username)
+    const { template: userTemplate } = await getUserSettings(username)
     const template = customTemplate || userTemplate
     const menuIterator = makeMenuIterator(userDescription, template)
     return findBestMenu(menuIterator, template, userDescription)

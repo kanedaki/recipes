@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { createShoppingList } from './businessLogic/shoppingList'
+import { createShoppingList } from '../businessLogic/shoppingList'
 
 const saltRounds = 10
 
-const routes = (app, db, services) => {
+const api = (app, db, services) => {
   app.post('/register', async (req, res) => {
     const { username, password, email } = req.body
     const alreadyExists = await db.getUser(username)
@@ -37,7 +37,7 @@ const routes = (app, db, services) => {
 
   app.post('/user/:username', async (req, res) => {
     const { description } = req.body
-    const user = await db.insertUserSettings(req.params.username, description)
+    const user = await db.updateUser(req.params.username, description)
     res.send(user)
   })
   app.get('/user/:username', async (req, res) => {
@@ -47,7 +47,7 @@ const routes = (app, db, services) => {
 
   app.post('/user/:username/settings', async (req, res) => {
     const { template } = req.body
-    const user = await db.insertUserSettings(req.params.username, template)
+    const user = await db.insertUserSettings(req.params.username, { template })
     res.send(user)
   })
   app.get('/user/:username/settings', async (req, res) => {
@@ -92,4 +92,4 @@ const routes = (app, db, services) => {
   })
 }
 
-export default routes
+export default api 

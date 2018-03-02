@@ -15,39 +15,28 @@ const insertIngredient = async (db, category, subcategory, name, info) => db.col
 
 /* *************************** Recipes ********************* */
 
-const getRecipe = async (db, name) => {
-  const recipes = await db.collection('recipes').find({ name }).project({ _id: 0 }).limit(1)
-    .toArray()
-  return recipes[0]
-}
+const getRecipe = (db, name) => db.collection('recipes').findOne({ name }, { _id: 0 })
 
 const updateRecipe = async (db, recipe) => db.collection('recipes').update(
   { name: recipe.name },
   recipe,
 )
 
-const getUserRecipes = async db => db.collection('recipes').find({}).project({ _id: 0 }).toArray()
+const getUserRecipes = db => db.collection('recipes').find({}).project({ _id: 0 }).toArray()
 
-const insertRecipes = async (db, recipes) => db.collection('recipes').insertMany(recipes)
+const insertRecipes = (db, recipes) => db.collection('recipes').insertMany(recipes)
 
 /* *************************** User ********************* */
-const getUser = async (db, username) => {
-  const users = await db.collection('users').find({ username }).project({ _id: 0 }).limit(1)
-    .toArray()
-  return users[0]
-}
+const getUser = (db, username) => db.collection('users').findOne({ username }, { _id: 0, password: 0 })
 
-const insertUser = async (db, username, password, email) => db.collection('users').insertOne({ username, password, email })
+const insertUser = (db, username, password, email) => db.collection('users').insertOne({ username, password, email })
+const updateUser = (db, username, user) => db.collection('users').update({ username }, { $set: user })
 
-const getUserSettings = async (db, username) => {
-  const users = await db.collection('settings').find({ username }).project({ _id: 0 }).limit(1)
-    .toArray()
-  return pathOr({}, [0], users)
-}
+const getUserSettings = (db, username) => db.collection('userSettings').findOne({ username }, { _id: 0 }) || {}
 
-const insertUserSettings = async (db, username, description, template) => db.collection('settings').insertOne({ username, description, template })
+const insertUserSettings = (db, username, settings) => db.collection('userSettings').insertOne({ username, ...settings })
 
-const insertUserMenu = async (db, username, menu) => db.collection('userMenus').insertOne({ username, menu })
+const insertUserMenu = (db, username, menu) => db.collection('userMenus').insertOne({ username, menu })
 
 const getUserMenu = async (db, username) => {
   const userMenus = await db.collection('userMenus').find({ username }).sort({ _id: -1 }).limit(1)
@@ -55,7 +44,7 @@ const getUserMenu = async (db, username) => {
   return pathOr([], [0, 'menu'], userMenus)
 }
 
-const insertUserShoppingList = async (db, username, list) => db.collection('userShoppingList').insertOne({ username, list })
+const insertUserShoppingList = (db, username, list) => db.collection('userShoppingList').insertOne({ username, list })
 
 const getUserShoppingList = async (db, username) => {
   const userList = await db.collection('userShoppingList').find({ username }).sort({ _id: -1 }).limit(1)
@@ -63,9 +52,9 @@ const getUserShoppingList = async (db, username) => {
   return pathOr([], [0, 'list'], userList)
 }
 
-const insertMenuIntoLog = async (db, username, menu) => db.collection('LogMenus').insertOne({ username, menu, createdAt: new Date() })
+const insertMenuIntoLog = (db, username, menu) => db.collection('LogMenus').insertOne({ username, menu, createdAt: new Date() })
 
-const insertNutrientsIntoLog = async (db, username, nutrients) => db.collection('LogNutrients').insertOne({ username, nutrients, createdAt: new Date() })
+const insertNutrientsIntoLog = (db, username, nutrients) => db.collection('LogNutrients').insertOne({ username, nutrients, createdAt: new Date() })
 
 const getUserNutrientsBalance = async (db, username) => {
   const userBalances = await db.collection('userNutrientsBalance').find({ username }).sort({ _id: -1 }).limit(1)
@@ -73,7 +62,7 @@ const getUserNutrientsBalance = async (db, username) => {
   return pathOr(undefined, [0, 'balance'], userBalances)
 }
 
-const insertUserNutrientsBalance = async (db, username, balance) => db.collection('userNutrientsBalance').insertOne({ username, balance })
+const insertUserNutrientsBalance = (db, username, balance) => db.collection('userNutrientsBalance').insertOne({ username, balance })
 
 export default async function connectToDB() {
   const url = 'mongodb://localhost:27017'
@@ -95,6 +84,7 @@ export default async function connectToDB() {
     insertUser: partial(insertUser, [db]),
     getUserSettings: partial(getUserSettings, [db]),
     insertUserSettings: partial(insertUserSettings, [db]),
+    updateUser: partial(updateUser, [db]),
     getUserMenu: partial(getUserMenu, [db]),
     insertUserMenu: partial(insertUserMenu, [db]),
     getUserShoppingList: partial(getUserShoppingList, [db]),

@@ -2,7 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import jwt from 'express-jwt'
 import config from '../config.json'
-import routes from './routes'
+import api from './api'
 import connectToDB from './repo/mongo-repo'
 import serviceFactory from './services'
 
@@ -17,7 +17,7 @@ async function main() {
 
   const db = await connectToDB()
   const services = serviceFactory(app, db)
-  routes(app, db, services)
+  api(app, db, services)
   app.listen(port, () => {
     console.log(`We are live on ${port}`)
   })

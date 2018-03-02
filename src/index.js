@@ -14,11 +14,11 @@ const main = async () => {
   await db.insertUserMenu(username, menu)
   const userMenu = await db.getUserMenu(username)
   printMenu(userMenu)
-
   const list = await createShoppingList(userMenu)
   await db.insertUserShoppingList(username, list)
   const userList = await db.getUserShoppingList(username)
   printShoppingList(userList)
+
 }
 
 main().then(() => process.exit())
