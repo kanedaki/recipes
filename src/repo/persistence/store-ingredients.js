@@ -1,15 +1,19 @@
 import fs from 'fs'
 import { curry } from 'ramda'
-import { insertIngredient } from '../mongo-repo'
+import connectToDB from '../mongo-repo'
 
 const NA = Symbol.for('NA')
 
 const getProp = (group, name) => {
   const prop = group.data.find(info => info.name === name)
-  return { value: prop.value || NA, unit: prop.unit || NA }
+  return {
+    value: prop.value || NA,
+    unit: prop.unit || NA,
+  }
 }
 
 const getAllProps = group => group.data.map(prop => ({
+  name: prop.name,
   value: prop.value || NA,
   unit: prop.unit || NA,
 }))
@@ -59,13 +63,14 @@ const parseInfo = (general, detail) => {
 }
 
 const storeIngredientInfo =
-  curry(async (category, subcategory, [name, { calories, nutritional }]) => {
+  curry(async (db, category, subcategory, [name, { calories, nutritional }]) => {
     const info = parseInfo(calories, nutritional)
-    return insertIngredient(category, subcategory, name, info)
+    return db.insertIngredient(category, subcategory, name, info)
   })
 
-function storeIngredients() {
-  const nutritionalInfo = JSON.parse(fs.readFileSync('src/persistence/ingredients-info-tree.json', 'utf8'))
+async function storeIngredients() {
+  const db = await connectToDB()
+  const nutritionalInfo = JSON.parse(fs.readFileSync('src/repo/persistence/ingredients-info-tree.json', 'utf8'))
   let currentCategory
   let currentSubcategory
   nutritionalInfo.forEach((firstLevel) => {
@@ -74,7 +79,7 @@ function storeIngredients() {
         category.forEach((secondLevel) => {
           secondLevel.forEach((subcategory) => {
             if (Array.isArray(subcategory)) {
-              subcategory.forEach(storeIngredientInfo(currentCategory, currentSubcategory))
+              subcategory.forEach(storeIngredientInfo(db, currentCategory, currentSubcategory))
             } else {
               currentSubcategory = subcategory
             }
