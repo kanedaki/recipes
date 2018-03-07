@@ -1,17 +1,51 @@
 import { MongoClient } from 'mongodb'
-import { partial, pathOr } from 'ramda'
+import {
+  partial,
+  pathOr,
+  compose,
+  map,
+  flatten,
+  difference,
+  uniq,
+} from 'ramda'
 
 /* *************************** Ingredients ********************* */
 
 const findIngredient = async (db, name) => {
-  const ingredients = await db.collection('ingredients').find({ name }).project({ _id: 0 }).toArray()
-  return ingredients[0]
+  const [
+    ingredient,
+  ] = await db.collection('ingredients').find({ name }).project({ _id: 0 }).toArray()
+  return ingredient
 }
 
-const insertIngredient = async (db, category, subcategory, name, info) => db.collection('ingredients').insertMany([{
-  name, category, subcategory, ...info,
-}])
+const insertIngredient = async (db, category, subcategory, name, info) =>
+  db
+    .collection('ingredients')
+    .insertMany([{
+      name,
+      category,
+      subcategory,
+      ...info,
+    }])
 
+const findIngredients = async (db, ingredients = []) =>
+  db
+    .collection('ingredients')
+    .find({
+      name: { $in: ingredients },
+    })
+    .toArray()
+
+const insertIngredients = async (db, ingredients = []) => {
+  const existingIngredients = (await findIngredients(db, ingredients))
+    .map(({ name }) => name)
+  const newIngredients = difference(ingredients, existingIngredients)
+    .map(name => ({ name, validationPending: true }))
+  return newIngredients.length &&
+    db
+      .collection('ingredients')
+      .insert(newIngredients)
+}
 
 /* *************************** Recipes ********************* */
 
@@ -25,6 +59,17 @@ const updateRecipe = async (db, recipe) => db.collection('recipes').update(
 const getUserRecipes = db => db.collection('recipes').find({}).project({ _id: 0 }).toArray()
 
 const insertRecipes = (db, recipes) => db.collection('recipes').insertMany(recipes)
+
+const insertRecipesWithIngredients = async (db, recipes) => {
+  const extractIngredientNames = compose(
+    uniq,
+    map(pathOr(undefined, ['ingredient'])),
+    flatten,
+    map(pathOr([], ['ingredients'])),
+  )
+  insertIngredients(db, extractIngredientNames(recipes))
+  return insertRecipes(db, recipes)
+}
 
 /* *************************** User ********************* */
 const getUser = (db, username) => db.collection('users').findOne({ username }, { _id: 0, password: 0 })
@@ -93,5 +138,6 @@ export default async function connectToDB() {
     insertNutrientsIntoLog: partial(insertNutrientsIntoLog, [db]),
     getUserNutrientsBalance: partial(getUserNutrientsBalance, [db]),
     insertUserNutrientsBalance: partial(insertUserNutrientsBalance, [db]),
+    insertRecipesWithIngredients: partial(insertRecipesWithIngredients, [db]),
   }
 }

@@ -90,6 +90,12 @@ const api = (app, db, services) => {
     const response = await services.insertMenuAndNutrientsIntoLog(req.params.username, menu, template)
     res.send(response)
   })
+
+  app.post('/recipe', async (req, res) => {
+    const { recipe } = req.body
+    const response = await db.insertRecipesWithIngredients([recipe])
+    res.send(response)
+  })
 }
 
-export default api 
+export default api
