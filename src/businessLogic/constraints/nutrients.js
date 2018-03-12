@@ -1,4 +1,4 @@
-import { path, call } from 'ramda'
+import { path, call, mapObjIndexed } from 'ramda'
 import { male } from '../enums/sex'
 // UL:Tolerable Upper Intake levels
 // RDA: Recommended dietary allowances and Adequate Intakes
@@ -175,3 +175,9 @@ export const vitamins = {
     name: 'colina',
   }),
 }
+
+export const updateBalance = (nutrients, currentBalance = nutrients) =>
+  mapObjIndexed(
+    (value, key) => nutrients[key] * 0.7 + value * 0.3,
+    currentBalance
+  )

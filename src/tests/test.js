@@ -1,8 +1,6 @@
 /* globals describe, it, expect, jest */
 import { createMenu, createBalancedMenu } from '../businessLogic/menu'
-import {
-  createShoppingList,
-} from '../businessLogic/shoppingList'
+import { createShoppingList } from '../businessLogic/shoppingList'
 import {
   match,
   hasRepeatedRecipes,
@@ -12,7 +10,11 @@ import {
 import { dinner, lunch, breakfast } from '../businessLogic/enums/meals'
 import { getSeason } from '../utils'
 import { getUserRecipes } from '../repo/mongo-repo'
-import { macronutrientsAveragePercentage, macronutrientsRda } from '../businessLogic/constraints/nutrients'
+import {
+  macronutrientsAveragePercentage,
+  macronutrientsRda,
+  updateBalance,
+} from '../businessLogic/constraints/nutrients'
 import { light } from '../businessLogic/enums/activity'
 import { male } from '../businessLogic/enums/sex'
 
@@ -102,6 +104,33 @@ describe.skip('test', () => {
         fat: Symbol.for('Not determined'),
         protein: 56,
       })
+    })
+    it('updates current balace based on nutrients', () => {
+      const nutrients = {
+        carbohydrates: 100,
+        fat: 100,
+        protein: 100,
+      }
+      const currentBalance = {
+        carbohydrates: 150,
+        fat: 150,
+        protein: 150,
+      }
+      const newBalance = updateBalance(nutrients, currentBalance)
+      expect(newBalance).toEqual({
+        carbohydrates: 115,
+        fat: 115,
+        protein: 115,
+      })
+    })
+    it('computes new balance as nutrients when no current balance exists', () => {
+      const nutrients = {
+        carbohydrates: 70,
+        fat: 200,
+        protein: 100,
+      }
+      const newBalance = updateBalance(nutrients)
+      expect(newBalance).toEqual(nutrients)
     })
   })
 })

@@ -1,5 +1,5 @@
-import { mapObjIndexed } from 'ramda'
 import { removeNotConsumed } from '../businessLogic/menu'
+import { updateBalance } from '../businessLogic/constraints/nutrients'
 
 const factory = (app, {
   getUserNutrientsBalance,
@@ -9,12 +9,7 @@ const factory = (app, {
 }, services) => {
   const updateNutrientsAverage = async (username, nutrients) => {
     const currentBalance = await getUserNutrientsBalance(username)
-    if (!currentBalance) {
-      return insertUserNutrientsBalance(username, nutrients)
-    }
-    // TODO: sacar a business logic
-    const newBalance = mapObjIndexed((value, key) =>
-      nutrients[key] * 0.7 + value * 0.3, currentBalance)
+    const newBalance = updateBalance(nutrients, currentBalance)
     return insertUserNutrientsBalance(username, newBalance)
   }
 
