@@ -3,6 +3,7 @@ import { jsonServerRestClient,simpleRestClient, fetchUtils, Admin, Resource } fr
 import authClient from './authClient';
 
 import { RecipeList } from './recipes';
+import { IngredientList } from './ingredients';
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
@@ -17,6 +18,7 @@ const restClient = jsonServerRestClient('http://localhost:8000', httpClient);
 const App = () => (
     <Admin restClient={restClient} authClient={authClient}>
       <Resource name="recipes" list={RecipeList} />
+      <Resource name="ingredients" list={IngredientList} />
     </Admin>
 );
 
