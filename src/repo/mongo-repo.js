@@ -36,6 +36,8 @@ const findIngredients = async (db, ingredients = []) =>
     })
     .toArray()
 
+const getIngredients = db => db.collection('ingredients').find({}).project({ _id: 0 }).toArray()
+
 const insertIngredients = async (db, ingredients = []) => {
   const existingIngredients = (await findIngredients(db, ingredients))
     .map(({ name }) => name)
@@ -139,5 +141,6 @@ export default async function connectToDB() {
     getUserNutrientsBalance: partial(getUserNutrientsBalance, [db]),
     insertUserNutrientsBalance: partial(insertUserNutrientsBalance, [db]),
     insertRecipesWithIngredients: partial(insertRecipesWithIngredients, [db]),
+    getIngredients: partial(getIngredients, [db]),    
   }
 }

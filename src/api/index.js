@@ -99,6 +99,13 @@ const api = (app, db, services) => {
 
   app.get('/recipes', async (req, res) => {
     const response = await db.getUserRecipes()
+    res.set('X-Total-Count', response.length)
+    res.send(response)
+  })
+
+  app.get('/ingredients', async (req, res) => {
+    const response = await db.getIngredients()
+    res.set('X-Total-Count', response.length)
     res.send(response)
   })
 }

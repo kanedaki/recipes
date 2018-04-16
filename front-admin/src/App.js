@@ -1,11 +1,22 @@
 import React from 'react';
-import { jsonServerRestClient, Admin, Resource } from 'admin-on-rest';
+import { jsonServerRestClient,simpleRestClient, fetchUtils, Admin, Resource } from 'admin-on-rest';
+import authClient from './authClient';
 
-import { PostList } from './posts';
+import { RecipeList } from './recipes';
+
+const httpClient = (url, options = {}) => {
+  if (!options.headers) {
+      options.headers = new Headers({ Accept: 'application/json' });
+  }
+  const token = localStorage.getItem('token');
+  options.headers.set('Authorization', `Bearer ${token}`);
+  return fetchUtils.fetchJson(url, options);
+}
+const restClient = jsonServerRestClient('http://localhost:8000', httpClient);
 
 const App = () => (
-    <Admin restClient={jsonServerRestClient('http://jsonplaceholder.typicode.com')}>
-        <Resource name="posts" list={PostList} />
+    <Admin restClient={restClient} authClient={authClient}>
+      <Resource name="recipes" list={RecipeList} />
     </Admin>
 );
 
