@@ -96,6 +96,11 @@ const api = (app, db, services) => {
     const response = await db.insertRecipesWithIngredients([recipe])
     res.send(response)
   })
+
+  app.get('/recipes', async (req, res) => {
+    const response = await db.getUserRecipes()
+    res.send(response)
+  })
 }
 
 export default api
