@@ -58,7 +58,17 @@ const updateRecipe = async (db, recipe) => db.collection('recipes').update(
   recipe,
 )
 
-const getUserRecipes = db => db.collection('recipes').find({}).project({ _id: 0 }).toArray()
+//const getUserRecipes = db => db.collection('recipes').find({}).project({ _id: 0 }).toArray()
+const getUserRecipes = db => db.collection('recipes').aggregate([
+  { 
+    $project: {
+        'id': '$_id',  
+        _id: 0,
+        name: 1 
+      }
+  }
+]).toArray()
+//const getUserRecipes = db => db.collection('recipes').find().map( el => ({ id: el._id })
 
 const insertRecipes = (db, recipes) => db.collection('recipes').insertMany(recipes)
 
