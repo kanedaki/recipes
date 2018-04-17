@@ -15,17 +15,12 @@ const RecipeTitle = ({ record }) => {
     return <span>Recipe {record ? `"${record.name}"` : ''}</span>;
 };
 
-const choices = [
-    { _id: 123, full_name: 'Leo Tolstoi', sex: 'M' },
-    { _id: 456, full_name: 'Jane Austen', sex: 'F' },
-];
-
 export const RecipeEdit = (props) => (
     <Edit title={<RecipeTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             
-            <TextInput source="name" />
+            <TextInput source="name" validate={required}/>
 
             <ReferenceInput label="Ingredient" source="ingredient_id" reference="ingredients" allowEmpty>
                 <AutocompleteInput optionText="name" optionValue="id"  options={{ filter: AutoComplete.caseInsensitiveFilter }}/>
@@ -38,9 +33,6 @@ export const RecipeEdit = (props) => (
 export const RecipeCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <ReferenceInput label="User" source="userId" reference="users" validate={required} allowEmpty>
-                <SelectInput optionText="name" />
-            </ReferenceInput>
             <TextInput source="title" />
             <LongTextInput source="body" />
         </SimpleForm>
