@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, required, SelectInput, SimpleForm, TextInput, AutocompleteInput } from 'admin-on-rest';
+import { List, Edit, Create, Datagrid, TextField, EditButton, DisabledInput, LongTextInput, ReferenceInput, required, SimpleForm, TextInput, AutocompleteInput } from 'admin-on-rest';
 import AutoComplete from 'material-ui/AutoComplete';
 
 export const RecipeList = (props) => (

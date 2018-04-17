@@ -40,13 +40,30 @@ const findIngredients = async (db, ingredients = []) =>
 const getIngredients = db => db.collection('ingredients').aggregate([
   { 
     $project: {
-        'id': '$_id',  
-        _id: 0,
-        name: 1,
-        category: 1,
-        subcategory: 1,
-        'calories': '$general.calories',
-      }
+      'id': '$_id',  
+      _id: 0,
+      name: 1,
+      category: 1,
+      subcategory: 1,
+      'calories': '$general.calories',
+    }
+  }
+]).toArray()
+
+const getIngredientById = (db, id) => db.collection('ingredients').aggregate([
+  {
+    $match: { _id: ObjectId(`${id}`) }
+  },
+  {
+    $project: {
+      'id': '$_id',  
+      _id: 0,
+      name: 1,
+      category: 1,
+      subcategory: 1,
+      general: 1,
+      detail: 1,
+    }
   }
 ]).toArray()
 
@@ -182,5 +199,6 @@ export default async function connectToDB() {
     insertRecipesWithIngredients: partial(insertRecipesWithIngredients, [db]),
     getIngredients: partial(getIngredients, [db]),
     getRecipeById: partial(getRecipeById, [db]), 
+    getIngredientById: partial(getIngredientById, [db]),     
   }
 }

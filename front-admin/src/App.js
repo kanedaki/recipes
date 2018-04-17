@@ -1,9 +1,9 @@
 import React from 'react';
-import { jsonServerRestClient,simpleRestClient, fetchUtils, Admin, Resource } from 'admin-on-rest';
+import { jsonServerRestClient, fetchUtils, Admin, Resource } from 'admin-on-rest';
 import authClient from './authClient';
 
 import { RecipeList, RecipeEdit, RecipeCreate } from './recipes';
-import { IngredientList } from './ingredients';
+import { IngredientList, IngredientEdit } from './ingredients';
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {
@@ -19,7 +19,7 @@ const restClient = jsonServerRestClient('http://localhost:8000', httpClient);
 const App = () => (
     <Admin restClient={restClient} authClient={authClient}>
       <Resource name="recipes" list={RecipeList} edit={RecipeEdit} create={RecipeCreate}/>
-      <Resource name="ingredients" list={IngredientList} />
+      <Resource name="ingredients" list={IngredientList} edit={IngredientEdit}/>
     </Admin>
 );
 

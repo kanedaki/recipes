@@ -99,20 +99,26 @@ const api = (app, db, services) => {
 
   app.get('/recipes', async (req, res) => {
     const response = await db.getUserRecipes()
-    res.set('X-Total-Count', response.length)
+    res.set('X-Total-Count', response ? response.length : 0)
     res.send(response)
   })
 
   app.get('/recipes/:id', async (req, res) => {
     const response = await db.getRecipeById(req.params.id)
-    res.set('X-Total-Count', response.length)
+    res.set('X-Total-Count', response ? response.length : 0)
     res.send(response[0])
   })
 
   app.get('/ingredients', async (req, res) => {
     const response = await db.getIngredients()
-    res.set('X-Total-Count', response.length)
+    res.set('X-Total-Count', response ? response.length : 0)
     res.send(response)
+  })
+
+  app.get('/ingredients/:id', async (req, res) => {
+    const response = await db.getIngredientById(req.params.id)
+    res.set('X-Total-Count', response ? response.length : 0)
+    res.send(response[0])
   })
 }
 

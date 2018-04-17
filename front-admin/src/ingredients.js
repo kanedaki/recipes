@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Datagrid, TextField, EditButton, FunctionField } from 'admin-on-rest';
+import { List, Datagrid, TextField, EditButton, FunctionField, Edit, SimpleForm, TextInput } from 'admin-on-rest';
 
 export const IngredientList = (props) => (
     <List {...props}>
@@ -12,4 +12,44 @@ export const IngredientList = (props) => (
             <EditButton />
         </Datagrid>
     </List>
+);
+
+const IngredientTitle = ({ record }) => {
+    return <span>Ingredient {record ? `"${record.name}"` : ''}</span>;
+};
+
+const IngredientGeneralInfo = ({ record }) => {
+    return (
+        <div>
+            <IngredientCaloriesInfo />
+            <IngredientMacroInfo />
+        </div>
+    )
+};
+
+const IngredientCaloriesInfo = ({ record }) => {
+    return (
+        <div>
+            Calories
+        </div>
+    )
+};
+
+const IngredientMacroInfo = ({ record }) => {
+    return (
+        <div>
+            Macro
+        </div>
+    )
+};
+
+export const IngredientEdit = (props) => (
+    <Edit title={<IngredientTitle />} {...props}>
+        <SimpleForm>
+            <TextInput source="name" />
+            <TextInput source="category" />
+            <TextInput source="subcategory" />
+            <IngredientGeneralInfo />
+        </SimpleForm>
+    </Edit>
 );
