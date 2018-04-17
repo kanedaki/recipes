@@ -5,6 +5,10 @@ export const IngredientList = (props) => (
     <List {...props}>
         <Datagrid>
             <TextField source="name" />
+            <TextField source="category" />
+            <TextField source="subcategory" />
+            <TextField source="calories.value" />
+            <TextField source="calories.unit" />
             <EditButton />
         </Datagrid>
     </List>

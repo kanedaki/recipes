@@ -14,6 +14,7 @@ const httpClient = (url, options = {}) => {
   return fetchUtils.fetchJson(url, options);
 }
 const restClient = jsonServerRestClient('http://localhost:8000', httpClient);
+//const restClient = jsonServerRestClient('http://jsonplaceholder.typicode.com')
 
 const App = () => (
     <Admin restClient={restClient} authClient={authClient}>
