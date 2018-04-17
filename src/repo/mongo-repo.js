@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb'
 import {
   partial,
   pathOr,
@@ -64,6 +64,11 @@ const insertIngredients = async (db, ingredients = []) => {
 /* *************************** Recipes ********************* */
 
 const getRecipe = (db, name) => db.collection('recipes').findOne({ name }, { _id: 0 })
+
+const getRecipeById = (db, id) => {
+  console.log('======', id)
+  return db.collection('recipes').findOne({ _id: ObjectId(`${id}`) }, { _id: 0 })
+}
 
 const updateRecipe = async (db, recipe) => db.collection('recipes').update(
   { name: recipe.name },
@@ -162,6 +167,7 @@ export default async function connectToDB() {
     getUserNutrientsBalance: partial(getUserNutrientsBalance, [db]),
     insertUserNutrientsBalance: partial(insertUserNutrientsBalance, [db]),
     insertRecipesWithIngredients: partial(insertRecipesWithIngredients, [db]),
-    getIngredients: partial(getIngredients, [db]),    
+    getIngredients: partial(getIngredients, [db]),
+    getRecipeById: partial(getRecipeById, [db]), 
   }
 }
