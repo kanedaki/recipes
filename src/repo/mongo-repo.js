@@ -36,7 +36,19 @@ const findIngredients = async (db, ingredients = []) =>
     })
     .toArray()
 
-const getIngredients = db => db.collection('ingredients').find({}).project({ _id: 0 }).toArray()
+// const getIngredients = db => db.collection('ingredients').find({}).project({ _id: 0 }).toArray()
+const getIngredients = db => db.collection('ingredients').aggregate([
+  { 
+    $project: {
+        'id': '$_id',  
+        _id: 0,
+        name: 1,
+        category: 1,
+        subcategory: 1,
+        'calories': '$general.calories',
+      }
+  }
+]).toArray()
 
 const insertIngredients = async (db, ingredients = []) => {
   const existingIngredients = (await findIngredients(db, ingredients))
@@ -68,7 +80,6 @@ const getUserRecipes = db => db.collection('recipes').aggregate([
       }
   }
 ]).toArray()
-//const getUserRecipes = db => db.collection('recipes').find().map( el => ({ id: el._id })
 
 const insertRecipes = (db, recipes) => db.collection('recipes').insertMany(recipes)
 
