@@ -10,7 +10,8 @@
     "store-recipes": "babel-node src/repo/persistence/store-recipes.js",
     "update-recipes": "babel-node src/repo/persistence/change_ids_with_names.js",
     "store-users": "babel-node src/repo/persistence/store-users.js",
-    "test": "jest --watch",
+    "test": "jest",
+    "tdd": "jest --watch",
     "lint": "eslint --fix .",
     "dbdump": "mongodump --db=recipes && zip -9 recipes_backup.zip dump/recipes/* && rm -r dump/recipes",
     "dbrestore": "mkdir _temp ; unzip recipes_backup.zip -d _temp ; mongorestore _temp/dump ; rm -r _temp"
