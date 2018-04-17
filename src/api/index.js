@@ -104,11 +104,9 @@ const api = (app, db, services) => {
   })
 
   app.get('/recipes/:id', async (req, res) => {
-    console.log('QQQQ', req.params.id)
     const response = await db.getRecipeById(req.params.id)
-    console.log('AAA', response)
     res.set('X-Total-Count', response.length)
-    res.send(response)
+    res.send(response[0])
   })
 
   app.get('/ingredients', async (req, res) => {

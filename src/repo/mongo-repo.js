@@ -65,10 +65,23 @@ const insertIngredients = async (db, ingredients = []) => {
 
 const getRecipe = (db, name) => db.collection('recipes').findOne({ name }, { _id: 0 })
 
-const getRecipeById = (db, id) => {
-  console.log('======', id)
-  return db.collection('recipes').findOne({ _id: ObjectId(`${id}`) }, { _id: 0 })
-}
+//const getRecipeById = (db, id) => db.collection('recipes').findOne({ _id: ObjectId(`${id}`) }, { _id: 0 })
+const getRecipeById = (db, id) => db.collection('recipes').aggregate([
+  {
+    $match: { _id: ObjectId(`${id}`) }
+  },
+  {
+    $project: {
+      'id': '$_id',  
+      _id: 0,
+      name: 1,
+      ingredients: 1,
+      seasons: 1,
+      meal: 1,
+      steps: 1,
+    }
+  }
+]).toArray()
 
 const updateRecipe = async (db, recipe) => db.collection('recipes').update(
   { name: recipe.name },
