@@ -10,7 +10,7 @@ export const IngredientGeneralInfo = ({ record }) => {
     return (
         <div>
             <IngredientCaloriesInfo value={value} unit={unit} />
-            <IngredientMacroInfo macroInfo={macro} />
+            <IngredientMacroInfo macroInfo={macro} label='Macronutrients'/>
         </div>
     )
 }
