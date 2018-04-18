@@ -120,6 +120,12 @@ const api = (app, db, services) => {
     res.set('X-Total-Count', response ? response.length : 0)
     res.send(response[0])
   })
+
+  app.delete('/ingredients/:id', async (req, res) => {
+    const response = await db.deleteIngredientById(req.params.id)
+    console.log('DELETE', response)
+    res.send(response[0])
+  })
 }
 
 export default api

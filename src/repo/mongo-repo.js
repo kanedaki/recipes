@@ -38,14 +38,14 @@ const findIngredients = async (db, ingredients = []) =>
 
 // const getIngredients = db => db.collection('ingredients').find({}).project({ _id: 0 }).toArray()
 const getIngredients = db => db.collection('ingredients').aggregate([
-  { 
+  {
     $project: {
-      'id': '$_id',  
+      id: '$_id',
       _id: 0,
       name: 1,
       category: 1,
       subcategory: 1,
-      'calories': '$general.calories',
+      calories: '$general.calories',
     }
   }
 ]).toArray()
@@ -56,7 +56,7 @@ const getIngredientById = (db, id) => db.collection('ingredients').aggregate([
   },
   {
     $project: {
-      'id': '$_id',  
+      id: '$_id',
       _id: 0,
       name: 1,
       category: 1,
@@ -66,6 +66,8 @@ const getIngredientById = (db, id) => db.collection('ingredients').aggregate([
     }
   }
 ]).toArray()
+
+const deleteIngredientById = (db, id) => db.collection('ingredients').remove({ _id: ObjectId(`${id}`) })
 
 const insertIngredients = async (db, ingredients = []) => {
   const existingIngredients = (await findIngredients(db, ingredients))
@@ -82,14 +84,14 @@ const insertIngredients = async (db, ingredients = []) => {
 
 const getRecipe = (db, name) => db.collection('recipes').findOne({ name }, { _id: 0 })
 
-//const getRecipeById = (db, id) => db.collection('recipes').findOne({ _id: ObjectId(`${id}`) }, { _id: 0 })
+// const getRecipeById = (db, id) => db.collection('recipes').findOne({ _id: ObjectId(`${id}`) }, { _id: 0 })
 const getRecipeById = (db, id) => db.collection('recipes').aggregate([
   {
     $match: { _id: ObjectId(`${id}`) }
   },
   {
     $project: {
-      'id': '$_id',  
+      id: '$_id',
       _id: 0,
       name: 1,
       ingredients: 1,
@@ -105,14 +107,14 @@ const updateRecipe = async (db, recipe) => db.collection('recipes').update(
   recipe,
 )
 
-//const getUserRecipes = db => db.collection('recipes').find({}).project({ _id: 0 }).toArray()
+// const getUserRecipes = db => db.collection('recipes').find({}).project({ _id: 0 }).toArray()
 const getUserRecipes = db => db.collection('recipes').aggregate([
-  { 
+  {
     $project: {
-        'id': '$_id',  
-        _id: 0,
-        name: 1 
-      }
+      id: '$_id',
+      _id: 0,
+      name: 1,
+    }
   }
 ]).toArray()
 
@@ -198,7 +200,8 @@ export default async function connectToDB() {
     insertUserNutrientsBalance: partial(insertUserNutrientsBalance, [db]),
     insertRecipesWithIngredients: partial(insertRecipesWithIngredients, [db]),
     getIngredients: partial(getIngredients, [db]),
-    getRecipeById: partial(getRecipeById, [db]), 
-    getIngredientById: partial(getIngredientById, [db]),     
+    getRecipeById: partial(getRecipeById, [db]),
+    getIngredientById: partial(getIngredientById, [db]),
+    deleteIngredientById: partial(deleteIngredientById, [db]),
   }
 }
