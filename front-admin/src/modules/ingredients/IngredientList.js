@@ -7,7 +7,7 @@ export const IngredientList = (props) => (
             <TextField source="name" />
             <TextField source="category" />
             <TextField source="subcategory" />
-            <FunctionField label="calories" render={record => record && `${record.calories.value} ${record.calories.unit}`} />    
+            <FunctionField label="calories" render={record => record.calories && `${record.calories.value} ${record.calories.unit}`} />    
             <EditButton />
         </Datagrid>
     </List>

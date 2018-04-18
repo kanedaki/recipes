@@ -3,7 +3,9 @@ import { IngredientCaloriesInfo } from './IngredientCaloriesInfo'
 import { IngredientMacroInfo } from './IngredientMacroInfo'
 
 export const IngredientGeneralInfo = ({ record }) => {
-    const { value, unit } = record.general.calories
+    const { general } = record
+    if (!general) return null
+    const { value, unit } = general.calories
     const { macro } = record.general
     return (
         <div>
