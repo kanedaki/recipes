@@ -1,6 +1,6 @@
 import React from 'react'
 import withCollapse from '../../hocs/withCollapse'
-import { IngredientMacroNutrient } from './IngredientMacroNutrient'
+import { IngredientNutrient } from './IngredientNutrient'
 
 class IngredientMacroInfoRaw extends React.Component{    
     render(){
@@ -8,7 +8,7 @@ class IngredientMacroInfoRaw extends React.Component{
         const macroNames = Object.keys(macroInfo)
         return (
             <div>
-                {!collapsed && macroNames.map(el => <IngredientMacroNutrient key={el} name={el} value={macroInfo[el].value} unit={macroInfo[el].unit}/>)}
+                {!collapsed && macroNames.map(el => <IngredientNutrient key={el} name={el} value={macroInfo[el].value} unit={macroInfo[el].unit}/>)}
             </div>
         )
     }
