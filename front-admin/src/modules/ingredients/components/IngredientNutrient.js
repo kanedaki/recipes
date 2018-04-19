@@ -10,10 +10,10 @@ const renderField = props => (
     </div>
 )
 
-export const IngredientNutrient = ({ generalSubCat, subCatName, label, value, unit }) => {
+export const IngredientNutrient = ({ cat, subCat, subCatName, label, value, unit }) => {
     return (
         <Field 
-            name={`general.${generalSubCat}.${subCatName}.value`}
+            name={`${cat}.${subCat}.${subCatName}.value`}
             type='text'
             component={renderField}
             label={label}

@@ -11,11 +11,11 @@ class IngredientMicroInfoRaw extends React.Component{
             <div>
                 {!collapsed && <label><b>Minerals</b></label>}
                 {!collapsed && minerals.map((el, i) => 
-                    <IngredientNutrient key={el.name} generalSubCat={'micro'} subCatName={`minerals[${i}]`} label={el.name} value={el.value} unit={el.unit}/>)}
+                    <IngredientNutrient key={el.name} cat={'general'} subCat={'micro'} subCatName={`minerals[${i}]`} label={el.name} value={el.value} unit={el.unit}/>)}
                 
                 {!collapsed && <label><b>Vitamins</b></label>}
                 {!collapsed && vitamins.map((el, i) => 
-                    <IngredientNutrient key={el.name} generalSubCat={'micro'} subCatName={`vitamins[${i}]`} label={el.name} value={el.value} unit={el.unit}/>)}                
+                    <IngredientNutrient key={el.name} cat={'general'} subCat={'micro'} subCatName={`vitamins[${i}]`} label={el.name} value={el.value} unit={el.unit}/>)}                
             </div>
         )
     }
