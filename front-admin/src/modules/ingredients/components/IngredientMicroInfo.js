@@ -1,6 +1,6 @@
 import React from 'react'
 import withCollapse from '../../hocs/withCollapse'
-import { IngredientNutrient } from './IngredientNutrient'
+import { IngredientSubCatList } from './IngredientSubCatList'
 
 class IngredientMicroInfoRaw extends React.Component{    
     render(){
@@ -9,13 +9,8 @@ class IngredientMicroInfoRaw extends React.Component{
 
         return (
             <div>
-                {!collapsed && <label><b>Minerals</b></label>}
-                {!collapsed && minerals.map((el, i) => 
-                    <IngredientNutrient key={el.name} cat={'general'} subCat={'micro'} subCatName={`minerals[${i}]`} label={el.name} value={el.value} unit={el.unit}/>)}
-                
-                {!collapsed && <label><b>Vitamins</b></label>}
-                {!collapsed && vitamins.map((el, i) => 
-                    <IngredientNutrient key={el.name} cat={'general'} subCat={'micro'} subCatName={`vitamins[${i}]`} label={el.name} value={el.value} unit={el.unit}/>)}                
+                {!collapsed && <IngredientSubCatList label={'Minerals'} list={minerals}  cat={'general'} subCat={'micro'} subCatName={`minerals`}/>}                      
+                {!collapsed && <IngredientSubCatList label={'Vitamins'} list={vitamins}  cat={'general'} subCat={'micro'} subCatName={`vitamins`}/>}                      
             </div>
         )
     }
