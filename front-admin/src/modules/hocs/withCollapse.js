@@ -14,8 +14,8 @@ export default function withCollapse (component) {
         render() {
             const { component: Component, label, ...rest } = this.props
             return (
-                <div>
-                    <h2 className='collapse-title'>{label}</h2>
+                <div className="collapse-block">
+                    <span className='collapse-title'><b>{label}</b></span>
                     <button className='collapse-button' type='button' onClick={this.toggleCollapse}>{ this.state.collapsed ? 'Expand' : 'Collapse'}</button>
                     <Component collapsed={this.state.collapsed} {...rest}/>
                 </div>

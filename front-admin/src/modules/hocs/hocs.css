@@ -1,4 +1,11 @@
 .collapse-button, .collapse-title{
     font-family: Roboto, sans-serif;
-    display: inline-block;
+}
+
+.collapse-title{
+    margin-right: 20px;
+}
+
+.collapse-block{
+    margin-top: 20px;
 }
