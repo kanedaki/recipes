@@ -1,34 +1,64 @@
-.collapse-button, .collapse-title{
+.collapse-button{
     font-family: Roboto, sans-serif;
   }
   
 .collapse-button {
+  width: 100%;
+  padding: 8px 8px; 
   font-size: 12px;
+  text-align: left;
   border: none;
   background-color: rgb(0, 188, 212);
-  text-transform: uppercase;
   color: white;
-  border-radius: 2px;
+  border-radius: 4px;
   cursor: pointer;
   box-shadow: 0px 0px 1px 1px;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 }
-  
-.collapse-button:hover {
-  background-color: rgb(0, 220, 250);
+
+.collapse-button > span {
+  margin-left: 6px;
+}
+
+.collapse-button > i{
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 100ms;  
+}
+
+.collapse-button:hover > i{
+  transform: rotate(180deg)
 }
 
 .collapse-button:focus {
     outline: none;
 }
 
-.collapse-title{
-    font-size: 18px;
-    color: rgba(0,0,0,0.87);
+.collapse-button.open{
+   border-radius: 4px 4px 4px 0px;
+}
+
+.collapse-button.open > i{
+  transform: rotate(180deg)  
+}
+
+.collapse-button.open:hover > i{
+  transform: rotate(0deg)  
 }
 
 .collapse-block{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    position: relative;
+    margin: 8px 0px 0px 0px;
+}
+
+.collapse-content{
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 10ms;  
+  overflow: hidden;
+  max-height: 0px;
+}
+
+.collapse-content.open{
+  border-left: 4px solid  rgb(0, 188, 212);
+  padding-left: 8px;
+  position: relative;
+  top: -1px;
+  max-height: 10000px;
 }
