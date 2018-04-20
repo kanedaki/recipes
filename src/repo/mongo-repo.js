@@ -67,6 +67,9 @@ const getIngredientById = (db, id) => db.collection('ingredients').aggregate([
   }
 ]).toArray()
 
+const updateIngredientById = (db, id, ingredient) => db.collection('ingredients').update(
+  { _id: ObjectId(`${id}`) }, ingredient)
+
 const deleteIngredientById = (db, id) => db.collection('ingredients').remove({ _id: ObjectId(`${id}`) })
 
 const insertIngredients = async (db, ingredients = []) => {
@@ -202,6 +205,7 @@ export default async function connectToDB() {
     getIngredients: partial(getIngredients, [db]),
     getRecipeById: partial(getRecipeById, [db]),
     getIngredientById: partial(getIngredientById, [db]),
+    updateIngredientById: partial(updateIngredientById, [db]),
     deleteIngredientById: partial(deleteIngredientById, [db]),
   }
 }
