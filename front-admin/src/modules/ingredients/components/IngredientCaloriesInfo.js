@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {TextInput} from 'admin-on-rest'
+import { TextInput } from 'admin-on-rest'
 import { Field } from 'redux-form' 
 
 export const IngredientCaloriesInfo = ({ value, unit }) => {
