@@ -8,10 +8,12 @@ class IngredientMacroInfoRaw extends React.Component{
         const macroNames = Object.keys(macroInfo)
         return (
             <div>
-                {!collapsed && macroNames.map(el => <IngredientNutrient key={el}  cat={'general'} subCat={'macro'} subCatName={el} label={el} value={macroInfo[el].value} unit={macroInfo[el].unit}/>)}
+                {macroNames.map(el => <IngredientNutrient key={el}  cat={'general'} subCat={'macro'} subCatName={el} label={el} value={macroInfo[el].value} unit={macroInfo[el].unit}/>)}
             </div>
         )
     }
 }
 
 export const IngredientMacroInfo = withCollapse(IngredientMacroInfoRaw)
+
+IngredientMacroInfo.displayName = 'IngredientMacroInfo'

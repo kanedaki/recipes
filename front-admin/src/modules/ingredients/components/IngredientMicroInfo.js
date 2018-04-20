@@ -17,3 +17,5 @@ class IngredientMicroInfoRaw extends React.Component{
 }
 
 export const IngredientMicroInfo = withCollapse(IngredientMicroInfoRaw)
+
+IngredientMicroInfo.displayName = 'IngredientMicroInfo'

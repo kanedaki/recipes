@@ -14,10 +14,12 @@ export default function withCollapse (component) {
         render() {
             const { component: Component, label, ...rest } = this.props
             return (
-                <div className="collapse-block">
-                    <span className='collapse-title'><b>{label}</b></span>
-                    <button className='collapse-button' type='button' onClick={this.toggleCollapse}>{ this.state.collapsed ? 'Expand' : 'Collapse'}</button>
-                    <Component collapsed={this.state.collapsed} {...rest}/>
+                <div>
+                  <div className="collapse-block">
+                      <span className='collapse-title'>{label}</span>
+                      <button className='collapse-button' type='button' onClick={this.toggleCollapse}>{ this.state.collapsed ? 'Expand' : 'Collapse'}</button>
+                  </div>
+                  { !this.state.collapsed && <Component {...rest}/> }
                 </div>
             )
         }
@@ -28,6 +30,8 @@ export default function withCollapse (component) {
             })
         }
     }
+
+    WithCollapse.displayName = 'WithCollapse'
 
     return (props) => <WithCollapse {...props} component={component}/>
 }
