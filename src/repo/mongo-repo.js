@@ -50,6 +50,29 @@ const getIngredients = db => db.collection('ingredients').aggregate([
   }
 ]).toArray()
 
+const getIngredientsNum = db => db.collection('ingredients').count()
+
+const getIngredientsWithPagination = (db, _end, _order, _sort, _start) => {
+  const numFields = _end - _start
+  const orderSort = _order === 'DESC' ? -1 : 1 
+
+  return db.collection('ingredients').aggregate([
+    { $sort: { [_sort]: orderSort } },
+    { $skip: Number(_start) },
+    { $limit: numFields },
+    { $project:
+      {
+        id: '$_id',
+        _id: 0,
+        name: 1,
+        category: 1,
+        subcategory: 1,
+        calories: '$general.calories',
+      }
+    }
+  ]).toArray()
+}
+
 const getIngredientById = (db, id) => db.collection('ingredients').aggregate([
   {
     $match: { _id: ObjectId(`${id}`) }
@@ -203,6 +226,8 @@ export default async function connectToDB() {
     insertUserNutrientsBalance: partial(insertUserNutrientsBalance, [db]),
     insertRecipesWithIngredients: partial(insertRecipesWithIngredients, [db]),
     getIngredients: partial(getIngredients, [db]),
+    getIngredientsNum: partial(getIngredientsNum, [db]),
+    getIngredientsWithPagination: partial(getIngredientsWithPagination, [db]),
     getRecipeById: partial(getRecipeById, [db]),
     getIngredientById: partial(getIngredientById, [db]),
     updateIngredientById: partial(updateIngredientById, [db]),

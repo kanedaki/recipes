@@ -110,14 +110,15 @@ const api = (app, db, services) => {
   })
 
   app.get('/ingredients', async (req, res) => {
-    const response = await db.getIngredients()
-    res.set('X-Total-Count', response ? response.length : 0)
+    const { _end, _order, _sort, _start } = req.query
+    const numTotalIngredients = await db.getIngredientsNum()
+    const response = await db.getIngredientsWithPagination(_end, _order, _sort, _start)    
+    res.set('X-Total-Count', numTotalIngredients)
     res.send(response)
   })
 
   app.get('/ingredients/:id', async (req, res) => {
     const response = await db.getIngredientById(req.params.id)
-    res.set('X-Total-Count', response ? response.length : 0)
     res.send(response[0])
   })
 
