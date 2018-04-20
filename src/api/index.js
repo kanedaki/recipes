@@ -87,7 +87,8 @@ const api = (app, db, services) => {
 
   app.post('/user/:username/log', async (req, res) => {
     const { template, menu } = req.body
-    const response = await services.insertMenuAndNutrientsIntoLog(req.params.username, menu, template)
+    const response = await services.insertMenuAndNutrientsIntoLog(
+      req.params.username, menu, template)
     res.send(response)
   })
 
@@ -110,9 +111,14 @@ const api = (app, db, services) => {
   })
 
   app.get('/ingredients', async (req, res) => {
-    const { _end, _order, _sort, _start } = req.query
+    const {
+      _end,
+      _order,
+      _sort,
+      _start
+    } = req.query
     const numTotalIngredients = await db.getIngredientsNum()
-    const response = await db.getIngredientsWithPagination(_end, _order, _sort, _start)    
+    const response = await db.getIngredientsWithPagination(_end, _order, _sort, _start)
     res.set('X-Total-Count', numTotalIngredients)
     res.send(response)
   })
