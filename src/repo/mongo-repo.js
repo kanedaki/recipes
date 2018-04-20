@@ -146,6 +146,26 @@ const getUserRecipes = db => db.collection('recipes').aggregate([
   }
 ]).toArray()
 
+const getRecipesNum = db => db.collection('recipes').count()
+
+const getRecipesWithPagination = (db, _end, _order, _sort, _start) => {
+  const numFields = _end - _start
+  const orderSort = _order === 'DESC' ? -1 : 1
+
+  return db.collection('recipes').aggregate([
+    { $sort: { [_sort]: orderSort } },
+    { $skip: Number(_start) },
+    { $limit: numFields },
+    {
+      $project: {
+        id: '$_id',
+        _id: 0,
+        name: 1,
+      }
+    }
+  ]).toArray()
+}
+
 const insertRecipes = (db, recipes) => db.collection('recipes').insertMany(recipes)
 
 const insertRecipesWithIngredients = async (db, recipes) => {
@@ -212,6 +232,9 @@ export default async function connectToDB() {
     getRecipe: partial(getRecipe, [db]),
     updateRecipe: partial(updateRecipe, [db]),
     getUserRecipes: partial(getUserRecipes, [db]),
+    getRecipesWithPagination: partial(getRecipesWithPagination, [db]),
+    getRecipesNum: partial(getRecipesNum, [db]),
+    getRecipeById: partial(getRecipeById, [db]),
     insertRecipes: partial(insertRecipes, [db]),
     getUser: partial(getUser, [db]),
     insertUser: partial(insertUser, [db]),
@@ -230,7 +253,6 @@ export default async function connectToDB() {
     getIngredients: partial(getIngredients, [db]),
     getIngredientsNum: partial(getIngredientsNum, [db]),
     getIngredientsWithPagination: partial(getIngredientsWithPagination, [db]),
-    getRecipeById: partial(getRecipeById, [db]),
     getIngredientById: partial(getIngredientById, [db]),
     updateIngredientById: partial(updateIngredientById, [db]),
     deleteIngredientById: partial(deleteIngredientById, [db]),

@@ -99,14 +99,21 @@ const api = (app, db, services) => {
   })
 
   app.get('/recipes', async (req, res) => {
-    const response = await db.getUserRecipes()
-    res.set('X-Total-Count', response ? response.length : 0)
+    const {
+      _end,
+      _order,
+      _sort,
+      _start
+    } = req.query
+    // const response = await db.getUserRecipes()
+    const numTotalRecipes = await db.getRecipesNum()
+    const response = await db.getRecipesWithPagination(_end, _order, _sort, _start)
+    res.set('X-Total-Count', numTotalRecipes)
     res.send(response)
   })
 
   app.get('/recipes/:id', async (req, res) => {
     const response = await db.getRecipeById(req.params.id)
-    res.set('X-Total-Count', response ? response.length : 0)
     res.send(response[0])
   })
 
