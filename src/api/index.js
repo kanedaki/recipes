@@ -128,8 +128,7 @@ const api = (app, db, services) => {
 
   app.delete('/ingredients/:id', async (req, res) => {
     const response = await db.deleteIngredientById(req.params.id)
-    console.log('DELETE', response)
-    res.send(response[0])
+    res.send(response)
   })
 }
 
