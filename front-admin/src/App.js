@@ -2,7 +2,7 @@ import React from 'react';
 import { jsonServerRestClient, fetchUtils, Admin, Resource, Delete } from 'admin-on-rest';
 import authClient from './authClient';
 
-import { RecipeList, RecipeEdit, RecipeCreate } from './recipes';
+import { RecipeList, RecipeEdit, RecipeCreate } from './modules/recipes';
 import { IngredientList, IngredientEdit } from './modules/ingredients';
 
 const httpClient = (url, options = {}) => {
