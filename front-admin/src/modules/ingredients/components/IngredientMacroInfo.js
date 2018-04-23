@@ -4,7 +4,7 @@ import { IngredientNutrient } from './IngredientNutrient'
 
 class IngredientMacroInfoRaw extends React.Component{    
     render(){
-        const { macroInfo, collapsed } = this.props
+        const { macroInfo } = this.props
         const macroNames = Object.keys(macroInfo)
         return (
             <div>

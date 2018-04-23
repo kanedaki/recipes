@@ -1,11 +1,10 @@
 import React from 'react'
 import AutoComplete from 'material-ui/AutoComplete'
 import { Edit, ReferenceInput, required, SimpleForm, TextInput, AutocompleteInput, SelectArrayInput } from 'admin-on-rest'
-import { Field } from 'redux-form' 
 
 import { RecipeTitle } from './components/RecipeTitle'
 import { RecipeIngrList } from './components/RecipeIngrList'
-import { RecipeAddIngredient } from './components/RecipeAddIngredient'
+// import { RecipeAddIngredient } from './components/RecipeAddIngredient'
 
 const seasonsChoices = [{ season: "winter" }, { season: "spring" }, { season: "summer" }, { season: "autumn" }]
 const mealChoices = [{ meal: "lunch" }, { meal: "dinner" }, { meal: "breakfast" }]

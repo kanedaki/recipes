@@ -1,6 +1,6 @@
 import React from 'react';
-import { Create, Datagrid, SimpleForm, TextInput, LongTextInput } from 'admin-on-rest';
-import AutoComplete from 'material-ui/AutoComplete';
+import { Create, SimpleForm, TextInput, LongTextInput } from 'admin-on-rest';
+// import AutoComplete from 'material-ui/AutoComplete';
 
 export const RecipeCreate = (props) => (
     <Create {...props}>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { List, Datagrid, TextField, EditButton, DeleteButton, ReferenceInput, AutocompleteInput } from 'admin-on-rest'
 import { FieldArray } from 'redux-form'
 
 const renderMember = ({ fields }) => {
@@ -17,7 +16,6 @@ const renderMember = ({ fields }) => {
 }
 
 export const RecipeIngrList = ({ record }) => {
-    const { ingredients } = record
     return (
         <div>
             <FieldArray name={'ingredients'} component={renderMember}/>
