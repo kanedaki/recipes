@@ -1,7 +1,10 @@
 import React from 'react'
 import { TextField, List, Datagrid, EditButton, Edit, DisabledInput, ReferenceInput, required, SimpleForm, TextInput, AutocompleteInput } from 'admin-on-rest'
+import { Field } from 'redux-form' 
+
 import { RecipeTitle } from './components/RecipeTitle'
 import { RecipeIngrList } from './components/RecipeIngrList'
+import { RecipeAddIngredient } from './components/RecipeAddIngredient'
 
 import AutoComplete from 'material-ui/AutoComplete'
 
