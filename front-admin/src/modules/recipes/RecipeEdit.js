@@ -1,34 +1,77 @@
 import React from 'react'
 import AutoComplete from 'material-ui/AutoComplete'
-import { Edit, ReferenceInput, required, SimpleForm, TextInput, AutocompleteInput, SelectArrayInput, LongTextInput } from 'admin-on-rest'
+import { NumberInput, Edit, ReferenceInput, required, SimpleForm, TextInput, AutocompleteInput, SelectArrayInput } from 'admin-on-rest'
 import RichTextInput from 'aor-rich-text-input';
 
 import { RecipeTitle } from './components/RecipeTitle'
-import { RecipeIngrList } from './components/RecipeIngrList'
-// import { RecipeAddIngredient } from './components/RecipeAddIngredient'
+import { FieldArray } from 'redux-form'
 
 const seasonsChoices = [{ season: "winter" }, { season: "spring" }, { season: "summer" }, { season: "autumn" }]
 const mealChoices = [{ meal: "lunch" }, { meal: "dinner" }, { meal: "breakfast" }]
 
-export const RecipeEdit = (props) => {
-    console.log(props)
+
+const renderIngredients = (record) => {
     return (
-    <Edit title={<RecipeTitle />} {...props}>
-        <SimpleForm>
-            <TextInput source="name" validate={required}/>
-            <SelectArrayInput source="seasons" choices={seasonsChoices} optionText="season" optionValue="season"/>  
-            <SelectArrayInput source="meal" choices={mealChoices} optionText="meal" optionValue="meal"/>          
-            <RecipeIngrList/>
+        <div>
+            <label><b>Ingredients</b></label>
+            <ul>
+                { record.fields.getAll().map((el, i) => {
+                    return <li key={el.ingredient}>{el.qty} {el.unit} de {el.ingredient}</li> 
+                })}
+            </ul> 
+            <button type="button" onClick={() => record.fields.push(record.newIngredient)}>Add Ingredient</button>
+        </div>
+    )
+}
 
-            {/* <TextInput source={`ingredients[${props.record.ingredients.length}]`} validate={required}/> */}
-            <ReferenceInput label="Ingredient" source="ingredient_id" reference="ingredients" allowEmpty>
-                <AutocompleteInput optionText="name" optionValue="id" options={{ filter: AutoComplete.caseInsensitiveFilter }}/>
-            </ReferenceInput>
+export class RecipeEdit extends React.Component {
 
-            <RichTextInput source="steps" />
-            {/* <LongTextInput source="steps" /> */}
+    constructor(props){
+        super(props)
+        this.state = {
+            ingredient: '',
+            qty: ''
+        }
+        this.handleUpdateInputIngrQty = this.handleUpdateInputIngrQty.bind(this)
+    }
 
-        </SimpleForm>
-    </Edit>
-)}
+    handleUpdateInputIngr = (ingredient) => {
+        this.setState({
+            ingredient: ingredient,
+        })
+    }
+
+    handleUpdateInputIngrQty = (e, qty) => {
+        const value = isNaN(parseFloat(qty)) ? null : parseFloat(qty);
+        this.setState({
+            qty: value,
+        })
+    }
+
+    render(){
+        return (
+            <Edit title={<RecipeTitle />} {...this.props}>
+                <SimpleForm submitOnEnter={false}>
+                    <TextInput source="name" validate={required}/>
+                    <SelectArrayInput source="seasons" choices={seasonsChoices} optionText="season" optionValue="season"/>  
+                    <SelectArrayInput source="meal" choices={mealChoices} optionText="meal" optionValue="meal"/>          
+                
+                    <FieldArray name={'ingredients'} component={renderIngredients} newIngredient={this.state}/>
+                    <NumberInput source="new_ingredient_qty" label="Quantity" onChange={this.handleUpdateInputIngrQty} qty={this.state.qty}/>
+                    <ReferenceInput label="Ingredient" source="ingredient_name" reference="ingredients" allowEmpty>
+                        <AutocompleteInput 
+                            optionText="name" 
+                            optionValue="id" 
+                            options={{ filter: AutoComplete.caseInsensitiveFilter, onUpdateInput: this.handleUpdateInputIngr }} 
+                            ingredient={this.state.ingredient} />
+                    </ReferenceInput>
+
+                    <RichTextInput source="steps" validate={required} />
+
+                </SimpleForm>
+            </Edit>
+        )
+    }
+
+}
 
