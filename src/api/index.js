@@ -117,6 +117,11 @@ const api = (app, db, services) => {
     res.send(response[0])
   })
 
+  app.put('/recipes/:id', async (req, res) => {
+    const response = await db.updateRecipeById(req.params.id, req.body)
+    res.send(response)
+  })
+
   app.get('/ingredients', async (req, res) => {
     const {
       _end,

@@ -135,6 +135,9 @@ const updateRecipe = async (db, recipe) => db.collection('recipes').update(
   recipe,
 )
 
+const updateRecipeById = (db, id, recipe) => db.collection('recipes').update(
+  { _id: ObjectId(`${id}`) }, recipe)
+
 // const getUserRecipes = db => db.collection('recipes').find({}).project({ _id: 0 }).toArray()
 const getUserRecipes = db => db.collection('recipes').aggregate([
   {
@@ -235,6 +238,7 @@ export default async function connectToDB() {
     getRecipesWithPagination: partial(getRecipesWithPagination, [db]),
     getRecipesNum: partial(getRecipesNum, [db]),
     getRecipeById: partial(getRecipeById, [db]),
+    updateRecipeById: partial(updateRecipeById, [db]),    
     insertRecipes: partial(insertRecipes, [db]),
     getUser: partial(getUser, [db]),
     insertUser: partial(insertUser, [db]),
