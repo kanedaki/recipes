@@ -105,6 +105,7 @@ const api = (app, db, services) => {
       _sort,
       _start
     } = req.query
+    
     // const response = await db.getUserRecipes()
     const numTotalRecipes = await db.getRecipesNum()
     const response = await db.getRecipesWithPagination(_end, _order, _sort, _start)
@@ -114,14 +115,14 @@ const api = (app, db, services) => {
 
   app.get('/recipes/:id', async (req, res) => {
     const response = await db.getRecipeById(req.params.id)
-    res.send(response[0])
+    res.send(response)
   })
 
   app.put('/recipes/:id', async (req, res) => {
     const response = await db.updateRecipeById(req.params.id, req.body)
     const recipe = await db.getRecipeById(req.params.id)
 
-    for (const ingredient of recipe[0].ingredients) {
+    for (const ingredient of recipe.ingredients) {
       const existsIngr = await db.getNumIngredientsWithTheName(ingredient.ingredient)
       if (!existsIngr) await db.insertIngredientOnlyWithName(ingredient.ingredient)
     }

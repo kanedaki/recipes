@@ -1,9 +1,11 @@
 import React from 'react';
-import { jsonServerRestClient, fetchUtils, Admin, Resource, Delete } from 'admin-on-rest';
+import { fetchUtils, Admin, Resource, Delete } from 'admin-on-rest';
 import authClient from './authClient';
 
 import { RecipeList, RecipeEdit, RecipeCreate } from './modules/recipes';
 import { IngredientList, IngredientEdit } from './modules/ingredients';
+
+import jsonServerRestClient from './modules/rest/jsonServerRestClient'
 
 const httpClient = (url, options = {}) => {
   if (!options.headers) {

@@ -115,24 +115,24 @@ const insertIngredients = async (db, ingredients = []) => {
 
 const getRecipe = (db, name) => db.collection('recipes').findOne({ name }, { _id: 0 })
 
-// const getRecipeById = (db, id) => db.collection('recipes').findOne({ _id: ObjectId(`${id}`) },
-// { _id: 0 })
-const getRecipeById = (db, id) => db.collection('recipes').aggregate([
-  {
-    $match: { _id: ObjectId(`${id}`) }
-  },
-  {
-    $project: {
-      id: '$_id',
-      _id: 0,
-      name: 1,
-      ingredients: 1,
-      seasons: 1,
-      meal: 1,
-      steps: 1,
-    }
-  }
-]).toArray()
+const getRecipeById = (db, id) => db.collection('recipes').findOne({ _id: ObjectId(`${id}`) })
+
+// const getRecipeById = (db, id) => db.collection('recipes').aggregate([
+//   {
+//     $match: { _id: ObjectId(`${id}`) }
+//   },
+//   {
+//     $project: {
+//       id: '$_id',
+//       _id: 0,
+//       name: 1,
+//       ingredients: 1,
+//       seasons: 1,
+//       meal: 1,
+//       steps: 1,
+//     }
+//   }
+// ]).toArray()
 
 const updateRecipe = async (db, recipe) => db.collection('recipes').update(
   { name: recipe.name },
@@ -155,6 +155,24 @@ const getUserRecipes = db => db.collection('recipes').aggregate([
 
 const getRecipesNum = db => db.collection('recipes').count()
 
+// const getRecipesWithPagination = (db, _end, _order, _sort, _start) => {
+//   const numFields = _end - _start
+//   const orderSort = _order === 'DESC' ? -1 : 1
+
+//   return db.collection('recipes').aggregate([
+//     { $sort: { [_sort]: orderSort } },
+//     { $skip: Number(_start) },
+//     { $limit: numFields },
+//     {
+//       $project: {
+//         id: '$_id',
+//         _id: 0,
+//         name: 1,
+//       }
+//     }
+//   ]).toArray()
+// }
+
 const getRecipesWithPagination = (db, _end, _order, _sort, _start) => {
   const numFields = _end - _start
   const orderSort = _order === 'DESC' ? -1 : 1
@@ -165,9 +183,10 @@ const getRecipesWithPagination = (db, _end, _order, _sort, _start) => {
     { $limit: numFields },
     {
       $project: {
-        id: '$_id',
-        _id: 0,
         name: 1,
+        ingredients: 1,
+        meal: 1,
+        seasons: 1
       }
     }
   ]).toArray()
@@ -242,7 +261,7 @@ export default async function connectToDB() {
     getRecipesWithPagination: partial(getRecipesWithPagination, [db]),
     getRecipesNum: partial(getRecipesNum, [db]),
     getRecipeById: partial(getRecipeById, [db]),
-    updateRecipeById: partial(updateRecipeById, [db]),    
+    updateRecipeById: partial(updateRecipeById, [db]),
     insertRecipes: partial(insertRecipes, [db]),
     getUser: partial(getUser, [db]),
     insertUser: partial(insertUser, [db]),
