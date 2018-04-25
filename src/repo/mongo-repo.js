@@ -28,6 +28,8 @@ const insertIngredient = async (db, category, subcategory, name, info) =>
       ...info,
     }])
 
+const insertIngredientOnlyWithName = async (db, name) => db.collection('ingredients').insertOne({ name })
+
 const findIngredients = async (db, ingredients = []) =>
   db
     .collection('ingredients')
@@ -90,6 +92,8 @@ const getIngredientById = (db, id) => db.collection('ingredients').aggregate([
     }
   }
 ]).toArray()
+
+const getNumIngredientsWithTheName = (db, name) => db.collection('ingredients').find({ name }).count()
 
 const updateIngredientById = (db, id, ingredient) => db.collection('ingredients').update(
   { _id: ObjectId(`${id}`) }, ingredient)
@@ -260,5 +264,7 @@ export default async function connectToDB() {
     getIngredientById: partial(getIngredientById, [db]),
     updateIngredientById: partial(updateIngredientById, [db]),
     deleteIngredientById: partial(deleteIngredientById, [db]),
+    getNumIngredientsWithTheName: partial(getNumIngredientsWithTheName, [db]),
+    insertIngredientOnlyWithName: partial(insertIngredientOnlyWithName, [db]),
   }
 }

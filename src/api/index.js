@@ -119,6 +119,13 @@ const api = (app, db, services) => {
 
   app.put('/recipes/:id', async (req, res) => {
     const response = await db.updateRecipeById(req.params.id, req.body)
+    const recipe = await db.getRecipeById(req.params.id)
+
+    for (const ingredient of recipe[0].ingredients) {
+      const existsIngr = await db.getNumIngredientsWithTheName(ingredient.ingredient)
+      if (!existsIngr) await db.insertIngredientOnlyWithName(ingredient.ingredient)
+    }
+
     res.send(response)
   })
 
