@@ -41,9 +41,11 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         const query = {
           ...fetchUtils.flattenObject(params.filter),
           _sort: field,
-          _order: order,
-          _start: (page - 1) * perPage,
-          _end: page * perPage,
+          _order: order          
+        }
+        if(perPage !== -1){
+            query._start = (page - 1) * perPage
+            query._end =  page * perPage
         }
         url = `${apiUrl}/${resource}?${stringify(query)}`
         break
@@ -70,6 +72,8 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         options.method = 'PUT'
         delete params.data.id
         delete params.data._id
+        delete params.data.new_ingredient_qty
+        delete params.data.ingredient_name
         options.body = JSON.stringify(params.data)
         break
       case CREATE:

@@ -138,7 +138,7 @@ const api = (app, db, services) => {
       _start
     } = req.query
     const numTotalIngredients = await db.getIngredientsNum()
-    const response = await db.getIngredientsWithPagination(_end, _order, _sort, _start)
+    const response = (!_end) ? await db.getIngredients() : await db.getIngredientsWithPagination(_end, _order, _sort, _start)
     res.set('X-Total-Count', numTotalIngredients)
     res.send(response)
   })

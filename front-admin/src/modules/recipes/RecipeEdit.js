@@ -62,8 +62,7 @@ export class RecipeEdit extends React.Component {
                         <AutocompleteInput 
                             optionText="name" 
                             optionValue="id" 
-                            options={{ filter: AutoComplete.caseInsensitiveFilter, onUpdateInput: this.handleUpdateInputIngr }} 
-                            ingredient={this.state.ingredient} />
+                            options={{ filter: AutoComplete.caseInsensitiveFilter, onUpdateInput: this.handleUpdateInputIngr }} />
                     </ReferenceInput>
 
                     <RichTextInput source="steps" validate={required} />
