@@ -18,7 +18,13 @@ const renderIngredients = (record) => {
             <label><b>Ingredients</b></label>
             <ul>
                 { record.fields.getAll() && record.fields.getAll().map((el, i) => {
-                    return <li key={el.ingredient}>{el.qty} {el.unit} de {el.ingredient}</li> 
+                    return (
+                        <div>
+                            <li key={el.ingredient}>{el.qty} {el.unit} de {el.ingredient}
+                                <button type="button" onClick={() => record.fields.remove(i)}>Delete Ingredient</button>
+                            </li>
+                        </div>
+                    )
                 })}
             </ul> 
         </div>
@@ -48,6 +54,13 @@ export class RecipeCreate extends React.Component {
         })
     }
 
+    handleNewRequest = () => {
+        this.setState({
+            ingredient: this.state.ingredient,
+            qty: this.state.qty
+        })
+    }
+
     render(){
         return (
             <Create {...this.props}>
@@ -59,10 +72,13 @@ export class RecipeCreate extends React.Component {
                     <label><b>Add Ingredient</b></label>
                     <NumberInput source="new_ingredient_qty" label="Quantity" onChange={this.handleUpdateInputIngrQty} qty={this.state.qty}/>
                     <ReferenceInput label="Ingredient" source="ingredient_name" reference="ingredients" allowEmpty>
-                        <AutocompleteInput 
+                    <AutocompleteInput 
                             optionText="name" 
                             optionValue="id" 
-                            options={{ filter: AutoComplete.caseInsensitiveFilter, onUpdateInput: this.handleUpdateInputIngr }} />
+                            options={{ 
+                                filter: AutoComplete.caseInsensitiveFilter, 
+                                onUpdateInput: this.handleUpdateInputIngr,
+                                onNewRequest: this.handleNewRequest }} />
                     </ReferenceInput>
                     <FieldArray name={'ingredients'} component={renderIngredients} newIngredient={this.state}/>
 

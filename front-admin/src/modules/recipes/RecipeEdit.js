@@ -19,7 +19,13 @@ const renderIngredients = (record) => {
             <label><b>Ingredients</b></label>
             <ul>
                 { record.fields.getAll() && record.fields.getAll().map((el, i) => {
-                    return <li key={el.ingredient}>{el.qty} {el.unit} de {el.ingredient}</li> 
+                    return (
+                        <div>
+                            <li key={el.ingredient}>{el.qty} {el.unit} de {el.ingredient}
+                                <button type="button" onClick={() => record.fields.remove(i)}>Delete Ingredient</button>
+                            </li>
+                        </div>
+                    )
                 })}
             </ul> 
         </div>
@@ -55,7 +61,7 @@ export class RecipeEdit extends React.Component {
             ingredient: this.state.ingredient,
             qty: this.state.qty
         })
-    };
+    }
 
     render(){
         return (
