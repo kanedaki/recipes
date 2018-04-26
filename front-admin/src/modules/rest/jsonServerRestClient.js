@@ -77,6 +77,8 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
       case CREATE:
         url = `${apiUrl}/${resource}`
         options.method = 'POST'
+        delete params.data.new_ingredient_qty
+        delete params.data.ingredient_name
         options.body = JSON.stringify(params.data)
         break
       case DELETE:

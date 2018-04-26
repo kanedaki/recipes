@@ -15,7 +15,7 @@ const renderIngredients = (record) => {
         <div>
             <label><b>Ingredients</b></label>
             <ul>
-                { record.fields.getAll().map((el, i) => {
+                { record.fields.getAll() && record.fields.getAll().map((el, i) => {
                     return <li key={el.ingredient}>{el.qty} {el.unit} de {el.ingredient}</li> 
                 })}
             </ul> 

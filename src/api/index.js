@@ -98,6 +98,11 @@ const api = (app, db, services) => {
     res.send(response)
   })
 
+  app.post('/recipes', async (req, res) => {
+    const response = await db.insertRecipesWithIngredients([req.body])
+    res.send(response.ops[0])
+  })
+
   app.get('/recipes', async (req, res) => {
     const {
       _end,

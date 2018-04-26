@@ -153,6 +153,8 @@ const getRecipesWithPagination = (db, _end, _order, _sort, _start) => {
 
 const insertRecipes = (db, recipes) => db.collection('recipes').insertMany(recipes)
 
+const insertRecipe = (db, recipe) => db.collection('recipes').insertOne(recipe)
+
 const insertRecipesWithIngredients = async (db, recipes) => {
   const extractIngredientNames = compose(
     uniq,
@@ -222,6 +224,7 @@ export default async function connectToDB() {
     getRecipeById: partial(getRecipeById, [db]),
     updateRecipeById: partial(updateRecipeById, [db]),
     insertRecipes: partial(insertRecipes, [db]),
+    insertRecipe: partial(insertRecipe, [db]),
     getUser: partial(getUser, [db]),
     insertUser: partial(insertUser, [db]),
     getUserSettings: partial(getUserSettings, [db]),
