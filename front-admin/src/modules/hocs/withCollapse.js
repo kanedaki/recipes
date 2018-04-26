@@ -21,7 +21,7 @@ export default function withCollapse(component) {
             type="button"
             onClick={this.toggleCollapse}
           >
-            <i class="fas fa-chevron-up" />
+            <i className="fas fa-chevron-up" />
             <span>{label}</span>
           </button>
           <div className={`collapse-content${collapsed ? '' : ' open'}`}>
