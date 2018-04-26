@@ -51,7 +51,7 @@ export class RecipeCreate extends React.Component {
     render(){
         return (
             <Create {...this.props}>
-                <SimpleForm submitOnEnter={false}>
+                <SimpleForm submitOnEnter={false} redirect="list">
                     <TextInput source="name" validate={required}/>
                     <SelectArrayInput source="seasons" choices={seasonsChoices} optionText="season" optionValue="season"/>  
                     <SelectArrayInput source="meal" choices={mealChoices} optionText="meal" optionValue="meal"/>          
