@@ -42,8 +42,6 @@ const findIngredients = async (db, ingredients = []) =>
 const getIngredients = db => db.collection('ingredients').aggregate([
   {
     $project: {
-      id: '$_id',
-      _id: 0,
       name: 1,
       category: 1,
       subcategory: 1,
@@ -53,28 +51,6 @@ const getIngredients = db => db.collection('ingredients').aggregate([
 ]).toArray()
 
 const getIngredientsNum = db => db.collection('ingredients').count()
-
-// const getIngredientsWithPagination = (db, _end, _order, _sort, _start) => {
-//   const numFields = _end - _start
-//   const orderSort = _order === 'DESC' ? -1 : 1
-
-//   return db.collection('ingredients').aggregate([
-//     { $sort: { [_sort]: orderSort } },
-//     { $skip: Number(_start) },
-//     { $limit: numFields },
-//     {
-//       $project:
-//         {
-//           id: '$_id',
-//           _id: 0,
-//           name: 1,
-//           category: 1,
-//           subcategory: 1,
-//           calories: '$general.calories',
-//         }
-//     }
-//   ]).toArray()
-// }
 
 const getIngredientsWithPagination = (db, _end, _order, _sort, _start) => {
   const numFields = _end - _start
@@ -102,8 +78,6 @@ const getIngredientById = (db, id) => db.collection('ingredients').aggregate([
   },
   {
     $project: {
-      id: '$_id',
-      _id: 0,
       name: 1,
       category: 1,
       subcategory: 1,
@@ -137,23 +111,6 @@ const getRecipe = (db, name) => db.collection('recipes').findOne({ name }, { _id
 
 const getRecipeById = (db, id) => db.collection('recipes').findOne({ _id: ObjectId(`${id}`) })
 
-// const getRecipeById = (db, id) => db.collection('recipes').aggregate([
-//   {
-//     $match: { _id: ObjectId(`${id}`) }
-//   },
-//   {
-//     $project: {
-//       id: '$_id',
-//       _id: 0,
-//       name: 1,
-//       ingredients: 1,
-//       seasons: 1,
-//       meal: 1,
-//       steps: 1,
-//     }
-//   }
-// ]).toArray()
-
 const updateRecipe = async (db, recipe) => db.collection('recipes').update(
   { name: recipe.name },
   recipe,
@@ -174,24 +131,6 @@ const getUserRecipes = db => db.collection('recipes').aggregate([
 ]).toArray()
 
 const getRecipesNum = db => db.collection('recipes').count()
-
-// const getRecipesWithPagination = (db, _end, _order, _sort, _start) => {
-//   const numFields = _end - _start
-//   const orderSort = _order === 'DESC' ? -1 : 1
-
-//   return db.collection('recipes').aggregate([
-//     { $sort: { [_sort]: orderSort } },
-//     { $skip: Number(_start) },
-//     { $limit: numFields },
-//     {
-//       $project: {
-//         id: '$_id',
-//         _id: 0,
-//         name: 1,
-//       }
-//     }
-//   ]).toArray()
-// }
 
 const getRecipesWithPagination = (db, _end, _order, _sort, _start) => {
   const numFields = _end - _start
