@@ -40,12 +40,10 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         const { field, order } = params.sort
         const query = {
           ...fetchUtils.flattenObject(params.filter),
-          _sort: field,
-          _order: order          
-        }
-        if(perPage !== -1){
-            query._start = (page - 1) * perPage
-            query._end =  page * perPage
+          _sort: field === 'id' ? '_id' : field,
+          _order: order,
+          _start: (page - 1) * perPage,
+          _end: page * perPage,
         }
         url = `${apiUrl}/${resource}?${stringify(query)}`
         break
