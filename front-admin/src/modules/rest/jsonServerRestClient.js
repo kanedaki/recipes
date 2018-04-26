@@ -129,7 +129,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
       case CREATE:
         return { data: newResponseJSON[0] }
       default:
-        return newResponseJSON.length === 1 ? { data: newResponseJSON } : { data: newResponseJSON[0] }
+        return newResponseJSON.length === 1 ? { data: newResponseJSON[0] } : { data: newResponseJSON }
     }
   }
 
