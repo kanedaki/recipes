@@ -533,6 +533,7 @@ const getUserRecipes = db => db.collection('recipes').aggregate([
       id: '$_id',
       _id: 0,
       name: 1,
+      steps: 1,
     }
   }
 ]).toArray()
