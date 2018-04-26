@@ -54,6 +54,28 @@ const getIngredients = db => db.collection('ingredients').aggregate([
 
 const getIngredientsNum = db => db.collection('ingredients').count()
 
+// const getIngredientsWithPagination = (db, _end, _order, _sort, _start) => {
+//   const numFields = _end - _start
+//   const orderSort = _order === 'DESC' ? -1 : 1
+
+//   return db.collection('ingredients').aggregate([
+//     { $sort: { [_sort]: orderSort } },
+//     { $skip: Number(_start) },
+//     { $limit: numFields },
+//     {
+//       $project:
+//         {
+//           id: '$_id',
+//           _id: 0,
+//           name: 1,
+//           category: 1,
+//           subcategory: 1,
+//           calories: '$general.calories',
+//         }
+//     }
+//   ]).toArray()
+// }
+
 const getIngredientsWithPagination = (db, _end, _order, _sort, _start) => {
   const numFields = _end - _start
   const orderSort = _order === 'DESC' ? -1 : 1
@@ -65,8 +87,6 @@ const getIngredientsWithPagination = (db, _end, _order, _sort, _start) => {
     {
       $project:
         {
-          id: '$_id',
-          _id: 0,
           name: 1,
           category: 1,
           subcategory: 1,
