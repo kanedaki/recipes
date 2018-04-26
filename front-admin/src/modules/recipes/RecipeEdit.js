@@ -20,8 +20,8 @@ const renderIngredients = (record) => {
             <ul>
                 { record.fields.getAll() && record.fields.getAll().map((el, i) => {
                     return (
-                        <div>
-                            <li key={el.ingredient}>{el.qty} {el.unit} de {el.ingredient}
+                        <div key={el.ingredient}>
+                            <li>{el.qty} {el.unit} de {el.ingredient}
                                 <button type="button" onClick={() => record.fields.remove(i)}>Delete Ingredient</button>
                             </li>
                         </div>
@@ -73,7 +73,7 @@ export class RecipeEdit extends React.Component {
 
                     <label><b>Add Ingredient</b></label>
                     <NumberInput source="new_ingredient_qty" label="Quantity" onChange={this.handleUpdateInputIngrQty} qty={this.state.qty}/>
-                    <ReferenceInput label="Ingredient" source="ingredient_name" reference="ingredients" allowEmpty>
+                    <ReferenceInput label="Ingredient" source="ingredient_name" reference="ingredients" perPage={10000} allowEmpty>
                         <AutocompleteInput 
                             optionText="name" 
                             optionValue="id" 
@@ -84,7 +84,7 @@ export class RecipeEdit extends React.Component {
                     </ReferenceInput>
                     <FieldArray name={'ingredients'} component={renderIngredients} newIngredient={this.state}/>
 
-                    <RichTextInput source="steps" validate={required} />
+                    <RichTextInput source="steps" />
 
                 </SimpleForm>
             </Edit>
