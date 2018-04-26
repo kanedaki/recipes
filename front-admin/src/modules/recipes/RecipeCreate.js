@@ -1,7 +1,7 @@
 import React from 'react';
+import { NumberInput, Create, ReferenceInput, required, SimpleForm, TextInput, AutocompleteInput, SelectArrayInput } from 'admin-on-rest'
 import AutoComplete from 'material-ui/AutoComplete'
 import RichTextInput from 'aor-rich-text-input';
-import { NumberInput, Create, ReferenceInput, required, SimpleForm, TextInput, AutocompleteInput, SelectArrayInput } from 'admin-on-rest'
 
 import { FieldArray } from 'redux-form'
 

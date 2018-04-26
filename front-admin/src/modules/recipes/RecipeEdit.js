@@ -1,6 +1,6 @@
 import React from 'react'
-import AutoComplete from 'material-ui/AutoComplete'
 import { NumberInput, Edit, ReferenceInput, required, SimpleForm, TextInput, AutocompleteInput, SelectArrayInput } from 'admin-on-rest'
+import AutoComplete from 'material-ui/AutoComplete'
 import RichTextInput from 'aor-rich-text-input';
 
 import { RecipeTitle } from './components/RecipeTitle'
@@ -50,6 +50,13 @@ export class RecipeEdit extends React.Component {
         })
     }
 
+    handleNewRequest = () => {
+        this.setState({
+            ingredient: this.state.ingredient,
+            qty: this.state.qty
+        })
+    };
+
     render(){
         return (
             <Edit title={<RecipeTitle />} {...this.props}>
@@ -64,7 +71,10 @@ export class RecipeEdit extends React.Component {
                         <AutocompleteInput 
                             optionText="name" 
                             optionValue="id" 
-                            options={{ filter: AutoComplete.caseInsensitiveFilter, onUpdateInput: this.handleUpdateInputIngr }} />
+                            options={{ 
+                                filter: AutoComplete.caseInsensitiveFilter, 
+                                onUpdateInput: this.handleUpdateInputIngr,
+                                onNewRequest: this.handleNewRequest }} />
                     </ReferenceInput>
                     <FieldArray name={'ingredients'} component={renderIngredients} newIngredient={this.state}/>
 
