@@ -13,13 +13,15 @@ const mealChoices = [{ meal: "lunch" }, { meal: "dinner" }, { meal: "breakfast" 
 const renderIngredients = (record) => {
     return (
         <div>
+            <br/>
+            <button type="button" onClick={() => record.fields.push(record.newIngredient)}>Add Ingredient</button>
+            <br/><br/>
             <label><b>Ingredients</b></label>
             <ul>
                 { record.fields.getAll() && record.fields.getAll().map((el, i) => {
                     return <li key={el.ingredient}>{el.qty} {el.unit} de {el.ingredient}</li> 
                 })}
             </ul> 
-            <button type="button" onClick={() => record.fields.push(record.newIngredient)}>Add Ingredient</button>
         </div>
     )
 }
@@ -55,8 +57,8 @@ export class RecipeEdit extends React.Component {
                     <TextInput source="name" validate={required}/>
                     <SelectArrayInput source="seasons" choices={seasonsChoices} optionText="season" optionValue="season"/>  
                     <SelectArrayInput source="meal" choices={mealChoices} optionText="meal" optionValue="meal"/>          
-                
-                    <FieldArray name={'ingredients'} component={renderIngredients} newIngredient={this.state}/>
+
+                    <label><b>Add Ingredient</b></label>
                     <NumberInput source="new_ingredient_qty" label="Quantity" onChange={this.handleUpdateInputIngrQty} qty={this.state.qty}/>
                     <ReferenceInput label="Ingredient" source="ingredient_name" reference="ingredients" allowEmpty>
                         <AutocompleteInput 
@@ -64,6 +66,7 @@ export class RecipeEdit extends React.Component {
                             optionValue="id" 
                             options={{ filter: AutoComplete.caseInsensitiveFilter, onUpdateInput: this.handleUpdateInputIngr }} />
                     </ReferenceInput>
+                    <FieldArray name={'ingredients'} component={renderIngredients} newIngredient={this.state}/>
 
                     <RichTextInput source="steps" validate={required} />
 
