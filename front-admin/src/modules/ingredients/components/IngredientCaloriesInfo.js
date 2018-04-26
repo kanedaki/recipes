@@ -10,6 +10,7 @@ export const IngredientCaloriesInfo = ({ value, unit }) => {
             type='number'
             component={TextInput}
             source='calories'
+            label={`Calories (${unit})`}
         >
         </Field>
     )

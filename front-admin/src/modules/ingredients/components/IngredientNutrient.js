@@ -9,8 +9,7 @@ export const IngredientNutrient = ({ cat, subCat, subCatName, label, value, unit
       name={`${cat}.${subCat}.${subCatName}.value`}
       type="text"
       component={TextInput}
-      label={label}
-      unit={unit}
+      label={ unit ? `${label} (${unit})` : `${label} (No unit)` }
     />
   )
 }
