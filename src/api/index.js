@@ -87,13 +87,79 @@ const api = (app, db, services) => {
 
   app.post('/user/:username/log', async (req, res) => {
     const { template, menu } = req.body
-    const response = await services.insertMenuAndNutrientsIntoLog(req.params.username, menu, template)
+    const response = await services.insertMenuAndNutrientsIntoLog(
+      req.params.username, menu, template)
     res.send(response)
   })
 
   app.post('/recipe', async (req, res) => {
     const { recipe } = req.body
     const response = await db.insertRecipesWithIngredients([recipe])
+    res.send(response)
+  })
+
+  app.post('/recipes', async (req, res) => {
+    const response = await db.insertRecipesWithIngredients([req.body])
+    res.send(response.ops[0])
+  })
+
+  app.get('/recipes', async (req, res) => {
+    const {
+      _end,
+      _order,
+      _sort,
+      _start
+    } = req.query
+    
+    // const response = await db.getUserRecipes()
+    const numTotalRecipes = await db.getRecipesNum()
+    const response = await db.getRecipesWithPagination(_end, _order, _sort, _start)
+    res.set('X-Total-Count', numTotalRecipes)
+    res.send(response)
+  })
+
+  app.get('/recipes/:id', async (req, res) => {
+    const response = await db.getRecipeById(req.params.id)
+    res.send(response)
+  })
+
+  app.put('/recipes/:id', async (req, res) => {
+    const response = await db.updateRecipeById(req.params.id, req.body)
+    const recipe = await db.getRecipeById(req.params.id)
+
+    for (const ingredient of recipe.ingredients) {
+      const existsIngr = await db.getNumIngredientsWithTheName(ingredient.ingredient)
+      if (!existsIngr) await db.insertIngredientOnlyWithName(ingredient.ingredient)
+    }
+
+    res.send(response)
+  })
+
+  app.get('/ingredients', async (req, res) => {
+    const {
+      _end,
+      _order,
+      _sort,
+      _start
+    } = req.query
+    const numTotalIngredients = await db.getIngredientsNum()
+    const response = (_end === 25) ? await db.getIngredients() : await db.getIngredientsWithPagination(_end, _order, _sort, _start)
+    res.set('X-Total-Count', numTotalIngredients)
+    res.send(response)
+  })
+
+  app.get('/ingredients/:id', async (req, res) => {
+    const response = await db.getIngredientById(req.params.id)
+    res.send(response[0])
+  })
+
+  app.put('/ingredients/:id', async (req, res) => {
+    const response = await db.updateIngredientById(req.params.id, req.body)
+    res.send(response)
+  })
+
+  app.delete('/ingredients/:id', async (req, res) => {
+    const response = await db.deleteIngredientById(req.params.id)
     res.send(response)
   })
 }

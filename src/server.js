@@ -15,6 +15,14 @@ async function main() {
   app.use(bodyParser.json())
   app.use(jwt({ secret: app.get('supersecret') }).unless({ path: ['/register', '/login'] }))
 
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
+    res.header('Access-Control-Expose-Headers', 'X-Total-Count')
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    next()
+  })
+
   const db = await connectToDB()
   const services = serviceFactory(app, db)
   api(app, db, services)

@@ -1,5 +1,9 @@
 import recipes from './recipes'
-import { insertRecipes } from '../mongo-repo'
+import connectToDB from '../mongo-repo'
 
-insertRecipes(recipes)
-  .then(() => process.exit())
+async function storeRecipes() {
+  const db = await connectToDB()
+  db.insertRecipes(recipes).then(() => process.exit())
+}
+
+storeRecipes()
