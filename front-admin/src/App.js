@@ -2,7 +2,7 @@ import React from 'react';
 import { fetchUtils, Admin, Resource, Delete } from 'admin-on-rest';
 import authClient from './authClient';
 
-import { RecipeList, RecipeEdit, RecipeCreate } from './modules/recipes';
+import { RecipeList, RecipeEdit, RecipeCreate, RecipeShow } from './modules/recipes';
 import { IngredientList, IngredientEdit } from './modules/ingredients';
 
 import jsonServerRestClient from './modules/rest/jsonServerRestClient'
@@ -27,7 +27,7 @@ const restClient = jsonServerRestClient('http://localhost:8000', httpClient);
 
 const App = () => (
     <Admin restClient={restClient} authClient={authClient}>
-      <Resource name="recipes" list={RecipeList} edit={RecipeEdit} create={RecipeCreate}/>
+      <Resource name="recipes" list={RecipeList} show={RecipeShow} edit={RecipeEdit} create={RecipeCreate} />
       <Resource name="ingredients" list={IngredientList} edit={IngredientEdit} remove={Delete} />
     </Admin>
 );
