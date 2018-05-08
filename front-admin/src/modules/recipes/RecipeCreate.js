@@ -3,17 +3,23 @@ import { NumberInput, Create, ReferenceInput, required, SimpleForm, TextInput, A
 import AutoComplete from 'material-ui/AutoComplete'
 import RichTextInput from 'aor-rich-text-input';
 
-import { FieldArray } from 'redux-form'
+import { FieldArray, change } from 'redux-form'
+import { connect } from 'react-redux'
 
 
 const seasonsChoices = [{ season: "winter" }, { season: "spring" }, { season: "summer" }, { season: "autumn" }]
 const mealChoices = [{ meal: "lunch" }, { meal: "dinner" }, { meal: "breakfast" }]
 
-const renderIngredients = (record) => {
+const renderIngredients = change => (record) => {
     return (
         <div>
             <br/>
-            <button type="button" onClick={() => record.fields.push(record.newIngredient)}>Add Ingredient</button>
+            <button ref={node => {this.node = node}} type="button" onClick={ () => { 
+                record.fields.push(record.newIngredient)
+                change('record-form', 'new_ingredient_qty', '')
+                change('record-form', 'ingredient_name', '')
+            }
+            }>Add Ingredient</button>
             <br/><br/>
             <label><b>Ingredients</b></label>
             <ul>
@@ -31,14 +37,13 @@ const renderIngredients = (record) => {
     )
 }
 
-export class RecipeCreate extends React.Component {
+class RecipeCreateRaw extends React.Component {
     constructor(props){
         super(props)
         this.state = {
             ingredient: '',
             qty: ''
         }
-        this.handleUpdateInputIngrQty = this.handleUpdateInputIngrQty.bind(this)
     }
 
     handleUpdateInputIngr = (ingredient) => {
@@ -54,11 +59,22 @@ export class RecipeCreate extends React.Component {
         })
     }
 
-    handleNewRequest = () => {
+    handleNewRequest = (chosenRequest, index) => {
         this.setState({
-            ingredient: this.state.ingredient,
+            ingredient: chosenRequest.text,
             qty: this.state.qty
         })
+
+        // const { allowEmpty, choices, input, optionValue } = this.props;
+        // let choiceIndex = allowEmpty ? index - 1 : index;
+
+        // // The empty item is always at first position
+        // if (allowEmpty && index === 0) {
+        //     return input.onChange('');
+        // }
+
+        // console.log('aaaa', input, choices, choiceIndex, optionValue)
+        // // input.onChange(choices[choiceIndex][optionValue]);
     }
 
     render(){
@@ -71,16 +87,17 @@ export class RecipeCreate extends React.Component {
                 
                     <label><b>Add Ingredient</b></label>
                     <NumberInput source="new_ingredient_qty" label="Quantity" onChange={this.handleUpdateInputIngrQty} qty={this.state.qty}/>
-                    <ReferenceInput label="Ingredient" source="ingredient_name" reference="ingredients" perPage={10000} allowEmpty>
-                    <AutocompleteInput 
-                            optionText="name" 
-                            optionValue="id" 
-                            options={{ 
-                                filter: AutoComplete.caseInsensitiveFilter, 
-                                onUpdateInput: this.handleUpdateInputIngr,
-                                onNewRequest: this.handleNewRequest }} />
+                    <ReferenceInput label="Ingredient" source="ingredient_name" reference="ingredients" perPage={10000} allowEmpty >
+                        <AutocompleteInput
+                                defaultValue=''
+                                optionText="name" 
+                                optionValue="id" 
+                                options={{ 
+                                    filter: AutoComplete.caseInsensitiveFilter, 
+                                    onUpdateInput: this.handleUpdateInputIngr,
+                                    onNewRequest: this.handleNewRequest}} />
                     </ReferenceInput>
-                    <FieldArray name={'ingredients'} component={renderIngredients} newIngredient={this.state}/>
+                    <FieldArray name={'ingredients'} component={renderIngredients(this.props.change)} newIngredient={this.state}/>
 
                     <RichTextInput source="steps" validate={required} />
 
@@ -90,3 +107,4 @@ export class RecipeCreate extends React.Component {
     }
 }
 
+export const RecipeCreate = connect(null, {change})(RecipeCreateRaw)
